@@ -8,9 +8,11 @@
         android:supportsRtl="true">
 
 
+
         <activity
             android:name="im.zego.play.ui.PlayActivityUI"
             android:screenOrientation="portrait" />
+
 
 
         <activity

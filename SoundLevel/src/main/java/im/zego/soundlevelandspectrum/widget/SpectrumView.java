@@ -10,10 +10,10 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import java.util.Random;
-
 import im.zego.common.util.DeviceInfoManager;
 import im.zego.soundlevelandspectrum.R;
+
+import java.util.Random;
 
 public class SpectrumView extends View {
 

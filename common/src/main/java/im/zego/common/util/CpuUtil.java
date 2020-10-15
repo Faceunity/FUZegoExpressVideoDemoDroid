@@ -76,9 +76,9 @@ public class CpuUtil {
             String text = br.readLine();
             result = text.trim();
         } catch (FileNotFoundException e) {
-            // e.printStackTrace();
+           // e.printStackTrace();
         } catch (IOException e) {
-            // e.printStackTrace();
+           // e.printStackTrace();
         } finally {
             if (br != null) {
                 try {

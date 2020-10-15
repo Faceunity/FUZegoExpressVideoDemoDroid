@@ -3,9 +3,8 @@
     package="im.zego.videocapture">
 
     <application>
-        <activity
-            android:name=".ui.FuCaptureRenderActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".ui.FuCaptureRenderActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.ZGVideoCaptureDemoUI" />
         <activity android:name=".ui.ZGVideoCaptureOriginUI" />
     </application>

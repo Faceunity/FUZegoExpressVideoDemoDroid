@@ -31,12 +31,11 @@ import im.zego.zegoexpress.entity.ZegoMixerTask;
 import im.zego.zegoexpress.entity.ZegoMixerVideoConfig;
 import im.zego.zegoexpress.entity.ZegoWatermark;
 
-public class MixerStartActivity extends AppCompatActivity implements IMixerStreamUpdateHandler {
+public class MixerStartActivity extends AppCompatActivity implements IMixerStreamUpdateHandler{
 
-    private static ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
+    private static ArrayList<CheckBox> checkBoxList=new ArrayList<CheckBox>();
     private static LinearLayout ll_checkBoxList;
     private static String mixStreamID = "mixstream_output_100";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +47,8 @@ public class MixerStartActivity extends AppCompatActivity implements IMixerStrea
 
         ll_checkBoxList.removeAllViews();
         checkBoxList.clear();
-        for (String streamID : MixerMainActivity.streamIDList) {
-            CheckBox checkBox = (CheckBox) View.inflate(this, R.layout.checkbox, null);
+        for(String streamID: MixerMainActivity.streamIDList){
+            CheckBox checkBox=(CheckBox) View.inflate(this, R.layout.checkbox, null);
             checkBox.setText(streamID);
             ll_checkBoxList.addView(checkBox);
             checkBoxList.add(checkBox);
@@ -64,7 +63,7 @@ public class MixerStartActivity extends AppCompatActivity implements IMixerStrea
         MixerMainActivity.registerStreamUpdateNotify(null);
     }
 
-    private ZegoMixerTask task;
+    private ZegoMixerTask task ;
 
     public void ClickStartMix(View view) {
         int count = 0;
@@ -75,7 +74,8 @@ public class MixerStartActivity extends AppCompatActivity implements IMixerStrea
                 count++;
                 if (streamID_1.equals("")) {
                     streamID_1 = checkBoxList.get(i).getText().toString();
-                } else if (streamID_2.equals("")) {
+                }
+                else if (streamID_2.equals("")){
                     streamID_2 = checkBoxList.get(i).getText().toString();
                 }
             }
@@ -105,7 +105,7 @@ public class MixerStartActivity extends AppCompatActivity implements IMixerStrea
         task.setOutputList(outputList);
 
 
-        ZegoWatermark watermark = new ZegoWatermark("preset-id://zegowp.png", new Rect(0, 0, 300, 200));
+        ZegoWatermark watermark = new ZegoWatermark("preset-id://zegowp.png", new Rect(0,0,300,200));
         task.setWatermark(watermark);
 
         task.setBackgroundImageURL("preset-id://zegobg.png");
@@ -118,7 +118,8 @@ public class MixerStartActivity extends AppCompatActivity implements IMixerStrea
                 if (errorCode != 0) {
                     String msg = getString(R.string.tx_mixer_start_fail) + errorCode;
                     Toast.makeText(MixerStartActivity.this, msg, Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else {
                     String msg = getString(R.string.tx_mixer_start_ok);
                     Toast.makeText(MixerStartActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
@@ -133,8 +134,8 @@ public class MixerStartActivity extends AppCompatActivity implements IMixerStrea
     public void onRoomStreamUpdate() {
         ll_checkBoxList.removeAllViews();
         checkBoxList.clear();
-        for (String streamID : MixerMainActivity.streamIDList) {
-            CheckBox checkBox = (CheckBox) View.inflate(this, R.layout.checkbox, null);
+        for(String streamID: MixerMainActivity.streamIDList){
+            CheckBox checkBox=(CheckBox) View.inflate(this, R.layout.checkbox, null);
             checkBox.setText(streamID);
             ll_checkBoxList.addView(checkBox);
             checkBoxList.add(checkBox);

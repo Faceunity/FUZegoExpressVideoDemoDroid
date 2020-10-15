@@ -8,4 +8,5 @@
     android:textColor="#ff000000"
     android:shadowDx="4"
     android:shadowDy="4"
-    android:shadowRadius="2" />
+    android:shadowRadius="2"
+    />

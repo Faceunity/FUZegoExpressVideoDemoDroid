@@ -1,17 +1,16 @@
 package im.zego.common.adapter;
 
 import android.content.Context;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
+import im.zego.common.R;
 
 import java.util.LinkedList;
-
-import im.zego.common.R;
 
 /**
  * <p>Copyright © 2017 Zego. All rights reserved.</p>

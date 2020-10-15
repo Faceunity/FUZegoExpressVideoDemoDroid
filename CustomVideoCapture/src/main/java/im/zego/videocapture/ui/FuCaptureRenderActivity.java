@@ -2,7 +2,6 @@ package im.zego.videocapture.ui;
 
 import android.content.Context;
 import android.graphics.Matrix;
-import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +10,7 @@ import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -56,6 +56,7 @@ import im.zego.zegoexpress.entity.ZegoVideoFrameParam;
  * FaceUnity 接入 activity,采用自定义本地采集和渲染
  */
 public class FuCaptureRenderActivity extends AppCompatActivity implements CameraRenderer.OnRendererStatusListener, SensorEventListener {
+    private static final String TAG = "FuCaptureRenderActivity";
     private static final int DEFAULT_VIDEO_WIDTH = 360;
     private static final int DEFAULT_VIDEO_HEIGHT = 640;
 
@@ -69,6 +70,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
     private String mRoomName = "VideoExternalCaptureDemo";
     private String mPlayStreamID = "";
 
+    private Matrix mPlayMatrix;
     private boolean isLoginSuccess = false;
     private ZegoExpressEngine mSDKEngine;
     private String userID;
@@ -93,15 +95,16 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
             @Override
             public boolean onPreDraw() {
                 if (mPlayView.getWidth() != 0) {
-                    Matrix matrix = mPlayView.getTransform(new Matrix());
-                    matrix.postScale(-1, 1, mPlayView.getWidth() / 2, 0);
-                    mPlayView.setTransform(matrix);
+                    mPlayMatrix = mPlayView.getTransform(new Matrix());
+                    mPlayMatrix.postScale(-1, 1, mPlayView.getWidth() / 2, 0);
+                    mPlayView.setTransform(mPlayMatrix);
                     mPlayView.getViewTreeObserver().removeOnPreDrawListener(this);
                 }
                 return true;
             }
         });
 
+        mRoomID += String.valueOf((int) (Math.random() * 1000));
         // 获取设备唯一ID
         String deviceID = DeviceInfoManager.generateDeviceId(this);
         mRoomID += deviceID;
@@ -114,9 +117,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
         // start publish stream
         doPublish();
 
-        //打开加速度传感器,将设备方向传给FURenderer
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void initSDK() {
@@ -143,9 +144,16 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
         mSDKEngine.loginRoom(mRoomID, new ZegoUser(userID, userName), config);
 
         mFURenderer = new FURenderer.Builder(this)
-                .setInputTextureType(FURenderer.INPUT_EXTERNAL_OES_TEXTURE)
-                .setCameraType(Camera.CameraInfo.CAMERA_FACING_FRONT)
-                .setInputImageOrientation(CameraUtils.getCameraOrientation(Camera.CameraInfo.CAMERA_FACING_FRONT))
+                .setInputTextureType(FURenderer.INPUT_TEXTURE_EXTERNAL_OES)
+                .setCameraFacing(FURenderer.CAMERA_FACING_FRONT)
+                .setInputImageOrientation(CameraUtils.getCameraOrientation(FURenderer.CAMERA_FACING_FRONT))
+                .setRunBenchmark(true)
+                .setOnDebugListener(new FURenderer.OnDebugListener() {
+                    @Override
+                    public void onFpsChanged(double fps, double callTime) {
+                        Log.d(TAG, "send buffer onFpsChanged FPS: " + String.format("%.2f", fps) + ", callTime: " + String.format("%.2f", callTime));
+                    }
+                })
                 .build();
         FaceUnityView faceUnityView = findViewById(R.id.faceUnityView);
         faceUnityView.setModuleManager(mFURenderer);
@@ -193,6 +201,11 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
     @Override
     protected void onResume() {
         super.onResume();
+        if (null != mPlayMatrix) {
+            mPlayView.setTransform(mPlayMatrix);
+        }
+        //打开加速度传感器,将设备方向传给FURenderer
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         mCameraRenderer.onResume();
     }
 
@@ -200,6 +213,8 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
     protected void onPause() {
         super.onPause();
         mCameraRenderer.onPause();
+        //注销传感器监听
+        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -209,8 +224,6 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
         // 登出房间并释放ZEGO SDK
         // Log out of the room and release the ZEGO SDK
         logoutLiveRoom();
-        //注销传感器监听
-        sensorManager.unregisterListener(this);
     }
 
 
@@ -281,14 +294,13 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
     }
 
     @Override
-    public void onSurfaceChanged(int viewWidth, int viewHeight) {
-    }
+    public void onSurfaceChanged(int viewWidth, int viewHeight) {}
 
     private byte[] readBack;
     private ByteBuffer byteBuffer;
 
     @Override
-    public int onDrawFrame(byte[] nv21Byte, int texId, int cameraWidth, int cameraHeight, float[] mvpMatrix, float[] texMatrix, long timeStamp) {
+    public int onDrawFrame(byte[] nv21Byte, int texId, int cameraWidth, int cameraHeight, int cameraRotation, float[] mvpMatrix, float[] texMatrix, long timeStamp) {
         if (null == readBack) {
             readBack = new byte[nv21Byte.length];
         }
@@ -301,7 +313,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
         param.strides[0] = cameraWidth;
         param.strides[1] = cameraWidth;
         param.format = ZegoVideoFrameFormat.NV21;
-        param.rotation = 270;
+        param.rotation = cameraRotation;
         long now; //部分机型存在 surfaceTexture 时间戳不准确的问题
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             now = SystemClock.elapsedRealtime();
@@ -315,7 +327,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
         }
         byteBuffer.put(readBack);
         byteBuffer.flip();
-        mSDKEngine.sendCustomVideoCaptureRawData(byteBuffer, readBack.length, param, now);
+        mSDKEngine.sendCustomVideoCaptureRawData(byteBuffer, byteBuffer.limit(), param, now);
         return tex2D;
     }
 
@@ -329,7 +341,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
         mFURenderer.onCameraChanged(cameraFacing, cameraOrientation);
         IMakeupModule makeupModule = mFURenderer.getMakeupModule();
         if (makeupModule != null) {
-            boolean isBack = cameraFacing == Camera.CameraInfo.CAMERA_FACING_BACK;
+            boolean isBack = cameraFacing == FURenderer.CAMERA_FACING_BACK;
             makeupModule.setIsMakeupFlipPoints(isBack ? 1 : 0);
         }
     }
@@ -350,7 +362,6 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
 }
