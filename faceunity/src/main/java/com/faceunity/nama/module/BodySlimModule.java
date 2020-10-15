@@ -26,7 +26,7 @@ public class BodySlimModule extends AbstractEffectModule implements IBodySlimMod
     private int mMaxHumans = 1; // 同时识别的最大人体数，目前只支持 1 人
 
     @Override
-    public void create(final Context context, final IEffectModule.ModuleCallback moduleCallback) {
+    public void create(final Context context, final ModuleCallback moduleCallback) {
         if (mItemHandle > 0) {
             return;
         }
@@ -55,7 +55,7 @@ public class BodySlimModule extends AbstractEffectModule implements IBodySlimMod
                 setLegThinSlimIntensity(mLegThinSlimStrength);
 
                 if (moduleCallback != null) {
-                    moduleCallback.onCreateFinish(itemBodySlim);
+                    moduleCallback.onBundleCreated(itemBodySlim);
                 }
             }
         });
@@ -84,8 +84,8 @@ public class BodySlimModule extends AbstractEffectModule implements IBodySlimMod
         mRenderEventQueue.add(new Runnable() {
             @Override
             public void run() {
-                LogUtils.debug(TAG, "setMaxHumans %d", maxHumans);
                 faceunity.fuHumanProcessorSetMaxHumans(maxHumans);
+                LogUtils.debug(TAG, "setMaxHumans : %d", maxHumans);
             }
         });
     }

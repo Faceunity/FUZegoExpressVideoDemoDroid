@@ -2,27 +2,33 @@ package im.zego.expresssample.ui;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import im.zego.auxpublisher.ui.ZGAuxPublisherLoginUI;
+import android.view.View;
+import android.widget.TextView;
+
+
 import im.zego.common.GetAppIDConfig;
-import im.zego.common.ui.WebActivity;
 import im.zego.common.util.PreferenceUtil;
+import im.zego.video.talk.ui.ZGVideoTalkUI;
+
+import im.zego.auxpublisher.ui.ZGAuxPublisherLoginUI;
 import im.zego.custom.publish.ui.CustomCDNPublishActivity;
 import im.zego.customrender.ui.ZGVideoRenderTypeUI;
 import im.zego.expresssample.R;
-import im.zego.expresssample.adapter.MainAdapter;
 import im.zego.expresssample.databinding.ActivityMainBinding;
+import im.zego.expresssample.adapter.MainAdapter;
 import im.zego.expresssample.entity.ModuleInfo;
+import im.zego.common.ui.WebActivity;
 import im.zego.im.ui.IMActivity;
 import im.zego.mediaplayer.ui.MediaplayerMainActivity;
 import im.zego.mixer.ui.MixerMainActivity;
@@ -30,7 +36,6 @@ import im.zego.play.ui.PlayActivityUI;
 import im.zego.publish.ui.PublishActivityUI;
 import im.zego.quickstart.ui.BasicCommunicationActivity;
 import im.zego.soundlevelandspectrum.ui.SoundLevelAndSpectrumMainActivity;
-import im.zego.video.talk.ui.ZGVideoTalkUI;
 import im.zego.videocapture.ui.ZGVideoCaptureOriginUI;
 
 import static im.zego.common.util.PreferenceUtil.KEY_APP_ID;

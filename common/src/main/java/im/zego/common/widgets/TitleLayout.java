@@ -2,12 +2,11 @@ package im.zego.common.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import androidx.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import im.zego.common.R;
 

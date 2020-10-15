@@ -101,7 +101,7 @@ public class FaceBeautyModule extends AbstractEffectModule implements IFaceBeaut
                         + mIntensityEyeSpace + ", eyeRotate:" + mIntensityEyeRotate);
 
                 if (moduleCallback != null) {
-                    moduleCallback.onCreateFinish(itemFaceBeauty);
+                    moduleCallback.onBundleCreated(itemFaceBeauty);
                 }
             }
         });
@@ -115,8 +115,8 @@ public class FaceBeautyModule extends AbstractEffectModule implements IFaceBeaut
         mRenderEventQueue.add(new Runnable() {
             @Override
             public void run() {
-                LogUtils.debug(TAG, "setMaxFaces maxFaces: %d", maxFaces);
                 faceunity.fuSetMaxFaces(maxFaces);
+                LogUtils.debug(TAG, "setMaxFaces : %d", maxFaces);
             }
         });
     }

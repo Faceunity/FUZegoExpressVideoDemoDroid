@@ -1,9 +1,9 @@
 package im.zego.common.ui;
 
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import im.zego.common.widgets.log.FloatingView;
 

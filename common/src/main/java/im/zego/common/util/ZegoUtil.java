@@ -2,6 +2,7 @@ package im.zego.common.util;
 
 import android.text.TextUtils;
 
+
 import java.util.regex.Pattern;
 
 
@@ -14,7 +15,6 @@ public class ZegoUtil {
     /**
      * 字符串转换成 byte 数组
      * 主要用于 appSign 的转换
-     *
      * @param strSignKey
      * @return
      * @throws NumberFormatException
@@ -43,7 +43,7 @@ public class ZegoUtil {
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         boolean isInt = pattern.matcher(strAppID).matches();
         if (TextUtils.isEmpty(strAppID) || !isInt) {
-            AppLogger.getInstance().i("appID 格式非法");
+            AppLogger.getInstance().i( "appID 格式非法");
 
             return 0;
         }
@@ -53,12 +53,14 @@ public class ZegoUtil {
 
     /**
      * 获取随机生成StreamID
-     *
      * @return
      */
-    public static String getPublishStreamID() {
+    public static String getPublishStreamID(){
         return "s1234567"; //+ System.currentTimeMillis();
     }
+
+
+
 
 
 }

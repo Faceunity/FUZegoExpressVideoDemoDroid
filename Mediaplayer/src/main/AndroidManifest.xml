@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="im.zego.mediaplayer">
+    package="im.zego.mediaplayer" >
 
     <application>
         <activity android:name=".ui.MediaplayerMainActivity" />

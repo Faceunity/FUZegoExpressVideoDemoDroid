@@ -3,6 +3,7 @@ package im.zego.common.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import androidx.annotation.IdRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,6 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
-
-import androidx.annotation.IdRes;
 
 
 public class RelativeRadioGroup extends RelativeLayout {
