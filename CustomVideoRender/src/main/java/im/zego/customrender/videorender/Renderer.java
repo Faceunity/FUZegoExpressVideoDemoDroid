@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 
-
 import java.nio.ByteBuffer;
 
 import im.zego.customrender.ve_gl.GlRectDrawer;
@@ -23,10 +22,6 @@ import im.zego.customrender.ve_gl.GlUtil;
  * 渲染类
  * 展示了如何渲染 RGB、YUV 类型的视频数据
  */
-
-
-
-
 
 
 public class Renderer implements TextureView.SurfaceTextureListener {
@@ -68,7 +63,8 @@ public class Renderer implements TextureView.SurfaceTextureListener {
     }
 
 
-    /** 初始化 Renderer
+    /**
+     * 初始化 Renderer
      *
      * @param eglContext OpenGL的共享上下文
      * @param eglDisplay 关联显示屏的通用数据类型
@@ -173,7 +169,7 @@ public class Renderer implements TextureView.SurfaceTextureListener {
     private int[] measure(int imageWidth, int imageHeight, int viewWidth, int viewHeight) {
         int[] value = {0, 0, viewWidth, viewHeight};
         float scale;
-        scale = (float) viewWidth / (float)imageWidth;
+        scale = (float) viewWidth / (float) imageWidth;
         float height = imageHeight * scale;
         value[1] = (int) (viewHeight - height) / 2;
         value[3] = (int) height;
@@ -211,15 +207,14 @@ public class Renderer implements TextureView.SurfaceTextureListener {
 
         // 判断是否切入后台后又切入前台，若有需要重新创建Surface
         // Determine whether to cut into the background and then into the foreground, if necessary, re-create the Surface
-        if (isTextureAvailable){
+        if (isTextureAvailable) {
             releaseSurface();
             isTextureAvailable = false;
         }
 
         if (eglSurface != EGL14.EGL_NO_SURFACE
                 && eglContext != EGL14.EGL_NO_CONTEXT
-                && eglDisplay != EGL14.EGL_NO_DISPLAY)
-        {
+                && eglDisplay != EGL14.EGL_NO_DISPLAY) {
             return;
         }
 

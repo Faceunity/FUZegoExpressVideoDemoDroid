@@ -53,7 +53,7 @@ public class SettingActivity extends AppCompatActivity {
         binding.txSdkVersion.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ClipboardManager cmb = (ClipboardManager)SettingActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager cmb = (ClipboardManager) SettingActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(binding.txSdkVersion.getText());
                 showPopWindows(getString(R.string.tx_copyed), v);
                 return false;
@@ -63,7 +63,7 @@ public class SettingActivity extends AppCompatActivity {
         binding.txDemoVersion.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ClipboardManager cmb = (ClipboardManager)SettingActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager cmb = (ClipboardManager) SettingActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(binding.txDemoVersion.getText());
                 showPopWindows(getString(R.string.tx_copyed), v);
                 return false;
@@ -74,46 +74,47 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // 保存页面设置
-       finish();
+        finish();
     }
-    
-    public void createSaveDialog(View view){
-        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+
+    public void createSaveDialog(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.save_alert)).setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 saveSetting();
                 dialog.dismiss();
-                Toast.makeText(SettingActivity.this,getString(R.string.save_success),Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingActivity.this, getString(R.string.save_success), Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(SettingActivity.this,getString(R.string.save_cancel),Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingActivity.this, getString(R.string.save_cancel), Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
-        AlertDialog dialog=builder.create();
+        AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
-    public void createResetDialog(View view){
-        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+
+    public void createResetDialog(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.reset_alert)).setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 realReset();
                 dialog.dismiss();
-                Toast.makeText(SettingActivity.this,getString(R.string.reset_success),Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingActivity.this, getString(R.string.reset_success), Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(SettingActivity.this,getString(R.string.reset_cancel),Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingActivity.this, getString(R.string.reset_cancel), Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
-        AlertDialog dialog=builder.create();
+        AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
@@ -121,18 +122,18 @@ public class SettingActivity extends AppCompatActivity {
     private void realReset() {
         PreferenceUtil.getInstance().setStringValue(KEY_APP_ID, String.valueOf(GetAppIDConfig.appID));
         binding.edAppId.setText(PreferenceUtil.getInstance().getStringValue(KEY_APP_ID, ""));
-        PreferenceUtil.getInstance().setStringValue(KEY_APP_SIGN,GetAppIDConfig.appSign);
+        PreferenceUtil.getInstance().setStringValue(KEY_APP_SIGN, GetAppIDConfig.appSign);
         binding.edAppSign.setText(PreferenceUtil.getInstance().getStringValue(KEY_APP_SIGN, ""));
-        PreferenceUtil.getInstance().setBooleanValue(KEY_TEST_ENVIRONMENT,true);
+        PreferenceUtil.getInstance().setBooleanValue(KEY_TEST_ENVIRONMENT, true);
         binding.spEnv.setSelection(PreferenceUtil.getInstance().getBooleanValue(KEY_TEST_ENVIRONMENT, true) ? 0 : 1);
-        PreferenceUtil.getInstance().setIntValue(KEY_SCENARIO,0);
-        binding.spSc.setSelection(PreferenceUtil.getInstance().getIntValue(KEY_SCENARIO,0));
+        PreferenceUtil.getInstance().setIntValue(KEY_SCENARIO, 0);
+        binding.spSc.setSelection(PreferenceUtil.getInstance().getIntValue(KEY_SCENARIO, 0));
     }
 
     // 还原原设置参数
     private void initViewValue() {
         binding.txSdkVersion.setText(getSdkVersion());
-        binding.txDemoVersion.setText(getString(R.string.demo_version) +getLocalVersionName(this));
+        binding.txDemoVersion.setText(getString(R.string.demo_version) + getLocalVersionName(this));
 //        if(PreferenceUtil.getInstance().getStringValue(KEY_APP_ID, "").equals("")){
 //            PreferenceUtil.getInstance().setStringValue(KEY_APP_ID, String.valueOf(GetAppIDConfig.appID));
 //        }
@@ -143,7 +144,7 @@ public class SettingActivity extends AppCompatActivity {
         binding.edAppId.setText(PreferenceUtil.getInstance().getStringValue(KEY_APP_ID, ""));
         binding.edAppSign.setText(PreferenceUtil.getInstance().getStringValue(KEY_APP_SIGN, ""));
         binding.spEnv.setSelection(PreferenceUtil.getInstance().getBooleanValue(KEY_TEST_ENVIRONMENT, true) ? 0 : 1);
-        binding.spSc.setSelection(PreferenceUtil.getInstance().getIntValue(KEY_SCENARIO,0));
+        binding.spSc.setSelection(PreferenceUtil.getInstance().getIntValue(KEY_SCENARIO, 0));
     }
 
     // 保存界面上的设置参数
@@ -155,12 +156,12 @@ public class SettingActivity extends AppCompatActivity {
         // env
         PreferenceUtil.getInstance().setBooleanValue(KEY_TEST_ENVIRONMENT, (binding.spEnv.getSelectedItemPosition() == 0) ? true : false);
         //Scenario
-        PreferenceUtil.getInstance().setIntValue(KEY_SCENARIO,binding.spSc.getSelectedItemPosition());
+        PreferenceUtil.getInstance().setIntValue(KEY_SCENARIO, binding.spSc.getSelectedItemPosition());
     }
 
     // 获取 SDK 版本
     public String getSdkVersion() {
-        return getString(R.string.sdk_version)+ ZegoExpressEngine.getVersion();//ZegoLiveRoom.version()
+        return getString(R.string.sdk_version) + ZegoExpressEngine.getVersion();//ZegoLiveRoom.version()
     }
 
     /**
@@ -182,7 +183,7 @@ public class SettingActivity extends AppCompatActivity {
                     .getPackageInfo(ctx.getPackageName(), 0);
             localVersion = packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e("liveroomplayground","not found package name" + e.getMessage());
+            Log.e("liveroomplayground", "not found package name" + e.getMessage());
 
         }
 

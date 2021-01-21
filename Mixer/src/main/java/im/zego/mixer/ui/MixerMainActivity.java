@@ -3,12 +3,16 @@ package im.zego.mixer.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import im.zego.common.util.AppLogger;
 import im.zego.common.util.SettingDataUtil;
@@ -23,9 +27,6 @@ import im.zego.zegoexpress.constants.ZegoUpdateType;
 import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 public class MixerMainActivity extends AppCompatActivity {
     public static String roomID = "MixerRoom-1";
     public static String userID;
@@ -38,7 +39,7 @@ public class MixerMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mixer_main);
-        String randomSuffix = String.valueOf(new Date().getTime()%(new Date().getTime()/1000));
+        String randomSuffix = String.valueOf(new Date().getTime() % (new Date().getTime() / 1000));
         userID = "user" + randomSuffix;
         userName = "user" + randomSuffix;
         TextView tv_room = findViewById(R.id.tv_room_id);
@@ -54,8 +55,7 @@ public class MixerMainActivity extends AppCompatActivity {
                         if (updateType == ZegoUpdateType.ADD) {
                             streamID = streamList.get(i).streamID;
                             streamIDList.add(streamID);
-                        }
-                        else {
+                        } else {
                             streamID = streamList.get(i).streamID;
                             streamIDList.remove(streamID);
                         }
@@ -67,21 +67,17 @@ public class MixerMainActivity extends AppCompatActivity {
                 }
 
 
-
                 @Override
                 public void onPublisherStateUpdate(String streamID, ZegoPublisherState state, int errorCode, JSONObject extendedData) {
                     AppLogger.getInstance().i("onPublisherStateUpdate：state =" + state + ", streamID = " + streamID + ", errorCode = " + errorCode);
                     if (state == ZegoPublisherState.PUBLISHING) {
                         Toast.makeText(MixerMainActivity.this, getString(R.string.tx_mixer_publish_ok), Toast.LENGTH_SHORT).show();
-                    }
-                    else if (state == ZegoPublisherState.PUBLISH_REQUESTING) {
+                    } else if (state == ZegoPublisherState.PUBLISH_REQUESTING) {
                         Toast.makeText(MixerMainActivity.this, getString(R.string.tx_mixer_publish_request), Toast.LENGTH_SHORT).show();
-                    }
-                    else if (state == ZegoPublisherState.NO_PUBLISH) {
+                    } else if (state == ZegoPublisherState.NO_PUBLISH) {
                         if (errorCode == 0) {
                             Toast.makeText(MixerMainActivity.this, getString(R.string.tx_mixer_stop_publish_ok), Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(MixerMainActivity.this, getString(R.string.tx_mixer_publish_fail) + errorCode, Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -8,11 +8,13 @@ public class ScreenHelper {//获取屏幕数据工具类
     private volatile static ScreenHelper singleton;
     WindowManager windowManager;
     DisplayMetrics outMetrics;
-    private ScreenHelper (Application application){
+
+    private ScreenHelper(Application application) {
         windowManager = (WindowManager) application.getSystemService(application.WINDOW_SERVICE);
         outMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(outMetrics);
     }
+
     public static ScreenHelper getSingleton(Application application) {
         if (singleton == null) {
             synchronized (ScreenHelper.class) {
@@ -23,10 +25,12 @@ public class ScreenHelper {//获取屏幕数据工具类
         }
         return singleton;
     }
-    public int  getScreenWidthPixels(){
+
+    public int getScreenWidthPixels() {
         return outMetrics.widthPixels;
     }
-    public int getScreenHeightPixels(){
-        return  outMetrics.heightPixels;
+
+    public int getScreenHeightPixels() {
+        return outMetrics.heightPixels;
     }
 }

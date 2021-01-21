@@ -10,7 +10,9 @@ import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,7 +34,7 @@ public class MediaplayerMainActivity extends AppCompatActivity {
     String userName;
     String userID;
     String streamID;
-    public static final String []sTitle = new String[]{"Player1","Player2","Player3", "Player4"};
+    public static final String[] sTitle = new String[]{"Player1", "Player2", "Player3", "Player4"};
 
 
     IZegoEventHandler mIZegoEventHandler = new IZegoEventHandler() {
@@ -60,7 +62,7 @@ public class MediaplayerMainActivity extends AppCompatActivity {
         AppLogger.getInstance().i("SDK version : %s", ZegoExpressEngine.getVersion());
         /* 生成随机的用户ID，避免不同手机使用时用户ID冲突，相互影响 */
         /* Generate random user ID to avoid user ID conflict and mutual influence when different mobile phones are used */
-        String randomSuffix = String.valueOf(new Date().getTime()%(new Date().getTime()/1000));
+        String randomSuffix = String.valueOf(new Date().getTime() % (new Date().getTime() / 1000));
         userID = "userid-" + randomSuffix;
         userName = "username-" + randomSuffix;
         streamID = "streamid-" + randomSuffix;
@@ -81,47 +83,47 @@ public class MediaplayerMainActivity extends AppCompatActivity {
     private void initUI() {
         setContentView(R.layout.activity_mediaplayer_main);
 
-        ((Switch)findViewById(R.id.sw_mediaplayer_publish)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((Switch) findViewById(R.id.sw_mediaplayer_publish)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mSDKEngine.startPublishingStream(((EditText)findViewById(R.id.et_mediaplayer_publish_streamid)).getText().toString().trim());
+                if (isChecked) {
+                    mSDKEngine.startPublishingStream(((EditText) findViewById(R.id.et_mediaplayer_publish_streamid)).getText().toString().trim());
                     mSDKEngine.startPreview(new ZegoCanvas(findViewById(R.id.tv_local_preview)));
-                }else {
+                } else {
                     mSDKEngine.stopPublishingStream();
                     mSDKEngine.startPreview(null);
                 }
             }
         });
 
-        ((Switch)findViewById(R.id.sw_mediaplayer_play)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((Switch) findViewById(R.id.sw_mediaplayer_play)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mSDKEngine.startPlayingStream(((EditText)findViewById(R.id.et_mediaplayer_play_streamid)).getText().toString().trim(),
+                if (isChecked) {
+                    mSDKEngine.startPlayingStream(((EditText) findViewById(R.id.et_mediaplayer_play_streamid)).getText().toString().trim(),
                             new ZegoCanvas(findViewById(R.id.tv_mediaplayer_play_stream_view)));
-                }else {
-                    mSDKEngine.stopPlayingStream(((EditText)findViewById(R.id.et_mediaplayer_play_streamid)).getText().toString().trim());
+                } else {
+                    mSDKEngine.stopPlayingStream(((EditText) findViewById(R.id.et_mediaplayer_play_streamid)).getText().toString().trim());
                 }
             }
         });
 
-        ((Switch)findViewById(R.id.sw_mediaplayer_mic)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((Switch) findViewById(R.id.sw_mediaplayer_mic)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mSDKEngine.muteAudioOutput(isChecked);
             }
         });
 
-        ((Switch)findViewById(R.id.sw_mediaplayer_cam)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((Switch) findViewById(R.id.sw_mediaplayer_cam)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mSDKEngine.enableCamera(!isChecked);
             }
         });
 
-        ((EditText)findViewById(R.id.et_mediaplayer_publish_streamid)).setText(streamID);
-        ((EditText)findViewById(R.id.et_mediaplayer_play_streamid)).setText(streamID);
+        ((EditText) findViewById(R.id.et_mediaplayer_publish_streamid)).setText(streamID);
+        ((EditText) findViewById(R.id.et_mediaplayer_play_streamid)).setText(streamID);
         textureViewMediaplayerView1 = findViewById(R.id.tv_mediaplayer_player_view_1);
         mediaplayerViews.add(textureViewMediaplayerView1);
         textureViewMediaplayerView2 = findViewById(R.id.tv_mediaplayer_player_view_2);
@@ -131,20 +133,20 @@ public class MediaplayerMainActivity extends AppCompatActivity {
         textureViewMediaplayerView4 = findViewById(R.id.tv_mediaplayer_player_view_4);
         mediaplayerViews.add(textureViewMediaplayerView4);
 
-        final MediaPlayerPanelFragment mediaPlayerPanelFragment1 = (MediaPlayerPanelFragment)getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal1);
-        if(mediaPlayerPanelFragment1 != null){
+        final MediaPlayerPanelFragment mediaPlayerPanelFragment1 = (MediaPlayerPanelFragment) getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal1);
+        if (mediaPlayerPanelFragment1 != null) {
             mediaPlayerPanelFragment1.setZegoExpressEngine(mSDKEngine);
         }
-        final MediaPlayerPanelFragment mediaPlayerPanelFragment2 = (MediaPlayerPanelFragment)getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal2);
-        if(mediaPlayerPanelFragment2 != null){
+        final MediaPlayerPanelFragment mediaPlayerPanelFragment2 = (MediaPlayerPanelFragment) getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal2);
+        if (mediaPlayerPanelFragment2 != null) {
             mediaPlayerPanelFragment2.setZegoExpressEngine(mSDKEngine);
         }
-        final MediaPlayerPanelFragment mediaPlayerPanelFragment3 = (MediaPlayerPanelFragment)getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal3);
-        if(mediaPlayerPanelFragment3 != null){
+        final MediaPlayerPanelFragment mediaPlayerPanelFragment3 = (MediaPlayerPanelFragment) getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal3);
+        if (mediaPlayerPanelFragment3 != null) {
             mediaPlayerPanelFragment3.setZegoExpressEngine(mSDKEngine);
         }
-        final MediaPlayerPanelFragment mediaPlayerPanelFragment4 = (MediaPlayerPanelFragment)getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal4);
-        if(mediaPlayerPanelFragment4 != null){
+        final MediaPlayerPanelFragment mediaPlayerPanelFragment4 = (MediaPlayerPanelFragment) getSupportFragmentManager().findFragmentById(R.id.frg_mediaplayer_panal4);
+        if (mediaPlayerPanelFragment4 != null) {
             mediaPlayerPanelFragment4.setZegoExpressEngine(mSDKEngine);
         }
         TabLayout mTabLayout = findViewById(R.id.tab_mediaplayer_layout);
@@ -159,7 +161,7 @@ public class MediaplayerMainActivity extends AppCompatActivity {
                 mediaPlayerPanelFragment3.setVisible(false);
                 mediaPlayerPanelFragment4.setVisible(false);
 
-                switch (index){
+                switch (index) {
                     case 0:
                         mediaPlayerPanelFragment1.setVisible(true);
                         break;
@@ -210,6 +212,7 @@ public class MediaplayerMainActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, MediaplayerMainActivity.class);
         activity.startActivity(intent);
     }
+
     @Override
     protected void onStart() {
         super.onStart();

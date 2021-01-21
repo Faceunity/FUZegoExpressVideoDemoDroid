@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import im.zego.common.R;
 
@@ -16,9 +17,10 @@ import im.zego.common.R;
 public class CustomDialog extends Dialog {
     private TextView textView;
     private String loadingText = "";
+
     public CustomDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
-        loadingText=context.getString(R.string.loading);
+        loadingText = context.getString(R.string.loading);
     }
 
     @Override

@@ -10,8 +10,6 @@ import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import androidx.annotation.RequiresApi;
-
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,6 +20,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import im.zego.common.R;
 
@@ -260,7 +260,7 @@ public class CustomPopWindow implements PopupWindow.OnDismissListener {
         return this;
     }
 
-    public CustomPopWindow setMsgColor(String color){
+    public CustomPopWindow setMsgColor(String color) {
         if (textView != null) {
             textView.setTextColor(Color.parseColor(color));
         }

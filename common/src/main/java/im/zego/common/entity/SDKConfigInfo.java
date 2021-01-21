@@ -29,7 +29,6 @@ public class SDKConfigInfo extends BaseObservable {
     }
 
 
-
     @Bindable
     public boolean isSpeaker() {
         return speaker;

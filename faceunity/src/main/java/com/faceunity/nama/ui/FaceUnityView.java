@@ -116,6 +116,15 @@ public class FaceUnityView extends FrameLayout {
                     rvStickEffect.setVisibility(GONE);
                     bodySlimControlView.setVisibility(GONE);
                     mFURenderer.createMakeupModule();
+                    Makeup makeup = null;
+                    try {
+                        makeup = makeupListAdapter.getSelectedItems().valueAt(0);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                    }
+                    if (mMakeupModule != null) {
+                        mMakeupModule.selectMakeup(makeup);
+                    }
                     mFURenderer.destroyStickerModule();
                     mFURenderer.destroyBodySlimModule();
                 } else if (checkedId == R.id.cb_body_slim) {

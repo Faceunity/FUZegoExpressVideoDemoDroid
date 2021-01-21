@@ -16,6 +16,11 @@ import androidx.annotation.Nullable;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import im.zego.common.util.AppLogger;
 import im.zego.common.util.SettingDataUtil;
 import im.zego.common.widgets.log.FloatingView;
@@ -31,10 +36,6 @@ import im.zego.zegoexpress.entity.ZegoCanvas;
 import im.zego.zegoexpress.entity.ZegoRoomConfig;
 import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class SoundLevelAndSpectrumMainActivity extends Activity {
 
@@ -46,8 +47,8 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
     // 本地推流的声浪的展现，需要获取该控件来设置进度值
 //    To show the sound of local push, you need to get this control to set the progress value
     public ProgressBar mPbCaptureSoundLevel;
-    TextView mTvSoundlevelandspectrumUserid ;
-    TextView mTvSoundlevelandspectrumStreamid ;
+    TextView mTvSoundlevelandspectrumUserid;
+    TextView mTvSoundlevelandspectrumStreamid;
     public SpectrumView mCaptureSpectrumView;
     // 使用线性布局作为容器，以动态添加所拉的流频谱和声浪展现
 //    Use a linear layout as a container to dynamically add the stream spectrum and sound wave presentation
@@ -77,7 +78,7 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
 
         /** 生成随机的用户ID，避免不同手机使用时用户ID冲突，相互影响 */
         /** Generate random user ID to avoid user ID conflict and mutual influence when different mobile phones are used */
-        String randomSuffix = String.valueOf(new Date().getTime()%(new Date().getTime()/1000));
+        String randomSuffix = String.valueOf(new Date().getTime() % (new Date().getTime() / 1000));
 
         mTvSoundlevelandspectrumRoomid = findViewById(R.id.tv_soundlevelandspectrum_roomid);
         mSwSoundlevelMonitor = findViewById(R.id.sw_soundlevelandspectrum_soundlevel_monitor);
@@ -92,9 +93,9 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
         mSwSoundlevelMonitor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     mSDKEngine.startSoundLevelMonitor();
-                }else {
+                } else {
                     mSDKEngine.stopSoundLevelMonitor();
                 }
             }
@@ -102,9 +103,9 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
         mSwSpectrumMonitor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     mSDKEngine.startAudioSpectrumMonitor();
-                }else {
+                } else {
                     mSDKEngine.stopAudioSpectrumMonitor();
                 }
             }
@@ -133,8 +134,8 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
                 AppLogger.getInstance().i("onRoomStreamUpdate: roomID" + roomID + ", updateType:" + updateType.value() + ", streamList: " + streamList);
                 // 这里拉流之后动态添加渲染的View
 //                Add the rendered view dynamically after pulling the stream here
-                if(updateType == ZegoUpdateType.ADD){
-                    for(ZegoStream zegoStream: streamList){
+                if (updateType == ZegoUpdateType.ADD) {
+                    for (ZegoStream zegoStream : streamList) {
                         mSDKEngine.startPlayingStream(zegoStream.streamID, new ZegoCanvas(null));
                         SoundLevelAndSpectrumItem soundLevelAndSpectrumItem = new SoundLevelAndSpectrumItem(SoundLevelAndSpectrumMainActivity.this, null);
                         ll_container.addView(soundLevelAndSpectrumItem);
@@ -145,13 +146,13 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
                         frequencySpectrumAndSoundLevelItemList.add(soundLevelAndSpectrumItem);
 
                     }
-                }else if(updateType == ZegoUpdateType.DELETE){
-                    for(ZegoStream zegoStream: streamList){
+                } else if (updateType == ZegoUpdateType.DELETE) {
+                    for (ZegoStream zegoStream : streamList) {
                         mSDKEngine.stopPlayingStream(zegoStream.streamID);
                         Iterator<SoundLevelAndSpectrumItem> it = frequencySpectrumAndSoundLevelItemList.iterator();
-                        while(it.hasNext()){
+                        while (it.hasNext()) {
                             SoundLevelAndSpectrumItem soundLevelAndSpectrumItemTmp = it.next();
-                            if(soundLevelAndSpectrumItemTmp.getStreamid().equals(zegoStream.streamID)){
+                            if (soundLevelAndSpectrumItemTmp.getStreamid().equals(zegoStream.streamID)) {
                                 it.remove();
                                 ll_container.removeView(soundLevelAndSpectrumItemTmp);
                                 last_stream_to_progress_value.remove(zegoStream.streamID);
@@ -160,36 +161,38 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
                     }
                 }
             }
+
             @Override
             public void onCapturedSoundLevelUpdate(float soundLevel) {
                 super.onCapturedSoundLevelUpdate(soundLevel);
                 Log.v(TAG, "onCapturedSoundLevelUpdate:" + soundLevel);
-                ValueAnimator animator = ValueAnimator.ofFloat((float) last_progress_captured, (float)soundLevel).setDuration(100);
-                animator.addUpdateListener( new ValueAnimator.AnimatorUpdateListener() {
+                ValueAnimator animator = ValueAnimator.ofFloat((float) last_progress_captured, (float) soundLevel).setDuration(100);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        mPbCaptureSoundLevel.setProgress((int)((Float)valueAnimator.getAnimatedValue()).floatValue());
+                        mPbCaptureSoundLevel.setProgress((int) ((Float) valueAnimator.getAnimatedValue()).floatValue());
                     }
                 });
                 animator.start();
                 last_progress_captured = soundLevel;
             }
+
             @Override
             public void onRemoteSoundLevelUpdate(HashMap<String, Float> soundLevels) {
                 super.onRemoteSoundLevelUpdate(soundLevels);
-                Log.v(TAG, "onRemoteSoundLevelUpdate:"+ soundLevels.size());
+                Log.v(TAG, "onRemoteSoundLevelUpdate:" + soundLevels.size());
                 Iterator<HashMap.Entry<String, Float>> it = soundLevels.entrySet().iterator();
-                while(it.hasNext()){
+                while (it.hasNext()) {
                     HashMap.Entry<String, Float> entry = it.next();
                     String streamid = entry.getKey();
                     Float value = entry.getValue();
-                    for(final SoundLevelAndSpectrumItem soundLevelAndSpectrumItem: frequencySpectrumAndSoundLevelItemList){
-                        if(streamid.equals(soundLevelAndSpectrumItem.getStreamid())){
+                    for (final SoundLevelAndSpectrumItem soundLevelAndSpectrumItem : frequencySpectrumAndSoundLevelItemList) {
+                        if (streamid.equals(soundLevelAndSpectrumItem.getStreamid())) {
                             ValueAnimator animator = ValueAnimator.ofFloat(value.floatValue(), soundLevels.get(streamid).floatValue()).setDuration(100);
-                            animator.addUpdateListener( new ValueAnimator.AnimatorUpdateListener() {
+                            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                    soundLevelAndSpectrumItem.getPbSoundLevel().setProgress(((Float)(valueAnimator.getAnimatedValue())).intValue());
+                                    soundLevelAndSpectrumItem.getPbSoundLevel().setProgress(((Float) (valueAnimator.getAnimatedValue())).intValue());
                                 }
                             });
                             animator.start();
@@ -198,24 +201,26 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
                     }
                 }
             }
+
             @Override
             public void onCapturedAudioSpectrumUpdate(float[] frequencySpectrum) {
                 super.onCapturedAudioSpectrumUpdate(frequencySpectrum);
                 Log.v(TAG, "call back onCapturedAudioSpectrumUpdate");
                 mCaptureSpectrumView.updateFrequencySpectrum(frequencySpectrum);
             }
+
             @Override
             public void onRemoteAudioSpectrumUpdate(HashMap<String, float[]> frequencySpectrums) {
                 super.onRemoteAudioSpectrumUpdate(frequencySpectrums);
                 Log.v(TAG, "call back onRemoteAudioSpectrumUpdate:" + frequencySpectrums);
                 Iterator<HashMap.Entry<String, float[]>> it = frequencySpectrums.entrySet().iterator();
-                while(it.hasNext()){
+                while (it.hasNext()) {
                     HashMap.Entry<String, float[]> entry = it.next();
                     String streamid = entry.getKey();
                     float[] values = entry.getValue();
 
-                    for(SoundLevelAndSpectrumItem soundLevelAndSpectrumItem: frequencySpectrumAndSoundLevelItemList){
-                        if(streamid.equals(soundLevelAndSpectrumItem.getStreamid())){
+                    for (SoundLevelAndSpectrumItem soundLevelAndSpectrumItem : frequencySpectrumAndSoundLevelItemList) {
+                        if (streamid.equals(soundLevelAndSpectrumItem.getStreamid())) {
                             soundLevelAndSpectrumItem.getSpectrumView().updateFrequencySpectrum(values);
                         }
                     }
@@ -229,7 +234,7 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
                  * (such as room disconnection, login authentication failure, etc.), the SDK will notify through the callback
                  */
                 AppLogger.getInstance().i("onRoomStateUpdate: roomID = " + roomID + ", state = " + state + ", errorCode = " + errorCode);
-                Log.v(TAG, "onRoomStateUpdate: errorcode:"+ errorCode + ", roomID: "+ roomID + ", state:" + state.value());
+                Log.v(TAG, "onRoomStateUpdate: errorcode:" + errorCode + ", roomID: " + roomID + ", state:" + state.value());
                 if (errorCode != 0) {
                     Toast.makeText(SoundLevelAndSpectrumMainActivity.this, String.format("登陆房间失败, 错误码: %d", errorCode), Toast.LENGTH_LONG).show();
                 }
@@ -237,8 +242,8 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
 
             @Override
             public void onPublisherStateUpdate(String streamID, ZegoPublisherState state, int errorCode, JSONObject extendedData) {
-                AppLogger.getInstance().i("onPublisherStateUpdate: errorcode:"+ errorCode + ", streamID:" + streamID + ", state:" + state.value());
-                Log.v(TAG, "onPublisherStateUpdate: errorcode:"+ errorCode + ", streamID:" + streamID + ", state:" + state.value());
+                AppLogger.getInstance().i("onPublisherStateUpdate: errorcode:" + errorCode + ", streamID:" + streamID + ", state:" + state.value());
+                Log.v(TAG, "onPublisherStateUpdate: errorcode:" + errorCode + ", streamID:" + streamID + ", state:" + state.value());
 
             }
         });
@@ -276,10 +281,12 @@ public class SoundLevelAndSpectrumMainActivity extends Activity {
 
         super.onDestroy();
     }
+
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, SoundLevelAndSpectrumMainActivity.class);
         activity.startActivity(intent);
     }
+
     @Override
     protected void onStart() {
         super.onStart();

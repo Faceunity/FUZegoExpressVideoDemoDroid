@@ -37,7 +37,7 @@
             android:layout_marginRight="5dp"
             android:text="StopPublish"
             android:textAllCaps="false"
-            android:onClick="DealPublishing"/>
+            android:onClick="DealPublishing" />
 
         <Button
             android:id="@+id/play_btn"
@@ -48,7 +48,7 @@
             android:layout_marginRight="5dp"
             android:text="StartPlay"
             android:textAllCaps="false"
-            android:onClick="DealPlay"/>
+            android:onClick="DealPlay" />
     </LinearLayout>
 
     <TextView
@@ -63,6 +63,6 @@
         android:id="@+id/faceUnityView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

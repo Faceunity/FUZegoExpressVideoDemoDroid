@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashSet;

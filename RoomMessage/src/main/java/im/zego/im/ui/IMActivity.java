@@ -3,7 +3,6 @@ package im.zego.im.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -12,6 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import im.zego.common.util.AppLogger;
 import im.zego.common.util.SettingDataUtil;
@@ -28,12 +32,9 @@ import im.zego.zegoexpress.entity.ZegoBroadcastMessageInfo;
 import im.zego.zegoexpress.entity.ZegoRoomConfig;
 import im.zego.zegoexpress.entity.ZegoUser;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 public class IMActivity extends AppCompatActivity {
     ZegoExpressEngine engine;
-    private static ArrayList<CheckBox> checkBoxList=new ArrayList<CheckBox>();
+    private static ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
     private static LinearLayout ll_checkBoxList;
     ArrayList<String> mUserList = new ArrayList<>();
     ArrayList<String> records = new ArrayList<>();
@@ -64,7 +65,7 @@ public class IMActivity extends AppCompatActivity {
         AppLogger.getInstance().i("SDK version : %s", ZegoExpressEngine.getVersion());
         /** 生成随机的用户ID，避免不同手机使用时用户ID冲突，相互影响 */
         /** Generate random user ID to avoid user ID conflict and mutual influence when different mobile phones are used */
-        String randomSuffix = String.valueOf(new Date().getTime()%(new Date().getTime()/1000));
+        String randomSuffix = String.valueOf(new Date().getTime() % (new Date().getTime() / 1000));
         userID = "user" + randomSuffix;
         userName = "user" + randomSuffix;
         TextView tv_room = findViewById(R.id.tv_im_room);
@@ -81,8 +82,7 @@ public class IMActivity extends AppCompatActivity {
                     for (int i = 0; i < userList.size(); i++) {
                         if (updateType == ZegoUpdateType.ADD) {
                             mUserList.add(userList.get(i).userID);
-                        }
-                        else {
+                        } else {
                             mUserList.remove(userList.get(i).userID);
                         }
                     }
@@ -90,13 +90,14 @@ public class IMActivity extends AppCompatActivity {
                     ll_checkBoxList = findViewById(R.id.ll_CheckBoxList);
                     ll_checkBoxList.removeAllViews();
                     checkBoxList.clear();
-                    for(String userID: mUserList){
-                        CheckBox checkBox=(CheckBox) View.inflate(IMActivity.this, R.layout.checkbox, null);
+                    for (String userID : mUserList) {
+                        CheckBox checkBox = (CheckBox) View.inflate(IMActivity.this, R.layout.checkbox, null);
                         checkBox.setText(userID);
                         ll_checkBoxList.addView(checkBox);
                         checkBoxList.add(checkBox);
                     }
                 }
+
                 @Override
                 public void onIMRecvBroadcastMessage(String roomID, ArrayList<ZegoBroadcastMessageInfo> messageList) {
                     AppLogger.getInstance().i("onIMRecvBroadcastMessage: roomID = " + roomID + ",  messageList= " + messageList);
@@ -113,7 +114,7 @@ public class IMActivity extends AppCompatActivity {
                 }
 
                 public void onIMRecvCustomCommand(String roomID, ZegoUser fromUser, String command) {
-                    AppLogger.getInstance().i("onIMRecvCustomCommand: roomID = " + roomID + "fromUser :"+fromUser+", command= " + command);
+                    AppLogger.getInstance().i("onIMRecvCustomCommand: roomID = " + roomID + "fromUser :" + fromUser + ", command= " + command);
                     records.add(fromUser.userID + ": " + command);
                     /** 在ListView中显示消息 */
                     /** Show message in the Listview */
@@ -162,8 +163,7 @@ public class IMActivity extends AppCompatActivity {
                         ListView listView = findViewById(R.id.lv_im_message);
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(IMActivity.this, R.layout.array_adapter, records);
                         listView.setAdapter(adapter);
-                    }
-                    else {
+                    } else {
                         AppLogger.getInstance().i("send broadcast message fail");
                         Toast.makeText(IMActivity.this, getString(R.string.tx_im_send_bc_fail) + errorCode, Toast.LENGTH_SHORT).show();
                     }
@@ -184,7 +184,7 @@ public class IMActivity extends AppCompatActivity {
             }
         }
         if (!msg.equals("")) {
-            engine.sendCustomCommand(roomID, msg  ,userList, new IZegoIMSendCustomCommandCallback() {
+            engine.sendCustomCommand(roomID, msg, userList, new IZegoIMSendCustomCommandCallback() {
                 /** 发送用户自定义消息结果回调处理 */
                 /** Send custom command result callback processing */
                 @Override
@@ -196,8 +196,7 @@ public class IMActivity extends AppCompatActivity {
                         ListView listView = findViewById(R.id.lv_im_message);
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(IMActivity.this, R.layout.array_adapter, records);
                         listView.setAdapter(adapter);
-                    }
-                    else {
+                    } else {
                         AppLogger.getInstance().i("send custom message fail");
                         Toast.makeText(IMActivity.this, getString(R.string.tx_im_send_cc_fail) + errorCode, Toast.LENGTH_SHORT).show();
                     }
@@ -225,8 +224,7 @@ public class IMActivity extends AppCompatActivity {
                         ListView listView = findViewById(R.id.lv_im_message);
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(IMActivity.this, R.layout.array_adapter, records);
                         listView.setAdapter(adapter);
-                    }
-                    else {
+                    } else {
                         AppLogger.getInstance().i("send barrage message fail");
                         Toast.makeText(IMActivity.this, getString(R.string.tx_im_send_bar_fail) + errorCode, Toast.LENGTH_SHORT).show();
                     }
@@ -234,6 +232,7 @@ public class IMActivity extends AppCompatActivity {
             });
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();

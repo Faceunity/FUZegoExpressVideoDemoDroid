@@ -18,7 +18,6 @@ public class SoundLevelAndSpectrumItem extends LinearLayout {
     }
 
 
-
     private TextView mTvUserid;
 
     public TextView getTvUserId() {
@@ -63,8 +62,7 @@ public class SoundLevelAndSpectrumItem extends LinearLayout {
     }
 
 
-
-    public SoundLevelAndSpectrumItem(Context ctx, AttributeSet attributeSet){
+    public SoundLevelAndSpectrumItem(Context ctx, AttributeSet attributeSet) {
 
         super(ctx, attributeSet);
 

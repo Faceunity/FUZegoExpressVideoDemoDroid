@@ -1,9 +1,12 @@
 <layout>
+
     <data>
+
         <variable
             name="activity"
             type="im.zego.video.talk.ui.ZGVideoTalkUI" />
     </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,20 +52,21 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <TextView
                     android:gravity="center"
                     android:text="@string/tx_camera"
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"></TextView>
+
                 <Switch
                     android:id="@+id/camera"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:onCheckedChanged="@{(v, checked) -> activity.operateCamera(checked)}"
-                   ></Switch>
+                    android:onCheckedChanged="@{(v, checked) -> activity.operateCamera(checked)}"></Switch>
             </LinearLayout>
 
             <LinearLayout
@@ -70,20 +74,21 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <TextView
                     android:gravity="center"
                     android:text="@string/tx_mic_state"
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"></TextView>
+
                 <Switch
                     android:id="@+id/mic"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:onCheckedChanged="@{(v, checked) -> activity.operateMic(checked)}"
-                    ></Switch>
+                    android:onCheckedChanged="@{(v, checked) -> activity.operateMic(checked)}"></Switch>
             </LinearLayout>
 
             <LinearLayout
@@ -91,20 +96,21 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <TextView
                     android:gravity="center"
                     android:text="@string/tx_speaker"
                     android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"></TextView>
+
                 <Switch
                     android:id="@+id/speaker"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:onCheckedChanged="@{(v, checked) -> activity.operateSpeaker(checked)}"
-                    ></Switch>
+                    android:onCheckedChanged="@{(v, checked) -> activity.operateSpeaker(checked)}"></Switch>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
