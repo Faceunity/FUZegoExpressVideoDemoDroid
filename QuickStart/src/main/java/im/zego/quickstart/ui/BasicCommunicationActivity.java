@@ -3,12 +3,8 @@ package im.zego.quickstart.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +12,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import im.zego.common.GetAppIDConfig;
 import im.zego.common.util.AppLogger;
@@ -35,9 +39,6 @@ import im.zego.zegoexpress.constants.ZegoUpdateType;
 import im.zego.zegoexpress.entity.ZegoCanvas;
 import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 
 public class BasicCommunicationActivity extends AppCompatActivity {
@@ -84,7 +85,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
         tvAppID.setText("AppID: " + GetAppIDConfig.appID);
 
         tvTestEnv = findViewById(R.id.tv_test_env);
-        tvTestEnv.setText("TestEnv: "+isTestEnv);
+        tvTestEnv.setText("TestEnv: " + isTestEnv);
 
         /** 示例代码使用一个固定的房间ID */
         /** RoomID used by example */
@@ -94,7 +95,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
 
         /** 生成随机的用户ID，避免不同手机使用时用户ID冲突，相互影响 */
         /** Generate random user ID to avoid user ID conflict and mutual influence when different mobile phones are used */
-        String randomSuffix = String.valueOf(new Date().getTime()%(new Date().getTime()/1000));
+        String randomSuffix = String.valueOf(new Date().getTime() % (new Date().getTime() / 1000));
         userID = "user" + randomSuffix;
         userName = "user" + randomSuffix;
         TextView tvUserID = findViewById(R.id.tv_userid);
@@ -125,9 +126,11 @@ public class BasicCommunicationActivity extends AppCompatActivity {
     }
 
     /** 点击初始化按钮 */
-    /** Click Init Button */
+    /**
+     * Click Init Button
+     */
     public void ClickInit(View view) {
-        Button button = (Button)view;
+        Button button = (Button) view;
         if (button.getText().equals(getString(R.string.tx_init_sdk))) {
             /** 初始化SDK, 使用测试环境，使用通用场景 */
             /** Initialize SDK, use test environment, access to general scenarios */
@@ -200,8 +203,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
                     AppLogger.getInstance().i("onPlayerStateUpdate: streamID = " + streamID + ", state = " + state + ", errCode = " + errorCode);
                 }
             });
-        }
-        else {
+        } else {
             /** 销毁引擎 */
             /** Destroy Engine */
             ZegoExpressEngine.destroyEngine(null);
@@ -214,13 +216,15 @@ public class BasicCommunicationActivity extends AppCompatActivity {
     }
 
     /** 点击登录按钮 */
-    /** Click Login Button */
+    /**
+     * Click Login Button
+     */
     public void ClickLogin(View view) {
         if (engine == null) {
             Toast.makeText(this, getString(R.string.tx_sdk_not_init), Toast.LENGTH_SHORT).show();
             return;
         }
-        Button button = (Button)view;
+        Button button = (Button) view;
         if (button.getText().equals(getString(R.string.tx_basic_login_room))) {
             /** 创建用户对象 */
             /** Create user */
@@ -232,8 +236,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
             AppLogger.getInstance().i("Login room OK, userID = " + userID + " , userName = " + userName);
             Toast.makeText(this, getString(R.string.tx_basic_login_room_ok), Toast.LENGTH_SHORT).show();
             button.setText(getString(R.string.tx_basic_logout_room));
-        }
-        else {
+        } else {
             /** 开始退出房间 */
             /** Begin to logout room */
             engine.logoutRoom(roomID);
@@ -244,18 +247,20 @@ public class BasicCommunicationActivity extends AppCompatActivity {
     }
 
     /** 点击推流按钮 */
-    /** Click Publish Button */
+    /**
+     * Click Publish Button
+     */
     public void ClickPublish(View view) {
         if (engine == null) {
             Toast.makeText(this, getString(R.string.tx_sdk_not_init), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Button button = (Button)view;
+        Button button = (Button) view;
         if (button.getText().equals(getString(R.string.tx_basic_publish))) {
             EditText et = findViewById(R.id.ed_publish_stream_id);
             String streamID = et.getText().toString();
-            engine.enableBeautify(ZegoBeautifyFeature.POLISH.value()|ZegoBeautifyFeature.WHITEN.value()|ZegoBeautifyFeature.SHARPEN.value());
+            engine.enableBeautify(ZegoBeautifyFeature.POLISH.value() | ZegoBeautifyFeature.WHITEN.value() | ZegoBeautifyFeature.SHARPEN.value());
             publishStreamID = streamID;
             /** 开始推流 */
             /** Begin to publish stream */
@@ -285,14 +290,16 @@ public class BasicCommunicationActivity extends AppCompatActivity {
     }
 
     /** 点击拉流按钮 */
-    /** Click Play Button */
+    /**
+     * Click Play Button
+     */
     public void ClickPlay(View view) {
         if (engine == null) {
             Toast.makeText(this, getString(R.string.tx_sdk_not_init), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Button button = (Button)view;
+        Button button = (Button) view;
         if (button.getText().equals(getString(R.string.tx_basic_play))) {
             EditText et = findViewById(R.id.ed_play_stream_id);
             String streamID = et.getText().toString();
@@ -306,8 +313,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
             AppLogger.getInstance().i("Start play stream OK, streamID = " + playStreamID);
             Toast.makeText(this, getString(R.string.tx_basic_play_ok), Toast.LENGTH_SHORT).show();
             button.setText(getString(R.string.tx_basic_stop_play));
-        }
-        else {
+        } else {
             /** 停止拉流 */
             /** Begin to stop play stream */
             EditText et = findViewById(R.id.ed_play_stream_id);
@@ -357,7 +363,9 @@ public class BasicCommunicationActivity extends AppCompatActivity {
     }
 
     /** 校验并请求权限 */
-    /** Check and request permission */
+    /**
+     * Check and request permission
+     */
     public boolean checkOrRequestPermission() {
         String[] PERMISSIONS_STORAGE = {
                 "android.permission.CAMERA",

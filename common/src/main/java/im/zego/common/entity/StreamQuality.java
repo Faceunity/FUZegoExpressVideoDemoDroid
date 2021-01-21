@@ -1,7 +1,6 @@
 package im.zego.common.entity;
 
 
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 

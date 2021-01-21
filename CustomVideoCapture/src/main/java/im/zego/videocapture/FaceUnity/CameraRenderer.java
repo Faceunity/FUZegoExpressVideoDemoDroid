@@ -112,20 +112,34 @@ public class CameraRenderer extends IZegoCustomVideoCaptureHandler implements GL
     }
 
     public void onResume() {
-        if (!mIsStarted) {return;} //SDK未调用onStart则不执行
+        if (!mIsStarted) {
+            return;
+        } //SDK未调用onStart则不执行
         startBackgroundThread();
-        mBackgroundHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                openCamera(mCameraFacing);
-                startPreview();
-            }
-        }, 50);
+        if ("HUAWEI".equalsIgnoreCase(Build.MANUFACTURER)) { //华为部分机型存在onSurfaceChanged 晚于 openCamera 的情况
+            mBackgroundHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    openCamera(mCameraFacing);
+                    startPreview();
+                }
+            }, 50);
+        } else {
+            mBackgroundHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    openCamera(mCameraFacing);
+                    startPreview();
+                }
+            });
+        }
         mGlSurfaceView.onResume();
     }
 
     public void onPause() {
-        if (!mIsStarted) {return;} //SDK已调用onStop则不执行
+        if (!mIsStarted) {
+            return;
+        } //SDK已调用onStop则不执行
         final CountDownLatch count = new CountDownLatch(1);
         mGlSurfaceView.queueEvent(new Runnable() {
             @Override
@@ -179,7 +193,6 @@ public class CameraRenderer extends IZegoCustomVideoCaptureHandler implements GL
 //            }
 //        });
         mOnRendererStatusListener.onSurfaceCreated();
-        LimitFpsUtil.setTargetFps(30);
     }
 
     @Override
@@ -209,6 +222,7 @@ public class CameraRenderer extends IZegoCustomVideoCaptureHandler implements GL
             Log.e(TAG, "onDrawFrame: ", e);
         }
 
+        //todo
         if (!mIsStoppedPreview) {
             if (mCameraNv21Byte != null) {
                 if (mNv21ByteCopy == null) {
@@ -217,7 +231,7 @@ public class CameraRenderer extends IZegoCustomVideoCaptureHandler implements GL
                 System.arraycopy(mCameraNv21Byte, 0, mNv21ByteCopy, 0, mCameraNv21Byte.length);
             }
             mFuTextureId = mOnRendererStatusListener.onDrawFrame(mNv21ByteCopy, mCameraTextureId,
-                    mCameraWidth, mCameraHeight, mCameraOrientation, mMvpMatrix, mTexMatrix, mSurfaceTexture.getTimestamp());
+                    mCameraWidth, mCameraHeight, mMvpMatrix, mTexMatrix, mSurfaceTexture.getTimestamp());
         }
         if (!mIsStoppedPreview) {
             if (mFuTextureId > 0) {
@@ -227,7 +241,7 @@ public class CameraRenderer extends IZegoCustomVideoCaptureHandler implements GL
             }
             mGlSurfaceView.requestRender();
         }
-        LimitFpsUtil.limitFrameRate();
+
     }
 
     @Override
@@ -404,13 +418,12 @@ public class CameraRenderer extends IZegoCustomVideoCaptureHandler implements GL
          * @param texId
          * @param cameraWidth
          * @param cameraHeight
-         * @param cameraRotation
          * @param mvpMatrix
          * @param texMatrix
          * @param timeStamp
          * @return
          */
-        int onDrawFrame(byte[] nv21Byte, int texId, int cameraWidth, int cameraHeight, int cameraRotation,
+        int onDrawFrame(byte[] nv21Byte, int texId, int cameraWidth, int cameraHeight,
                         float[] mvpMatrix, float[] texMatrix, long timeStamp);
 
         /**

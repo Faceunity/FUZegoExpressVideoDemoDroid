@@ -13,8 +13,8 @@ public class CommonTools {
 
     private static final String TAG = "CommonTools";
 
-    public static String getRandomSuffix(){
-        return "" + new Date().getTime()%(new Date().getTime()/1000);
+    public static String getRandomSuffix() {
+        return "" + new Date().getTime() % (new Date().getTime() / 1000);
     }
 
     public static String getPath(Context context, String fileName) {
@@ -32,7 +32,6 @@ public class CommonTools {
      * @param context            安卓上下文：用于获取 assets 目录下的资源
      * @param assetsFilePath     assets文件的路径名如：xxx.mp3
      * @param targetFileFullPath sd卡目标文件路径如：/sdcard/xxx.mp3
-     *
      */
     public static void copyFileFromAssets(Context context, String assetsFilePath, String targetFileFullPath) {
         Log.d("Tag", "copyFileFromAssets ");

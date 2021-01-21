@@ -13,17 +13,16 @@ import androidx.databinding.DataBindingUtil;
 
 import org.json.JSONObject;
 
-import im.zego.common.util.SettingDataUtil;
-import im.zego.publish.R;
-import im.zego.publish.databinding.ActivityPublishBinding;
-import im.zego.publish.databinding.PublishInputStreamIdLayoutBinding;
-
 import java.util.Date;
 
 import im.zego.common.entity.SDKConfigInfo;
 import im.zego.common.entity.StreamQuality;
 import im.zego.common.ui.BaseActivity;
 import im.zego.common.util.AppLogger;
+import im.zego.common.util.SettingDataUtil;
+import im.zego.publish.R;
+import im.zego.publish.databinding.ActivityPublishBinding;
+import im.zego.publish.databinding.PublishInputStreamIdLayoutBinding;
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.callback.IZegoEventHandler;
 import im.zego.zegoexpress.constants.ZegoPublishChannel;
@@ -101,20 +100,20 @@ public class PublishActivityUI extends BaseActivity {
                  * 可通过 {@link com.zego.zegoliveroom.ZegoLiveRoom#setPublishQualityMonitorCycle(long)} 修改回调频率
                  */
                 /**
-                 * Push stream quality update, the callback frequency defaults once every 3 seconds
-                 * The callback frequency can be modified through {@link com.zego.zegoliveroom.ZegoLiveRoom # setPublishQualityMonitorCycle (long)}
-                 */
-                streamQuality.setFps(String.format(getString(R.string.frame_rate)+" %f", quality.videoSendFPS));
-                streamQuality.setBitrate(String.format(getString(R.string.bit_rate)+" %f kbs", quality.videoKBPS));
-                streamQuality.setHardwareEncode(String.format(getString(R.string.hardware_encode_1)+" %b", quality.isHardwareEncode));
-                streamQuality.setNetworkQuality(String.format(getString(R.string.network_quality)+" %s", getQuality(quality.level)));
+                                  * Push stream quality update, the callback frequency defaults once every 3 seconds
+                                  * The callback frequency can be modified through {@link com.zego.zegoliveroom.ZegoLiveRoom # setPublishQualityMonitorCycle (long)}
+                                  */
+                streamQuality.setFps(String.format(getString(R.string.frame_rate) + " %f", quality.videoSendFPS));
+                streamQuality.setBitrate(String.format(getString(R.string.bit_rate) + " %f kbs", quality.videoKBPS));
+                streamQuality.setHardwareEncode(String.format(getString(R.string.hardware_encode_1) + " %b", quality.isHardwareEncode));
+                streamQuality.setNetworkQuality(String.format(getString(R.string.network_quality) + " %s", getQuality(quality.level)));
             }
 
             @Override
             public void onPublisherVideoSizeChanged(int width, int height, ZegoPublishChannel channel) {
                 // 当采集时分辨率有变化时，sdk会回调该方法
                 // When the resolution changes during acquisition, the SDK will call back this method
-                streamQuality.setResolution(String.format(getString(R.string.resolution)+" %dX%d", width, height));
+                streamQuality.setResolution(String.format(getString(R.string.resolution) + " %dX%d", width, height));
             }
 
             @Override

@@ -37,8 +37,8 @@ import im.zego.zegoexpress.constants.ZegoPublishChannel;
 
 /**
  * VideoCaptureFromImage2
- *  To implement image source as video data and pass it to ZEGO SDK, you need to inherit the ZegoVideoCaptureDevice class that implements ZEGO SDK
- *  Use GL_TEXTURE_2D to transfer data, that is, 2D texture of OpenGL ES, and transfer the collected data through onTextureCaptured of client
+ * To implement image source as video data and pass it to ZEGO SDK, you need to inherit the ZegoVideoCaptureDevice class that implements ZEGO SDK
+ * Use GL_TEXTURE_2D to transfer data, that is, 2D texture of OpenGL ES, and transfer the collected data through onTextureCaptured of client
  */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class VideoCaptureFromImage2 extends ZegoVideoCaptureCallback
@@ -258,7 +258,7 @@ public class VideoCaptureFromImage2 extends ZegoVideoCaptureCallback
                 long now = SystemClock.elapsedRealtime();
                 // 将图片数据传给ZEGO SDK，包括时间戳,需要注意这里参数指明了是ZegoPublishChannel.AUX。
                 //Pass the image data to the ZEGO SDK, including the time stamp. Note that this parameter specifies ZegoPublishChannel.AUX.
-                mSDKEngine.sendCustomVideoCaptureTextureData(mPreviewTextureId, mImageWidth, mImageHeight, now,ZegoPublishChannel.AUX);
+                mSDKEngine.sendCustomVideoCaptureTextureData(mPreviewTextureId, mImageWidth, mImageHeight, now, ZegoPublishChannel.AUX);
             }
 
             // 分离当前eglContext
@@ -275,10 +275,10 @@ public class VideoCaptureFromImage2 extends ZegoVideoCaptureCallback
         // demo里面没有配置主流自定义视频采集，不设则默认主流不开启自定义视频采集。所以demo推主流的时候实际不会走到这里,这需要引起注意。
         // There is no mainstream custom video capture configured in the demo. If not set, the default mainstream video capture is not enabled by default.
         // Therefore, when the demo is pushed to the mainstream, it will not actually come here, it should be paid attention to.
-        AppLogger.getInstance().i(" CustomVideoCapture onStart callBack,channel:"+channel);
+        AppLogger.getInstance().i(" CustomVideoCapture onStart callBack,channel:" + channel);
         // 初始化 OpenGL ES 的资源
 //        Initialize OpenGL ES resources
-        if(channel==ZegoPublishChannel.AUX) {
+        if (channel == ZegoPublishChannel.AUX) {
             init();
             // 设置图片的位图
 //            Set the bitmap of the picture
@@ -295,8 +295,8 @@ public class VideoCaptureFromImage2 extends ZegoVideoCaptureCallback
         // demo里面没有配置主流自定义视频采集，不设则默认主流不开启自定义视频采集。所以demo推主流的时候实际不会走到这里,这需要引起注意。
         // There is no mainstream custom video capture configured in the demo. If not set, the default mainstream video capture is not enabled by default.
         // Therefore, when the demo is pushed to the mainstream, it will not actually come here,it should be paid attention to.
-        AppLogger.getInstance().i(" CustomVideoCapture onStop callBack,channel:"+channel);
-        if(channel==ZegoPublishChannel.AUX) {
+        AppLogger.getInstance().i(" CustomVideoCapture onStop callBack,channel:" + channel);
+        if (channel == ZegoPublishChannel.AUX) {
             stopPreview();
             stopCapture();
             uninit();

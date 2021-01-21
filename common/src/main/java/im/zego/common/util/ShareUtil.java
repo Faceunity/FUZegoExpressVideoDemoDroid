@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+
 import androidx.core.content.FileProvider;
 
 import java.io.File;
@@ -34,7 +35,6 @@ public class ShareUtil {
     }
 
 
-
     static final public void sendFiles(File[] fileList, Activity activity) {
         File cacheDir = activity.getExternalCacheDir();
         if (cacheDir == null || !cacheDir.canWrite()) {
@@ -63,9 +63,9 @@ public class ShareUtil {
 
             Uri uri;
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 uri = FileProvider.getUriForFile(activity, "im.zego.common.fileProvider", zipFile);
-            }else {
+            } else {
                 uri = Uri.fromFile(zipFile);
             }
             shareIntent.putExtra(Intent.EXTRA_STREAM, uri); // Uri.fromFile(zipFile)

@@ -40,7 +40,7 @@ public class ZGVideoCaptureOriginUI extends BaseActivity {
 
     private static final int REQUEST_CODE = 1001;
 
-    private boolean isOpenFaceUnity = true;
+    private boolean isOpenFaceUnity = false;
 
     public static MediaProjection mMediaProjection;
     // 屏幕采集相关类

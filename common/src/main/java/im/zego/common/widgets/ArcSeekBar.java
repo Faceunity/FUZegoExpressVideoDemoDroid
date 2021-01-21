@@ -20,7 +20,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-
 import im.zego.common.R;
 
 import static android.view.MotionEvent.ACTION_CANCEL;
@@ -446,7 +445,8 @@ public class ArcSeekBar extends View {
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             // 判断是否点击在了进度区域
-            if (!isInArcProgress(e.getX(), e.getY())) return false;
+            if (!isInArcProgress(e.getX(), e.getY()))
+                return false;
             // 点击允许突变
             mProgressPresent = getCurrentProgress(e.getX(), e.getY());
             computeThumbPos(mProgressPresent);
@@ -470,8 +470,10 @@ public class ArcSeekBar extends View {
     private float getCurrentProgress(float px, float py) {
         float diffAngle = getDiffAngle(px, py);
         float progress = diffAngle / (CIRCLE_ANGLE - mOpenAngle);
-        if (progress < 0) progress = 0;
-        if (progress > 1) progress = 1;
+        if (progress < 0)
+            progress = 0;
+        if (progress > 1)
+            progress = 1;
         return progress;
     }
 
@@ -507,9 +509,12 @@ public class ArcSeekBar extends View {
 
     // 计算拖动块应该显示的位置
     private void computeThumbPos(float present) {
-        if (present < 0) present = 0;
-        if (present > 1) present = 1;
-        if (null == mSeekPathMeasure) return;
+        if (present < 0)
+            present = 0;
+        if (present > 1)
+            present = 1;
+        if (null == mSeekPathMeasure)
+            return;
         float distance = mSeekPathMeasure.getLength() * present;
         mSeekPathMeasure.getPosTan(distance, mTempPos, mTempTan);
         mThumbX = mTempPos[0];
@@ -631,6 +636,7 @@ public class ArcSeekBar extends View {
 
     /**
      * 设置最大数值
+     *
      * @param max 最大数值
      */
     public void setMaxValue(int max) {
@@ -639,6 +645,7 @@ public class ArcSeekBar extends View {
 
     /**
      * 设置最小数值
+     *
      * @param min 最小数值
      */
     public void setMinValue(int min) {

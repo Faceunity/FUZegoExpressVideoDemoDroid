@@ -1,24 +1,24 @@
 package im.zego.common.widgets.log;
 
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import im.zego.common.R;
-import im.zego.common.adapter.LogAdapter;
-import im.zego.common.util.AppLogger;
-import im.zego.common.util.CpuUtil;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import im.zego.common.R;
+import im.zego.common.adapter.LogAdapter;
+import im.zego.common.util.AppLogger;
+import im.zego.common.util.CpuUtil;
 
 
 public class LogView extends FrameLayout {
@@ -43,7 +43,7 @@ public class LogView extends FrameLayout {
         recyclerView.setAdapter(logAdapter);
         txCpuInfo = findViewById(R.id.tx_cpu_info);
         cpuClockFrequency = findViewById(R.id.cpu_clock_frequency);
-        Button button= findViewById(R.id.clear_log);
+        Button button = findViewById(R.id.clear_log);
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

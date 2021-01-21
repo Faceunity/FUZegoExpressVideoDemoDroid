@@ -8,12 +8,7 @@ import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 
-
 import org.json.JSONObject;
-
-import im.zego.common.util.SettingDataUtil;
-import im.zego.play.databinding.ActivityPlayBinding;
-import im.zego.play.databinding.PlayInputStreamIdLayoutBinding;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +17,10 @@ import im.zego.common.entity.SDKConfigInfo;
 import im.zego.common.entity.StreamQuality;
 import im.zego.common.ui.BaseActivity;
 import im.zego.common.util.AppLogger;
+import im.zego.common.util.SettingDataUtil;
 import im.zego.play.R;
+import im.zego.play.databinding.ActivityPlayBinding;
+import im.zego.play.databinding.PlayInputStreamIdLayoutBinding;
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.callback.IZegoEventHandler;
 import im.zego.zegoexpress.constants.ZegoPlayerState;
@@ -99,18 +97,18 @@ public class PlayActivityUI extends BaseActivity {
                  * 可通过 {@link com.zego.zegoliveroom.ZegoLiveRoom#setPlayQualityMonitorCycle(long)} 修改回调频率
                  */
                 /**
-                 * Pull stream quality update, the callback frequency defaults once every 3 seconds
-                 * The callback frequency can be modified through {@link com.zego.zegoliveroom.ZegoLiveRoom # setPlayQualityMonitorCycle (long)}
-                 */
-                streamQuality.setFps(String.format(getString(R.string.frame_rate)+" %f", quality.videoRecvFPS));
-                streamQuality.setBitrate(String.format(getString(R.string.bit_rate)+" %f kbs", quality.videoKBPS));
+                                  * Pull stream quality update, the callback frequency defaults once every 3 seconds
+                                  * The callback frequency can be modified through {@link com.zego.zegoliveroom.ZegoLiveRoom # setPlayQualityMonitorCycle (long)}
+                                  */
+                streamQuality.setFps(String.format(getString(R.string.frame_rate) + " %f", quality.videoRecvFPS));
+                streamQuality.setBitrate(String.format(getString(R.string.bit_rate) + " %f kbs", quality.videoKBPS));
             }
 
             @Override
             public void onPlayerVideoSizeChanged(String streamID, int width, int height) {
                 // 视频宽高变化通知,startPlay后，如果视频宽度或者高度发生变化(首次的值也会)，则收到该通知.
                 // Video width and height change notification, after startPlay, if the video width or height changes (the first value will be), you will receive this notification
-                streamQuality.setResolution(String.format(getString(R.string.resolution)+" %dX%d", width, height));
+                streamQuality.setResolution(String.format(getString(R.string.resolution) + " %dX%d", width, height));
             }
 
             @Override

@@ -31,14 +31,13 @@
                 android:id="@+id/RadioDecodeRGB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="decodeRGB"/>
+                android:text="decodeRGB" />
 
             <RadioButton
                 android:id="@+id/RadioDecodeYUV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="decodeYUV" />
-
 
 
         </RadioGroup>
@@ -51,6 +50,6 @@
         android:layout_marginTop="10dp"
         android:text="@string/tx_start_live"
         android:onClick="JumpPublish"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
 
 </LinearLayout>

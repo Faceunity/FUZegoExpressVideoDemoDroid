@@ -1,8 +1,8 @@
 package im.zego.common.util;
 
 import android.content.SharedPreferences;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import im.zego.common.application.ZegoApplication;
 
@@ -24,7 +24,7 @@ public class PreferenceUtil {
     public static final String KEY_APP_ID = "PLAYGROUND_APP_ID";
     public static final String KEY_APP_SIGN = "PLAYGROUND_APP_SIGN";
     public static final String KEY_TEST_ENVIRONMENT = "PLAYGROUND_ENV";
-    public static final String KEY_SCENARIO="PLAYGROUND_SCENARIO";
+    public static final String KEY_SCENARIO = "PLAYGROUND_SCENARIO";
     private SharedPreferences mSharedPreferences;
 
     private PreferenceUtil() {

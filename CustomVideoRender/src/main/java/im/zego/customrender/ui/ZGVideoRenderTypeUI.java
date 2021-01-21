@@ -18,20 +18,20 @@ import im.zego.zegoexpress.entity.ZegoEngineConfig;
 /**
  * 外部渲染返回视频数据的类型选择
  */
+
 /**
-        * Type selection of video data returned by external rendering
-        */
+ * Type selection of video data returned by external rendering
+ */
 public class ZGVideoRenderTypeUI extends BaseActivity {
 
     private RadioGroup mRenderTypeGroup;
-
 
 
     // 是否已开启外部渲染
     // Whether external rendering is enabled
     private boolean isEnableExternalRender = false;
 
-    private  ZegoEngineConfig zegoEngineConfig = new ZegoEngineConfig();
+    private ZegoEngineConfig zegoEngineConfig = new ZegoEngineConfig();
 
     // 加载c++ so
     static {
@@ -53,7 +53,7 @@ public class ZGVideoRenderTypeUI extends BaseActivity {
         zegoEngineConfig.customVideoRenderConfig.bufferType = ZegoVideoBufferType.RAW_DATA;
 
 
-        mRenderTypeGroup = (RadioGroup)findViewById(R.id.RenderTypeGroup);
+        mRenderTypeGroup = (RadioGroup) findViewById(R.id.RenderTypeGroup);
         final int[] radioRenderTypeBtns = {R.id.RadioDecodeRGB, R.id.RadioDecodeYUV};
 
         // 设置RadioGroup组件的事件监听
@@ -65,7 +65,7 @@ public class ZGVideoRenderTypeUI extends BaseActivity {
                     // 外部渲染时抛出rgb格式的视频数据
                     // Rgb format video data is thrown during external rendering
                     zegoEngineConfig.customVideoRenderConfig.frameFormatSeries = ZegoVideoFrameFormatSeries.RGB;
-                } else if (radioRenderTypeBtns[1] == radioGroup.getCheckedRadioButtonId()){
+                } else if (radioRenderTypeBtns[1] == radioGroup.getCheckedRadioButtonId()) {
                     // 外部渲染时抛出I420格式的视频数据
                     // Throws I420 format video data during external rendering
                     zegoEngineConfig.customVideoRenderConfig.frameFormatSeries = ZegoVideoFrameFormatSeries.YUV;
@@ -74,7 +74,6 @@ public class ZGVideoRenderTypeUI extends BaseActivity {
                 // Turn on the external acquisition function
             }
         });
-
 
 
     }
@@ -91,9 +90,9 @@ public class ZGVideoRenderTypeUI extends BaseActivity {
         }
     }
 
-    public void JumpPublish(View view){
+    public void JumpPublish(View view) {
 
-        if (zegoEngineConfig.customVideoRenderConfig != null){
+        if (zegoEngineConfig.customVideoRenderConfig != null) {
             // 开启外部渲染功能
             // Turn on external rendering
             ZegoExpressEngine.setEngineConfig(zegoEngineConfig);

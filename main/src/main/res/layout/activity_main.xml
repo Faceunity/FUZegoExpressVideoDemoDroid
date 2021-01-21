@@ -25,7 +25,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true" />
 
         </im.zego.common.widgets.TitleLayout>
 
@@ -40,8 +40,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="jumpDoc"
-               />
+                android:onClick="jumpDoc" />
 
 
             <LinearLayout
@@ -61,8 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:onClick="jumpSourceCodeDownload"
-                     />
+                    android:onClick="jumpSourceCodeDownload" />
 
 
             </LinearLayout>
@@ -82,8 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:onClick="jumpQuickStart"
-                    />
+                    android:onClick="jumpQuickStart" />
             </LinearLayout>
 
         </LinearLayout>
