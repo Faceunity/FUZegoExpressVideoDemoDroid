@@ -19,11 +19,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="userID: " />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/tv_soundlevelandspectrum_userid" />
+                android:id="@+id/tv_soundlevelandspectrum_userid"/>
 
         </LinearLayout>
 
@@ -36,21 +35,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="streamID: " />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/tv_soundlevelandspectrum_streamid" />
+                android:id="@+id/tv_soundlevelandspectrum_streamid"/>
 
         </LinearLayout>
 
     </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray" />
-
+        android:background="@color/gray"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,22 +56,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/soud_wave" />
+            android:text="@string/soud_wave"/>
 
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="?android:attr/progressBarStyleHorizontal"
             android:id="@+id/pb_sound_level"
-            android:max="100" />
+            android:max="100"/>
 
     </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray" />
-
+        android:background="@color/gray"
+        />
     <im.zego.soundlevelandspectrum.widget.SpectrumView
         android:id="@+id/soundlevelandspectrum_spectrum_view"
         android:layout_width="match_parent"
@@ -86,7 +82,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="@color/gray" />
+        android:background="@color/gray"
+        />
 
 
 </LinearLayout>

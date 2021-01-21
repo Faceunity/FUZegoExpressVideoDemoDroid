@@ -67,7 +67,7 @@ public class CustomEditText extends androidx.appcompat.widget.AppCompatEditText 
         });
     }
 
-    private void saveCurrentParameter() {
+    private void saveCurrentParameter(){
         String value = getText().toString();
         if (!"".equals(value)) {
             PreferenceUtil.getInstance().setStringValue(key, value);

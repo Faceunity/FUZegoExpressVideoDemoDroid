@@ -40,7 +40,7 @@ public interface IEffectModule {
          *
          * @param itemHandle
          */
-        void onCreateFinish(int itemHandle);
+        void onBundleCreated(int itemHandle);
     }
 
 }

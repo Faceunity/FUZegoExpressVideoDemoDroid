@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import org.json.JSONObject;
 
 import java.util.Date;
@@ -36,12 +37,10 @@ import im.zego.zegoexpress.entity.ZegoVideoConfig;
  * ZGVideoCaptureDemoUI
  * 主要是处理推拉流并展示渲染视图
  */
-
 /**
- *  * ZGVideoCaptureDemoUI
- *  * Mainly handle the push-pull stream and display the rendered view
- *  
- */
+         * ZGVideoCaptureDemoUI
+         * Mainly handle the push-pull stream and display the rendered view
+         */
 public class ZGVideoCaptureDemoUI extends BaseActivity {
 
     private TextureView mPreView;

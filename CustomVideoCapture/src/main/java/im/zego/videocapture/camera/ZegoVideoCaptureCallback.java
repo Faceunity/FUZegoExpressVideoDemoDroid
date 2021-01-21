@@ -15,7 +15,7 @@ public class ZegoVideoCaptureCallback extends IZegoCustomVideoCaptureHandler {
     public void onStop(ZegoPublishChannel channel) {
     }
 
-    public void setView(View view) {
+    public void setView(View view){
 
     }
 }

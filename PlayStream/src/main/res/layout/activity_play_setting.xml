@@ -17,13 +17,13 @@
         <im.zego.common.widgets.TitleLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            app:name="@string/common_settings" />
+            app:name="@string/common_settings"/>
 
         <fragment
             android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:name="im.zego.play.ui.PlaySettingActivityUI$PrefFragment"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
 
     </LinearLayout>

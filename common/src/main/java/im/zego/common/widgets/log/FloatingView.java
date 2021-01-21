@@ -6,14 +6,13 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import androidx.core.view.ViewCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-
-import androidx.core.view.ViewCompat;
 
 import im.zego.common.util.DeviceInfoManager;
 

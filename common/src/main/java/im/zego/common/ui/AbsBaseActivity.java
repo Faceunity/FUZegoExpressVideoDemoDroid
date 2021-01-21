@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -27,11 +26,10 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * @return 返回内容页面的布局
      */
     /**
-     *      * Get the layout of the content page.
-     *      *
-     *      * @return returns the layout of the content page
-     *      
-     */
+                 * Get the layout of the content page.
+     *
+             * @return returns the layout of the content page
+     */
     protected abstract int getContentViewLayout();
 
     /**

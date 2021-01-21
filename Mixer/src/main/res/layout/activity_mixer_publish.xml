@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -64,20 +65,17 @@
                 android:layout_weight="2"
                 android:background="#8D8B8B"
                 android:orientation="vertical">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#8D8B8B"
                     android:orientation="horizontal">
-
                     <View
                         android:id="@+id/view"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:background="@color/white_color" />
-
                     <TextureView
                         android:id="@+id/tv_preview"
                         android:layout_width="match_parent"
@@ -94,7 +92,6 @@
                         android:layout_alignParentBottom="true"
                         android:onClick="enableLocalMic"
                         android:background="@drawable/ic_bottom_microphone_on" />
-
                     <ImageButton
                         android:id="@+id/ib_local_camera"
                         android:layout_width="33dp"
@@ -108,7 +105,6 @@
                         android:background="@drawable/bottom_camera_on_icon" />
                 </RelativeLayout>
             </LinearLayout>
-
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

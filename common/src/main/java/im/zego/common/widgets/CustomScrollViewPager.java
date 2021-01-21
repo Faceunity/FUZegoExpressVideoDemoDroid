@@ -1,10 +1,9 @@
 package im.zego.common.widgets;
 
 import android.content.Context;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-
-import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by zego on 2019/4/26.
@@ -16,7 +15,7 @@ public class CustomScrollViewPager extends ViewPager {
     private boolean scrollable = false;
 
     public CustomScrollViewPager(Context context) {
-        this(context, null);
+       this(context, null);
     }
 
     public CustomScrollViewPager(Context context, AttributeSet attrs) {

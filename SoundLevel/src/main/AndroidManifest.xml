@@ -1,10 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="im.zego.soundlevelandspectrum">
+    package="im.zego.soundlevelandspectrum" >
 
     <application>
-        <activity
-            android:name="im.zego.soundlevelandspectrum.ui.SoundLevelAndSpectrumMainActivity"
-            android:screenOrientation="portrait" />
+    <activity android:name="im.zego.soundlevelandspectrum.ui.SoundLevelAndSpectrumMainActivity"
+        android:screenOrientation="portrait"/>
 
     </application>
 

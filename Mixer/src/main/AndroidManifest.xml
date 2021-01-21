@@ -24,11 +24,12 @@
         tools:ignore="HardcodedDebugMode,UnusedAttribute">
         <activity
             android:name="im.zego.mixer.ui.MixerStartActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name="im.zego.mixer.ui.MixerPublishActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait">
+        </activity>
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
