@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    buildToolsVersion "29.0.3"
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 18
         targetSdkVersion 28
-        versionCode 720
-        versionName "7.2.0"
-        // 7.2.0_phy_cb5302c2_b431017
+        versionCode 730
+        versionName "7.3.0"
+        // 7.3.0_phy_505b959b_bf80f59
     }
     buildTypes {
         release {

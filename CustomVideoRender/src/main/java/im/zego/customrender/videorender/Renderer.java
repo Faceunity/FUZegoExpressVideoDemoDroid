@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 
-
 import java.nio.ByteBuffer;
 
 import im.zego.customrender.ve_gl.GlRectDrawer;
@@ -93,8 +92,9 @@ public class Renderer implements TextureView.SurfaceTextureListener {
         }
     }
 
+
     // 将Buffer绘制到当前的view上
-    public void draw(VideoRenderHandler.PixelBuffer pixelBuffer) {
+    public void draw(PixelBuffer pixelBuffer) {
 
         if (mTextureView != null) {
             attachTextureView();

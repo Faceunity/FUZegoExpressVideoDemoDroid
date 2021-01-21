@@ -31,9 +31,10 @@ import static im.zego.customrender.ui.ZGVideoRenderUI.mainPublishChannel;
  * 渲染类 Renderer 的封装层，接口更利于上层调用
  */
 /**
-         * VideoRenderHandler
-         * Renderer encapsulation layer, the interface is more conducive to the upper layer call
- */
+ *  * VideoRenderHandler
+ *  * Renderer encapsulation layer, the interface is more conducive to the upper layer call
+ *  
+ */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements Choreographer.FrameCallback {
     private static final String TAG = "VideoRenderHandler";
@@ -62,21 +63,9 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
     private HandlerThread mThread = null;
     private Handler mHandler = null;
 
-    /** 单帧视频数据
-     *  包含视频画面的宽、高、数据、strides
-     */
-    /** Single frame video data
-     * Including the width, height, data and strides of the video screen
-     */
-    static class PixelBuffer {
-        public int width;
-        public int height;
-        public ByteBuffer[] buffer;
-        public int[] strides;
-    }
-
     private ConcurrentHashMap<String, MyVideoFrame> frameMap = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<String, MyVideoFrame> getFrameMap() {
+
+    protected ConcurrentHashMap<String, MyVideoFrame> getFrameMap() {
         return frameMap;
     }
 
@@ -255,7 +244,11 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
         // Remove video frame callback monitoring
         Choreographer.getInstance().removeFrameCallback(VideoRenderHandler.this);
 
-
+        // 释放MediaCodec
+        if (mAVCDecoder != null) {
+            mAVCDecoder.stopAndReleaseDecoder();
+            mAVCDecoder = null;
+        }
 
         return 0;
     }
@@ -362,7 +355,7 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
 
 
     @Override
-    public void onCapturedVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, ZegoVideoFlipMode flipMode, ZegoPublishChannel channel){
+    public void onCapturedVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, ZegoVideoFlipMode flipMode, ZegoPublishChannel channel) {
         videoCaptureFrame.byteBuffers = data;
         videoCaptureFrame.height = param.height;
         videoCaptureFrame.width = param.width;
@@ -372,14 +365,44 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
     }
 
     @Override
-    public void onRemoteVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, String streamID){
+    public void onRemoteVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, String streamID) {
         videoPlayFrame.byteBuffers = data;
         videoPlayFrame.height = param.height;
         videoPlayFrame.width = param.width;
         videoPlayFrame.strides = param.strides;
         getFrameMap().put(streamID, videoPlayFrame);
-        Log.d(TAG, "onRemoteVideoFrameRawData: " + param.format.value());
-
     }
 
+//    @Override
+//    public void onRemoteVideoFrameEncodedData(ByteBuffer data, int dataLength, ZegoVideoEncodedFrameParam param, long referenceTimeMillisecond, String streamID) {
+//        Log.d(TAG, "onRemoteVideoFrameRawData: " + param.format.value());
+//
+//        byte[] tmpData = new byte[data.capacity()];
+//        data.position(0); // 缺少此行，解码后的渲染画面会卡住
+//        data.get(tmpData);
+//        if (mAVCDecoder != null) {
+//            mViewHeight = param.height;
+//            mViewWidth = param.width;
+//            // 为解码提供视频数据，时间戳
+//            mAVCDecoder.inputFrameToDecoder(tmpData, (long) referenceTimeMillisecond);
+//        }
+//    }
+
+    //  AVCANNEXB 模式解码器
+    private AVCDecoder mAVCDecoder = null;
+
+    // 添加解码 AVCANNEXB 格式视频帧的渲染视图
+    public void addDecodView(final TextureView textureView) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mAVCDecoder == null) {
+                    // 创建解码器
+                    mAVCDecoder = new AVCDecoder(new Surface(textureView.getSurfaceTexture()), mViewWidth, mViewHeight);
+                    // 启动解码器
+                    mAVCDecoder.startDecoder();
+                }
+            }
+        });
+    }
 }

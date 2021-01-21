@@ -36,7 +36,7 @@ public interface IEffectModule {
 
     interface ModuleCallback {
         /**
-         * bundle 创建完成
+         * bundle 创建完成，在 IO 线程回调
          *
          * @param itemHandle
          */
