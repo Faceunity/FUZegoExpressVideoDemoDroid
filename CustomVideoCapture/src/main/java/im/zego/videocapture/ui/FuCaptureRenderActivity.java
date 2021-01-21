@@ -147,7 +147,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
                 .setInputTextureType(FURenderer.INPUT_TEXTURE_EXTERNAL_OES)
                 .setCameraFacing(FURenderer.CAMERA_FACING_FRONT)
                 .setInputImageOrientation(CameraUtils.getCameraOrientation(FURenderer.CAMERA_FACING_FRONT))
-                .setRunBenchmark(true)
+                .setRunBenchmark(false)
                 .setOnDebugListener(new FURenderer.OnDebugListener() {
                     @Override
                     public void onFpsChanged(double fps, double callTime) {
@@ -226,14 +226,19 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements Camera
         logoutLiveRoom();
     }
 
+    private static final int ENCODE_FRAME_WIDTH = 960;
+    private static final int ENCODE_FRAME_HEIGHT = 540;
+    private static final int ENCODE_FRAME_BITRATE = 1000;
+    private static final int ENCODE_FRAME_FPS = 30;
 
     // 推流
     public void doPublish() {
         // 设置编码以及采集分辨率
         // Set encoding and acquisition resolution
         ZegoVideoConfig zegoVideoConfig = new ZegoVideoConfig();
-        zegoVideoConfig.setCaptureResolution(mCameraRenderer.getCameraHeight(), mCameraRenderer.getCameraWidth());
-        zegoVideoConfig.setEncodeResolution(mCameraRenderer.getCameraHeight(), mCameraRenderer.getCameraWidth());
+        zegoVideoConfig.setEncodeResolution(ENCODE_FRAME_HEIGHT, ENCODE_FRAME_WIDTH);
+        zegoVideoConfig.setVideoFPS(ENCODE_FRAME_FPS);
+        zegoVideoConfig.setVideoBitrate(ENCODE_FRAME_BITRATE);
         mSDKEngine.setVideoConfig(zegoVideoConfig);
 
         ZegoCanvas zegoCanvas = new ZegoCanvas(null);

@@ -31,6 +31,12 @@ public interface IFURenderer {
     int TRACK_TYPE_GESTURE = faceunity.FUAITYPE_HANDGESTURE;
 
     /**
+     * 人脸检测模式，图像或视频
+     */
+    int FACE_PROCESSOR_DETECT_MODE_IMAGE = 0;
+    int FACE_PROCESSOR_DETECT_MODE_VIDEO = 1;
+
+    /**
      * 相机朝向，前置或后置
      */
     int CAMERA_FACING_FRONT = Camera.CameraInfo.CAMERA_FACING_FRONT;
@@ -93,7 +99,7 @@ public interface IFURenderer {
      * @param w           宽
      * @param h           高
      * @param format      buffer 格式: nv21, i420, rgba
-     * @param readBackImg 数据回写到的 buffer
+     * @param readBackImg 数据回写到的 buffer，长度要和格式对应。比如 nv21 和 i420 长度是 宽*高*3/2，rgba 长度是 宽*高*4
      * @param readBackW   回写的宽
      * @param readBackH   回写的高
      * @return
@@ -131,5 +137,4 @@ public interface IFURenderer {
      * @param r
      */
     void queueEvent(Runnable r);
-
 }

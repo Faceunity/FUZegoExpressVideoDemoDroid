@@ -51,9 +51,10 @@ public class ZGVideoRenderTypeUI extends BaseActivity {
 
         zegoEngineConfig.customVideoRenderConfig = new ZegoCustomVideoRenderConfig();
         zegoEngineConfig.customVideoRenderConfig.bufferType = ZegoVideoBufferType.RAW_DATA;
+        zegoEngineConfig.customVideoRenderConfig.enableEngineRender = true;
+        zegoEngineConfig.customVideoRenderConfig.frameFormatSeries = ZegoVideoFrameFormatSeries.RGB;
 
-
-        mRenderTypeGroup = (RadioGroup)findViewById(R.id.RenderTypeGroup);
+        mRenderTypeGroup = (RadioGroup) findViewById(R.id.RenderTypeGroup);
         final int[] radioRenderTypeBtns = {R.id.RadioDecodeRGB, R.id.RadioDecodeYUV};
 
         // 设置RadioGroup组件的事件监听
@@ -101,6 +102,20 @@ public class ZGVideoRenderTypeUI extends BaseActivity {
         }
 
         Intent intent = new Intent(ZGVideoRenderTypeUI.this, ZGVideoRenderUI.class);
+        intent.putExtra("RenderType", zegoEngineConfig.customVideoRenderConfig.frameFormatSeries.value());
+        ZGVideoRenderTypeUI.this.startActivity(intent);
+    }
+
+    public void faceUnity(View view) {
+
+        if (zegoEngineConfig.customVideoRenderConfig != null) {
+            // 开启外部渲染功能
+            // Turn on external rendering
+            zegoEngineConfig.customVideoRenderConfig.frameFormatSeries = ZegoVideoFrameFormatSeries.RGB;
+            ZegoExpressEngine.setEngineConfig(zegoEngineConfig);
+            isEnableExternalRender = true;
+        }
+        Intent intent = new Intent(ZGVideoRenderTypeUI.this, FUVideoRenderUI.class);
         intent.putExtra("RenderType", zegoEngineConfig.customVideoRenderConfig.frameFormatSeries.value());
         ZGVideoRenderTypeUI.this.startActivity(intent);
     }

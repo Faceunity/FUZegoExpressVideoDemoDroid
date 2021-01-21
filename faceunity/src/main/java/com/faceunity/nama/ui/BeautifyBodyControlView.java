@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 
 import com.faceunity.nama.R;
-import com.faceunity.nama.module.BodySlimModule;
+import com.faceunity.nama.module.IBodySlimModule;
 import com.faceunity.nama.ui.dialog.BaseDialogFragment;
 import com.faceunity.nama.ui.dialog.ConfirmDialogFragment;
 import com.faceunity.nama.ui.seekbar.DiscreteSeekBar;
@@ -42,7 +42,7 @@ public class BeautifyBodyControlView extends FrameLayout {
     private SparseArray<Float> mThreshHold = new SparseArray<>();
     // 进度值默认值
     private SparseArray<Float> mDefault = new SparseArray<>();
-    private BodySlimModule mBodySlimModule;
+    private IBodySlimModule mBodySlimModule;
 
     public BeautifyBodyControlView(Context context) {
         this(context, null);
@@ -58,7 +58,7 @@ public class BeautifyBodyControlView extends FrameLayout {
         initView();
     }
 
-    public void setBodySlimModule(BodySlimModule bodySlimModule) {
+    public void setBodySlimModule(IBodySlimModule bodySlimModule) {
         mBodySlimModule = bodySlimModule;
     }
 

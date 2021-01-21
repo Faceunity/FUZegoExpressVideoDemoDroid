@@ -4,11 +4,11 @@ apply plugin: 'bugly'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "im.zego.express.example.video"
-        minSdkVersion 15
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode getAppVersionCode()
         versionName "1.8.0"
