@@ -3,10 +3,10 @@ package im.zego.common.widgets;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.util.AttributeSet;
-import android.widget.CompoundButton;
 
 import androidx.annotation.Nullable;
+import android.util.AttributeSet;
+import android.widget.CompoundButton;
 
 import im.zego.common.R;
 import im.zego.common.util.PreferenceUtil;

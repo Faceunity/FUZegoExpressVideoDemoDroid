@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 import android.view.Choreographer;
+import android.view.Surface;
 import android.view.TextureView;
 
 import java.nio.ByteBuffer;
@@ -29,12 +30,10 @@ import static im.zego.customrender.ui.ZGVideoRenderUI.mainPublishChannel;
  * VideoRenderHandler
  * 渲染类 Renderer 的封装层，接口更利于上层调用
  */
-
 /**
- *  * VideoRenderHandler
- *  * Renderer encapsulation layer, the interface is more conducive to the upper layer call
- *  
- */
+         * VideoRenderHandler
+         * Renderer encapsulation layer, the interface is more conducive to the upper layer call
+ */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements Choreographer.FrameCallback {
     private static final String TAG = "VideoRenderHandler";
@@ -66,11 +65,9 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
     /** 单帧视频数据
      *  包含视频画面的宽、高、数据、strides
      */
-    /**
-     * Single frame video data
-     *      * Including the width, height, data and strides of the video screen
-     *      
-     */
+    /** Single frame video data
+     * Including the width, height, data and strides of the video screen
+     */
     static class PixelBuffer {
         public int width;
         public int height;
@@ -79,7 +76,6 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
     }
 
     private ConcurrentHashMap<String, MyVideoFrame> frameMap = new ConcurrentHashMap<>();
-
     private ConcurrentHashMap<String, MyVideoFrame> getFrameMap() {
         return frameMap;
     }
@@ -125,6 +121,7 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
             }
         }
     }
+
 
 
     // 根据流名添加渲染视图
@@ -259,6 +256,7 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
         Choreographer.getInstance().removeFrameCallback(VideoRenderHandler.this);
 
 
+
         return 0;
     }
 
@@ -364,7 +362,7 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
 
 
     @Override
-    public void onCapturedVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, ZegoVideoFlipMode flipMode, ZegoPublishChannel channel) {
+    public void onCapturedVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, ZegoVideoFlipMode flipMode, ZegoPublishChannel channel){
         videoCaptureFrame.byteBuffers = data;
         videoCaptureFrame.height = param.height;
         videoCaptureFrame.width = param.width;
@@ -374,7 +372,7 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
     }
 
     @Override
-    public void onRemoteVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, String streamID) {
+    public void onRemoteVideoFrameRawData(ByteBuffer[] data, int[] dataLength, ZegoVideoFrameParam param, String streamID){
         videoPlayFrame.byteBuffers = data;
         videoPlayFrame.height = param.height;
         videoPlayFrame.width = param.width;

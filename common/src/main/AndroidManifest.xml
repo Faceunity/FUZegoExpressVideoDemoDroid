@@ -22,8 +22,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity
-            android:name="im.zego.common.ui.WebActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name="im.zego.common.ui.WebActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
     </application>
 </manifest>

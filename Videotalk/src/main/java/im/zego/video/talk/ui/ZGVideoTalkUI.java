@@ -11,6 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.gridlayout.widget.GridLayout;
 
+import im.zego.common.util.SettingDataUtil;
+import im.zego.video.talk.R;
+import im.zego.video.talk.databinding.VideoTalkBinding;
+import im.zego.video.talk.utils.ScreenHelper;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -20,11 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import im.zego.common.util.AppLogger;
-import im.zego.common.util.SettingDataUtil;
 import im.zego.common.widgets.log.FloatingView;
-import im.zego.video.talk.R;
-import im.zego.video.talk.databinding.VideoTalkBinding;
-import im.zego.video.talk.utils.ScreenHelper;
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.callback.IZegoEventHandler;
 import im.zego.zegoexpress.constants.ZegoPlayerState;
@@ -39,15 +40,14 @@ import im.zego.zegoexpress.entity.ZegoUser;
 
 public class ZGVideoTalkUI extends Activity {
     private VideoTalkBinding binding;
-    public static final String mRoomID = "VideoTalkRoom-1";
+    public static final String mRoomID="VideoTalkRoom-1";
     private ZegoExpressEngine mSDKEngine;
     private String userID;
     private String userName;
     private String mainStreamId;
     private TextureView textureView;
-    private Map<String, TextureView> viewMap;
+    private Map<String,TextureView> viewMap;
     private List<String> streamIdList;
-
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, ZGVideoTalkUI.class);
         activity.startActivity(intent);
@@ -73,15 +73,15 @@ public class ZGVideoTalkUI extends Activity {
         String randomSuffix = String.valueOf(new Date().getTime() % (new Date().getTime() / 1000));
         userID = "user" + randomSuffix;
         userName = "userName" + randomSuffix;
-        mainStreamId = "streamId" + randomSuffix;
+        mainStreamId="streamId"+randomSuffix;
         streamIdList.add(mainStreamId);
-        viewMap.put(mainStreamId, textureView);
+        viewMap.put(mainStreamId,textureView);
         ZegoRoomConfig config = new ZegoRoomConfig();
         /* 使能用户登录/登出房间通知 */
         /* Enable notification when user login or logout */
         config.isUserStatusNotify = true;
         mSDKEngine.loginRoom(mRoomID, new ZegoUser(userID, userName), config);
-        AppLogger.getInstance().i("startPublishStream streamId:" + mainStreamId);
+        AppLogger.getInstance().i("startPublishStream streamId:"+mainStreamId);
         ZegoCanvas zegoCanvas = new ZegoCanvas(viewMap.get(mainStreamId));
         zegoCanvas.viewMode = ZegoViewMode.ASPECT_FIT;
         // 设置预览视图及视图展示模式
@@ -97,7 +97,6 @@ public class ZGVideoTalkUI extends Activity {
         mSDKEngine.muteSpeaker(false);//开启音频输出
         AppLogger.getInstance().i(getString(R.string.create_zego_engine));
     }
-
     IZegoEventHandler zegoEventHandler = new IZegoEventHandler() {
 
 
@@ -135,20 +134,20 @@ public class ZGVideoTalkUI extends Activity {
             super.onRoomStreamUpdate(roomID, updateType, streamList);
             AppLogger.getInstance().i("onRoomStreamUpdate: roomID" + roomID + ", updateType:" + updateType.value() + ", streamList: " + streamList);
             // 这里拉流之后动态添加渲染的View
-            if (updateType == ZegoUpdateType.ADD) {
-                for (ZegoStream zegoStream : streamList) {
-                    AppLogger.getInstance().i("onRoomStreamUpdate: ZegoUpdateType.ADD streamId:" + zegoStream.streamID);
-                    TextureView addTextureView = new TextureView(ZGVideoTalkUI.this);
-                    int row = streamIdList.size() / 2;
-                    int column = streamIdList.size() % 2;
-                    addToGridLayout(row, column, addTextureView);
-                    viewMap.put(zegoStream.streamID, addTextureView);
+            if(updateType == ZegoUpdateType.ADD){
+                for(ZegoStream zegoStream: streamList){
+                    AppLogger.getInstance().i("onRoomStreamUpdate: ZegoUpdateType.ADD streamId:"+zegoStream.streamID);
+                    TextureView addTextureView=new TextureView(ZGVideoTalkUI.this);
+                    int row=streamIdList.size()/2;
+                    int column=streamIdList.size()%2;
+                    addToGridLayout(row,column,addTextureView);
+                    viewMap.put(zegoStream.streamID,addTextureView);
                     streamIdList.add(zegoStream.streamID);
                     mSDKEngine.startPlayingStream(zegoStream.streamID, new ZegoCanvas(addTextureView));
                 }
-            } else if (updateType == ZegoUpdateType.DELETE) {// callback in UIThread
-                for (ZegoStream zegoStream : streamList) {
-                    AppLogger.getInstance().i("onRoomStreamUpdate:  ZegoUpdateType.DELETE streamId:" + zegoStream.streamID);
+            }else if(updateType == ZegoUpdateType.DELETE){// callback in UIThread
+                for(ZegoStream zegoStream: streamList){
+                    AppLogger.getInstance().i("onRoomStreamUpdate:  ZegoUpdateType.DELETE streamId:"+zegoStream.streamID);
                     mSDKEngine.stopPlayingStream(zegoStream.streamID);
                     streamIdList.remove(zegoStream.streamID);
                     notifyGridLayout();
@@ -159,12 +158,12 @@ public class ZGVideoTalkUI extends Activity {
     };
 
     private void notifyGridLayout() {
-        int j = 0;
+        int j=0;
         binding.gridLayout.removeAllViews();
-        for (String streamId : streamIdList) {
-            int row = j / 2;
-            int column = j % 2;
-            addToGridLayout(row, column, viewMap.get(streamId));
+        for(String streamId:streamIdList){
+            int row=j/2;
+            int column=j%2;
+            addToGridLayout(row,column,viewMap.get(streamId));
             j++;
         }
     }
@@ -177,7 +176,6 @@ public class ZGVideoTalkUI extends Activity {
         //Log out of the room and release the ZEGO SDK
         logoutLiveRoom();
     }
-
     // 登出房间，去除推拉流回调监听并释放ZEGO SDK
     //Log out of the room, remove the push-pull stream callback listener and release the ZEGO SDK
     public void logoutLiveRoom() {
@@ -187,11 +185,10 @@ public class ZGVideoTalkUI extends Activity {
         viewMap.remove(mainStreamId);
         streamIdList.clear();
     }
-
     private void initView() {
-        viewMap = new HashMap<>();
-        streamIdList = new ArrayList<>();
-        binding.roomId.setText("roomId:" + mRoomID);
+        viewMap=new HashMap<>();
+        streamIdList=new ArrayList<>();
+        binding.roomId.setText("roomId:"+mRoomID);
         binding.roomConnectState.setText(getString(R.string.room_unconnect));
         initGridLayout();
     }
@@ -199,41 +196,36 @@ public class ZGVideoTalkUI extends Activity {
     private void initGridLayout() {
         binding.gridLayout.setRowCount(30);//默认最大是30行,一共30*2共60个窗口
         binding.gridLayout.setColumnCount(2);
-        textureView = new TextureView(this);
-        addToGridLayout(0, 0, textureView);
+        textureView=new TextureView(this);
+        addToGridLayout(0,0,textureView);
     }
-
-    public void addToGridLayout(int row, int column, TextureView textureView) {
+    public void addToGridLayout(int row,int column,TextureView textureView){
         //设置它的行 和 权重 有了权重才能水平均匀分布
         //由于方法重载，注意这个地方的1.0f 必须是float，
         GridLayout.Spec rowSpec = GridLayout.spec(row, 1.0f);//行
         GridLayout.Spec columnSpec = GridLayout.spec(column, 1.0f);//列
         GridLayout.LayoutParams params = new GridLayout.LayoutParams(rowSpec, columnSpec);
         params.setGravity(Gravity.CENTER);
-        params.setMargins(10, 10, 10, 10);//px
-        params.height = (int) ((ScreenHelper.getSingleton(this.getApplication()).getScreenWidthPixels() / 2 - 20) * 1.6);//px
-        params.width = ScreenHelper.getSingleton(this.getApplication()).getScreenWidthPixels() / 2 - 20;
+        params.setMargins(10,10,10,10);//px
+        params.height = (int) ((ScreenHelper.getSingleton(this.getApplication()).getScreenWidthPixels()/2-20)*1.6);//px
+        params.width = ScreenHelper.getSingleton(this.getApplication()).getScreenWidthPixels()/2-20;
         binding.gridLayout.addView(textureView, params);
     }
-
-    public void operateCamera(Boolean isChecked) {
-        if (mSDKEngine != null) {
+    public void operateCamera(Boolean isChecked){
+        if(mSDKEngine!=null){
             mSDKEngine.enableCamera(isChecked);
         }
     }
-
-    public void operateMic(Boolean isChecked) {
-        if (mSDKEngine != null) {
+    public void operateMic(Boolean isChecked){
+        if(mSDKEngine!=null){
             mSDKEngine.muteMicrophone(!isChecked);
         }
     }
-
-    public void operateSpeaker(Boolean isChecked) {
-        if (mSDKEngine != null) {
+    public void operateSpeaker(Boolean isChecked){
+        if(mSDKEngine!=null){
             mSDKEngine.muteSpeaker(!isChecked);
         }
     }
-
     @Override
     protected void onStart() {
         super.onStart();

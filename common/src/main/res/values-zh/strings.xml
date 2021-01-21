@@ -1,4 +1,4 @@
-<resources>
+<resources >
     <string name="app_name">ZegoExpressSample</string>
     <string name="tx_log">LOG</string>
     <string name="tx_web_refresh_hint">正在刷新当前页面</string>
@@ -24,6 +24,7 @@
     <string name="room_id_describe">roomID为一个房间的标识，使用长度不超过128字节的字符串表示，需要保证房间ID的全局唯一</string>
 
     <string name="tx_test_env">测试环境</string>
+
 
 
     <string name="tx_init_success">初始化SDK完成</string>
@@ -54,6 +55,7 @@
     <string name="tx_common">常用功能</string>
 
 
+
     <string name="tx_login_room_title">第二步 登录房间</string>
     <string name="tx_login_room">登录房间</string>
     <string name="tx_login_room_guide">登录房间指引</string>
@@ -67,6 +69,8 @@
     <string name="tx_start_publish">发起推流</string>
 
     <string name="tx_confirm_publish">确认推流</string>
+
+
 
 
     <string name="tx_start_play">开始拉流</string>
@@ -84,7 +88,7 @@
     <string name="back">返回</string>
     <string name="share">分享</string>
     <string name="loading">加载中</string>
-    <!--AuxPublisher模块使用-->
+<!--AuxPublisher模块使用-->
     <string name="publish_stream">推流</string>
     <string name="play_stream">拉流</string>
     <string name="login_room">进入房间</string>
@@ -109,7 +113,7 @@
     <string name="playing">正在拉流</string>
     <string name="create_zego_engine">create ZegoEngine！！</string>
 
-    <!--main-->
+<!--main-->
     <string name="demo_version">Demo版本：</string>
     <string name="sdk_version">SDK版本：</string>
     <string name="save_alert">是否保存当前内容</string>
@@ -208,7 +212,7 @@
     <string name="no_data">无数据</string>
 
 
-    <!--RoomMessage-->
+<!--RoomMessage-->
     <string name="tx_im_send_bc_ok">发送广播消息成功</string>
     <string name="tx_im_send_bc_fail">发送广播消息失败，错误码为</string>
     <string name="tx_im_me">(我): </string>
@@ -268,7 +272,7 @@
     <string name="tx_im_send_bar_ok">发送弹幕消息成功</string>
     <string name="tx_im_send_bar_fail">发送弹幕消息失败，错误码为</string>
     <string name="tx_video_filter">自定义视频前处理</string>
-    <string name="tx_module_custom_capture_faceu">自定义采集faceU</string>
+    <string name ="tx_module_custom_capture_faceu">自定义采集faceU</string>
 
     <string name="syncTexture2D_describe">同步传递纹理 ID，SDK 会调用此滤镜的 onProcessCallback 方法获取前处理后的纹理 ID </string>
     <string name="memTexture2D_describe">异步传递纹理 ID，SDK 会抛出 RGBA32 的图像数据，可通过 onProcessCallback 方法传递前处理后的纹理 ID 给 SDK </string>

@@ -6,9 +6,9 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 701
-        versionName "7.0.1"
-        // 7_0_1_phy_cc9e747_f92de5b
+        versionCode 720
+        versionName "7.2.0"
+        // 7.2.0_phy_cb5302c2_b431017
     }
     buildTypes {
         release {

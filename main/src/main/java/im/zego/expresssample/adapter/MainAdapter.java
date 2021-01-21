@@ -1,18 +1,18 @@
 package im.zego.expresssample.adapter;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import im.zego.expresssample.R;
 import im.zego.expresssample.entity.ModuleInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zego on 2018/2/6.

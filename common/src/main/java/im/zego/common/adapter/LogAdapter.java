@@ -1,17 +1,17 @@
 package im.zego.common.adapter;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
+
+import im.zego.common.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import im.zego.common.R;
 
 
 /**
