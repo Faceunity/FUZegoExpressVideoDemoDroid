@@ -2,10 +2,15 @@ package im.zego.common.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.multidex.MultiDex;
 
+import com.faceunity.core.callback.OperateCallback;
+import com.faceunity.core.faceunity.FURenderManager;
+import com.faceunity.core.utils.FULogger;
 import com.faceunity.nama.FURenderer;
+import com.faceunity.nama.authpack;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import im.zego.common.widgets.log.FloatingView;
@@ -15,6 +20,7 @@ import im.zego.common.widgets.log.FloatingView;
  */
 
 public class ZegoApplication extends Application {
+    private static final String TAG = "ZegoApplication";
 
     public static ZegoApplication zegoApplication;
 
@@ -31,13 +37,22 @@ public class ZegoApplication extends Application {
         /**
          * 初始化FaceUnity
          */
-        FURenderer.setup(this);
+//        FURenderer.setup(this);
+
+        registerFURender();
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    /**
+     * 初始化相芯SDK
+     */
+    private void registerFURender() {
+        FURenderer.getInstance().setup(getApplicationContext());
     }
 
     /**

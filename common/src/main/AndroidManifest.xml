@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="im.zego.common">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-sdk tools:overrideLibrary="com.faceunity.nama"/>
 
     <application
         android:name="im.zego.common.application.ZegoApplication"

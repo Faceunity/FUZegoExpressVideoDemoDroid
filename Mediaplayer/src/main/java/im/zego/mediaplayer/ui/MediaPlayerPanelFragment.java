@@ -8,30 +8,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import java.nio.ByteBuffer;
 
 import im.zego.common.util.AppLogger;
+import im.zego.common.util.CommonTools;
 import im.zego.mediaplayer.R;
-import im.zego.mediaplayer.tools.CommonTools;
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.ZegoMediaPlayer;
 import im.zego.zegoexpress.callback.IZegoMediaPlayerAudioHandler;
 import im.zego.zegoexpress.callback.IZegoMediaPlayerEventHandler;
 import im.zego.zegoexpress.callback.IZegoMediaPlayerLoadResourceCallback;
 import im.zego.zegoexpress.callback.IZegoMediaPlayerVideoHandler;
+import im.zego.zegoexpress.constants.ZegoMediaPlayerAudioChannel;
 import im.zego.zegoexpress.constants.ZegoMediaPlayerNetworkEvent;
 import im.zego.zegoexpress.constants.ZegoMediaPlayerState;
 import im.zego.zegoexpress.constants.ZegoVideoFrameFormat;
 import im.zego.zegoexpress.entity.ZegoAudioFrameParam;
 import im.zego.zegoexpress.entity.ZegoCanvas;
 import im.zego.zegoexpress.entity.ZegoVideoFrameParam;
+import im.zego.zegoexpress.entity.ZegoVoiceChangerParam;
 
 
 public class MediaPlayerPanelFragment extends Fragment {
@@ -48,11 +56,17 @@ public class MediaPlayerPanelFragment extends Fragment {
     private Switch aSwitchMediaplayerAuxAudio;
     private Switch aSwitchMediaplayerVidoData;
     private Switch aSwitchMediaplayerAudioData;
-    private Button aButtonLoadResource;
+    private Button aButtonLoadResource,setAudioTrackBtn;
     private ProgressBar aProgressBar;
-
+    private EditText mediaPlayerNetUrl;
+    private RadioGroup audioTrackRadioGroup;
+    private SeekBar voiceChangeSeekBar;
+    private ZegoVoiceChangerParam voiceChangerParam =new ZegoVoiceChangerParam();
+    private RadioGroup mediaPlayerAudioChannelRadioGroup;
+    private ZegoMediaPlayerAudioChannel audioChannel= ZegoMediaPlayerAudioChannel.ALL;
+    private int audioTrackIndex;
     static int index = 0;
-
+    private LinearLayout audioTrackLV;
     private static final String TAG = "MediaPlayerPanelFragmen";
 
     private long currentResourceTotalDuration;
@@ -98,6 +112,81 @@ public class MediaPlayerPanelFragment extends Fragment {
             aSwitchMediaplayerAudioData = mPanel.findViewById(R.id.sw_mediaplayer_audio_data);
             aButtonLoadResource = mPanel.findViewById(R.id.btn_load_video_resource);
             aProgressBar = mPanel.findViewById(R.id.pb_cur_res_progress);
+            mediaPlayerNetUrl =mPanel.findViewById(R.id.media_player_network_url);
+            audioTrackRadioGroup =mPanel.findViewById(R.id.audio_track_list);
+            setAudioTrackBtn=mPanel.findViewById(R.id.set_audio_track_btn);
+            audioTrackRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    RadioButton tempButton = audioTrackRadioGroup.findViewById(checkedId);
+                    audioTrackIndex = (int) tempButton.getTag();
+                }
+            });
+            voiceChangeSeekBar=mPanel.findViewById(R.id.seek_voice_change_params);
+            mediaPlayerAudioChannelRadioGroup=mPanel.findViewById(R.id.audio_channel);
+            setAudioTrackBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mMediaplayer!=null) {
+                        mMediaplayer.setAudioTrackIndex(audioTrackIndex);
+                    }
+                }
+            });
+            audioTrackLV =mPanel.findViewById(R.id.audio_track_lv);
+            SeekBar seekBar = mPanel.findViewById(R.id.play_volume);
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    mMediaplayer.setPlayVolume(seekBar.getProgress());
+                }
+            });
+
+            SeekBar publishVolume = mPanel.findViewById(R.id.publish_volume);
+            publishVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    mMediaplayer.setPublishVolume(seekBar.getProgress());
+                }
+            });
+            voiceChangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    if(mMediaplayer!=null) {
+                        voiceChangerParam.pitch = seekBar.getProgress()-8;//-8.0 ~ 8.0
+                        mMediaplayer.setVoiceChangerParam(audioChannel, voiceChangerParam);
+                    }
+                }
+            });
         }
 
         aSwitchMediaplayerCreate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -105,7 +194,7 @@ public class MediaPlayerPanelFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(mEngine != null){
                     if(isChecked){
-                        mMediaplayer = ZegoMediaPlayer.createMediaPlayer();
+                        mMediaplayer = mEngine.createMediaPlayer();
                         mMediaplayer.setEventHandler(new IZegoMediaPlayerEventHandler() {
 
                             @Override
@@ -133,10 +222,24 @@ public class MediaPlayerPanelFragment extends Fragment {
                             }
                         });
                     }else {
-                        mMediaplayer.destroyMediaPlayer();
+                        mEngine.destroyMediaPlayer(mMediaplayer);
                         mMediaplayer.setEventHandler(null);
                         mMediaplayer = null;
+                        audioTrackRadioGroup.removeAllViews();
+                        audioTrackLV.setVisibility(View.GONE);
                     }
+                }
+            }
+        });
+        mediaPlayerAudioChannelRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.channel_left) {
+                    audioChannel = ZegoMediaPlayerAudioChannel.LEFT;
+                }else if(checkedId == R.id.channel_right){
+                    audioChannel = ZegoMediaPlayerAudioChannel.RIGHT;
+                }else if(checkedId == R.id.channel_all){
+                    audioChannel = ZegoMediaPlayerAudioChannel.ALL;
                 }
             }
         });
@@ -206,7 +309,7 @@ public class MediaPlayerPanelFragment extends Fragment {
                             public void onVideoFrame(ZegoMediaPlayer zegoMediaplayer, ByteBuffer[] byteBuffers, int[] ints, ZegoVideoFrameParam zegoVideoFrameParam) {
                                 Log.d(TAG, "App onVideoFrame:" + zegoVideoFrameParam.format.value());
                             }
-                        }, ZegoVideoFrameFormat.Unknown);
+                        }, ZegoVideoFrameFormat.I420);
                     }else {
                         mMediaplayer.setVideoHandler(null, ZegoVideoFrameFormat.Unknown);
                     }
@@ -245,6 +348,7 @@ public class MediaPlayerPanelFragment extends Fragment {
                                     AppLogger.getInstance().i("onLoadResourceCallback:" + i);
                                     Toast.makeText(mActivity, getString(R.string.local_res_error)+i, Toast.LENGTH_LONG).show();
                                 }
+                                initAudioTrackGroup();
                                 // 只有在加载成功之后 getTotalDuration 才会返回正常的数值
                                 //Only after the load is successful, getTotalDuration will return to the normal value
                                 currentResourceTotalDuration = mMediaplayer.getTotalDuration();
@@ -255,7 +359,11 @@ public class MediaPlayerPanelFragment extends Fragment {
                             }
                         });
                     }else if(((RadioButton)mPanel.findViewById(R.id.rb_mediapalyer_net_resource)).isChecked()){
-                        mMediaplayer.loadResource("https://storage.zego.im/demo/201808270915.mp4", new IZegoMediaPlayerLoadResourceCallback() {
+                        String url = "https://storage.zego.im/demo/201808270915.mp4";
+                        if(mediaPlayerNetUrl.getText().toString()!=null&&!mediaPlayerNetUrl.getText().toString().trim().equals("")){
+                            url =mediaPlayerNetUrl.getText().toString().trim();
+                        }
+                        mMediaplayer.loadResource(url, new IZegoMediaPlayerLoadResourceCallback() {
                             @Override
                             public void onLoadResourceCallback(int i) {
                                 // 只有在加载成功之后 getTotalDuration 才会返回正常的数值
@@ -265,6 +373,7 @@ public class MediaPlayerPanelFragment extends Fragment {
                                     AppLogger.getInstance().i("onLoadResourceCallback:" + i);
                                     Toast.makeText(mActivity, getString(R.string.net_res_error)+i, Toast.LENGTH_LONG).show();
                                 }
+                                initAudioTrackGroup();
                                 currentResourceTotalDuration = mMediaplayer.getTotalDuration();
                                 Log.d(TAG, "currentResourceTotalDuration: " + currentResourceTotalDuration);
                                 AppLogger.getInstance().i("currentResourceTotalDuration: " + currentResourceTotalDuration);
@@ -279,5 +388,23 @@ public class MediaPlayerPanelFragment extends Fragment {
             }
         });
 
+    }
+    private void initAudioTrackGroup(){
+        audioTrackRadioGroup.removeAllViews();
+        initAudioTrackRadioGroupData();
+        audioTrackLV.setVisibility(View.VISIBLE);
+
+    }
+
+    private void initAudioTrackRadioGroupData() {
+        if(mMediaplayer!=null) {
+            int count = mMediaplayer.getAudioTrackCount();
+            for (int i = 0; i <count; i++) {
+                RadioButton tempButton = new RadioButton(getContext());
+                tempButton.setText("index: " + i);
+                tempButton.setTag(i);
+                audioTrackRadioGroup.addView(tempButton, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            }
+        }
     }
 }

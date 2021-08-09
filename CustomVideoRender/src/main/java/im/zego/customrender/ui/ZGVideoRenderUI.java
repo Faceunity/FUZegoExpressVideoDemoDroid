@@ -26,6 +26,7 @@ import im.zego.zegoexpress.constants.ZegoRoomState;
 import im.zego.zegoexpress.constants.ZegoVideoMirrorMode;
 import im.zego.zegoexpress.constants.ZegoViewMode;
 import im.zego.zegoexpress.entity.ZegoCanvas;
+import im.zego.zegoexpress.entity.ZegoCustomVideoRenderConfig;
 import im.zego.zegoexpress.entity.ZegoRoomConfig;
 import im.zego.zegoexpress.entity.ZegoUser;
 import im.zego.zegoexpress.entity.ZegoVideoConfig;
@@ -141,8 +142,8 @@ public class ZGVideoRenderUI extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
+        dealPlay(mDealPlayBtn);
+        dealPublishing(mDealBtn);
         // 释放渲染类
         // Release the rendering class
         videoRenderer.uninit();
@@ -150,8 +151,9 @@ public class ZGVideoRenderUI extends BaseActivity {
         // 登出房间，去除推拉流回调监听，释放 ZEGO SDK
         // Log out of the room, remove the push-pull flow callback monitoring, and release the ZEGO SDK
         mSDKEngine.logoutRoom(mRoomID);
-
         ZegoExpressEngine.destroyEngine(null);
+
+        super.onDestroy();
     }
 
     // 处理推流相关操作

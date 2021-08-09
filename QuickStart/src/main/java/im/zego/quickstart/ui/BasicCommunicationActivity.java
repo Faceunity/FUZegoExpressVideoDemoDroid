@@ -3,12 +3,8 @@ package im.zego.quickstart.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +12,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import im.zego.common.GetAppIDConfig;
 import im.zego.common.util.AppLogger;
@@ -26,18 +30,15 @@ import im.zego.quickstart.R;
 import im.zego.quickstart.databinding.BasicCommunicationBinding;
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.callback.IZegoEventHandler;
-import im.zego.zegoexpress.constants.ZegoBeautifyFeature;
 import im.zego.zegoexpress.constants.ZegoLanguage;
 import im.zego.zegoexpress.constants.ZegoPlayerState;
 import im.zego.zegoexpress.constants.ZegoPublisherState;
 import im.zego.zegoexpress.constants.ZegoRoomState;
 import im.zego.zegoexpress.constants.ZegoUpdateType;
 import im.zego.zegoexpress.entity.ZegoCanvas;
+import im.zego.zegoexpress.entity.ZegoPlayStreamQuality;
 import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 
 public class BasicCommunicationActivity extends AppCompatActivity {
@@ -135,6 +136,8 @@ public class BasicCommunicationActivity extends AppCompatActivity {
             AppLogger.getInstance().i(getString(R.string.tx_init_sdk_ok));
             Toast.makeText(this, getString(R.string.tx_init_sdk_ok), Toast.LENGTH_SHORT).show();
             button.setText(getString(R.string.tx_uninit_sdk));
+            engine.enableHardwareDecoder(true);
+            engine.enableHardwareEncoder(true);
             engine.setDebugVerbose(true, ZegoLanguage.CHINESE);
             engine.setEventHandler(new IZegoEventHandler() {
                 /** 常用回调 */
@@ -164,7 +167,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onRoomStreamUpdate(String roomID, ZegoUpdateType updateType, ArrayList<ZegoStream> streamList) {
+                public void onRoomStreamUpdate(String roomID, ZegoUpdateType updateType, ArrayList<ZegoStream> streamList, JSONObject extendedData) {
                     /** 流状态更新，在登录房间后，当房间内有新增或删除音视频流，SDK会通过该接口通知 */
                     /** The stream status is updated. After logging into the room, when there is a new publish or delete of audio and video stream,
                      * the SDK will notify through this callback */
@@ -199,6 +202,11 @@ public class BasicCommunicationActivity extends AppCompatActivity {
                      * this callback */
                     AppLogger.getInstance().i("onPlayerStateUpdate: streamID = " + streamID + ", state = " + state + ", errCode = " + errorCode);
                 }
+
+                @Override
+                public void onPlayerQualityUpdate(String streamID, ZegoPlayStreamQuality quality) {
+                    super.onPlayerQualityUpdate(streamID, quality);
+                }
             });
         }
         else {
@@ -229,6 +237,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
             /** 开始登录房间 */
             /** Begin to login room */
             engine.loginRoom(roomID, user, null);
+
             AppLogger.getInstance().i("Login room OK, userID = " + userID + " , userName = " + userName);
             Toast.makeText(this, getString(R.string.tx_basic_login_room_ok), Toast.LENGTH_SHORT).show();
             button.setText(getString(R.string.tx_basic_logout_room));
@@ -255,14 +264,14 @@ public class BasicCommunicationActivity extends AppCompatActivity {
         if (button.getText().equals(getString(R.string.tx_basic_publish))) {
             EditText et = findViewById(R.id.ed_publish_stream_id);
             String streamID = et.getText().toString();
-            engine.enableBeautify(ZegoBeautifyFeature.POLISH.value()|ZegoBeautifyFeature.WHITEN.value()|ZegoBeautifyFeature.SHARPEN.value());
             publishStreamID = streamID;
+            Toast.makeText(this, getString(R.string.tx_basic_publish_ok), Toast.LENGTH_SHORT).show();
+
             /** 开始推流 */
             /** Begin to publish stream */
             engine.startPublishingStream(streamID);
             AppLogger.getInstance().i("Publish stream OK, streamID = " + streamID);
             View local_view = findViewById(R.id.local_view);
-            Toast.makeText(this, getString(R.string.tx_basic_publish_ok), Toast.LENGTH_SHORT).show();
 
             /** 开始预览并设置本地预览视图 */
             /** Start preview and set the local preview view. */
@@ -302,7 +311,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
             /** 开始拉流 */
             /** Begin to play stream */
             engine.startPlayingStream(playStreamID, new ZegoCanvas(play_view));
-            engine.muteAudioOutput(playStreamMute);
+            engine.muteSpeaker(playStreamMute);
             AppLogger.getInstance().i("Start play stream OK, streamID = " + playStreamID);
             Toast.makeText(this, getString(R.string.tx_basic_play_ok), Toast.LENGTH_SHORT).show();
             button.setText(getString(R.string.tx_basic_stop_play));
@@ -353,7 +362,7 @@ public class BasicCommunicationActivity extends AppCompatActivity {
         }
 
         /* Enable Mic*/
-        engine.muteAudioOutput(playStreamMute);
+        engine.muteSpeaker(playStreamMute);
     }
 
     /** 校验并请求权限 */

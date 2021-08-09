@@ -10,7 +10,6 @@ import android.os.HandlerThread;
 import android.view.Surface;
 import android.view.View;
 
-
 import im.zego.common.util.AppLogger;
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.constants.ZegoPublishChannel;
@@ -54,9 +53,6 @@ class VideoCaptureScreen extends ZegoVideoCaptureCallback {
         this.mZegoEngine = mZegoEngine;
     }
 
-
-
-
     @Override
     public void onStart(ZegoPublishChannel channel) {
         AppLogger.getInstance().i(" VideoCaptureScreen onStart callBack,channel:"+channel);
@@ -76,11 +72,11 @@ class VideoCaptureScreen extends ZegoVideoCaptureCallback {
             mHandlerThread = null;
             mHandler = null;
         }
-        mMediaProjection = null;
+//        mMediaProjection = null;
         mCaptureWidth = DEFAULT_VIDEO_WIDTH;
         mCaptureHeight = DEFAULT_VIDEO_HEIGHT;
 
-        setMediaProjection(null);
+//        setMediaProjection(null);
     }
 
 

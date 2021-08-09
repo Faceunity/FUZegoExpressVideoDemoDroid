@@ -64,7 +64,6 @@ public class VideoRenderHandler extends IZegoCustomVideoRenderHandler implements
     private Handler mHandler = null;
 
     private ConcurrentHashMap<String, MyVideoFrame> frameMap = new ConcurrentHashMap<>();
-
     protected ConcurrentHashMap<String, MyVideoFrame> getFrameMap() {
         return frameMap;
     }
