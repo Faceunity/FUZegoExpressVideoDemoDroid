@@ -2,7 +2,8 @@
     package="com.cc.customrender" >
 
     <application>
-        <activity android:name="im.zego.customrender.ui.FUVideoRenderUI" />
+        <activity android:name="im.zego.customrender.ui.FUVideoRenderUI"
+            android:screenOrientation="portrait"/>
         <activity android:name="im.zego.customrender.ui.ZGVideoRenderUI"/>
         <activity android:name="im.zego.customrender.ui.ZGVideoRenderTypeUI"/>
     </application>

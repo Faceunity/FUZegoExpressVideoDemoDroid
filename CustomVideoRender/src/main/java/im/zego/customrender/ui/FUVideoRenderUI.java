@@ -1,7 +1,6 @@
 package im.zego.customrender.ui;
 
 import android.content.Context;
-import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,13 +9,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.cc.customrender.R;
+import com.faceunity.core.enumeration.FUAIProcessorEnum;
 import com.faceunity.nama.FURenderer;
+import com.faceunity.nama.data.FaceUnityDataFactory;
+import com.faceunity.nama.listener.FURendererListener;
 import com.faceunity.nama.ui.FaceUnityView;
-import com.faceunity.nama.utils.CameraUtils;
 
 import org.json.JSONObject;
 
@@ -62,22 +64,33 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
 
     private FURenderer mFURenderer;
     private SensorManager mSensorManager;
+    private FaceUnityView faceUnityView;
+    private FaceUnityDataFactory mFaceUnityDataFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setContentView(R.layout.activity_fu_video_render);
+        initFu();
 
         mPreView = (TextureView) findViewById(R.id.pre_view);
         mPlayView = (TextureView) findViewById(R.id.play_view);
         mErrorTxt = (TextView) findViewById(R.id.error_txt);
         mDealBtn = (Button) findViewById(R.id.publish_btn);
         mDealPlayBtn = (Button) findViewById(R.id.play_btn);
+        faceUnityView = findViewById(R.id.faceUnityView);
+        mFaceUnityDataFactory = new FaceUnityDataFactory(0);
+        faceUnityView.bindDataFactory(mFaceUnityDataFactory);
+
         isSetDecodeCallback = getIntent().getBooleanExtra("IsUseNotDecode", false);
         // 获取已选的渲染类型
         // Get the selected rendering type
         chooseRenderType = getIntent().getIntExtra("RenderType", 0);
-        initFu();
+
 
         // 获取设备唯一ID
         String deviceID = DeviceInfoManager.generateDeviceId(this);
@@ -157,6 +170,7 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
     @Override
     protected void onResume() {
         super.onResume();
+        mFaceUnityDataFactory.bindCurrentRenderer();
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -167,29 +181,23 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        // 释放渲染类
-        // Release the rendering class
+    public void finish() {
+        dealPlay(mDealPlayBtn);
+        dealPublishing(mDealBtn);
+        mSDKEngine.logoutRoom(mRoomID);
+        mSDKEngine.stopPreview();
+        mSDKEngine.stopPublishingStream();
         videoRenderer.uninit();
         ZegoExpressEngine.setEngineConfig(null);
         // 登出房间，去除推拉流回调监听，释放 ZEGO SDK
         // Log out of the room, remove the push-pull flow callback monitoring, and release the ZEGO SDK
-        mSDKEngine.logoutRoom(mRoomID);
-
         ZegoExpressEngine.destroyEngine(null);
+        super.finish();
     }
 
     private void initFu() {
-        mFURenderer = new FURenderer.Builder(this)
-                .setInputTextureType(FURenderer.INPUT_TEXTURE_2D)
-                .setCameraFacing(Camera.CameraInfo.CAMERA_FACING_FRONT)
-                .setInputImageOrientation(CameraUtils.getCameraOrientation(Camera.CameraInfo.CAMERA_FACING_FRONT))
-                .setRunBenchmark(false)
-                .build();
-        FaceUnityView faceUnityView = findViewById(R.id.faceUnityView);
-        faceUnityView.setModuleManager(mFURenderer);
+        mFURenderer = FURenderer.getInstance();
+        mFURenderer.prepareRenderer(null);
     }
 
     // 处理推流相关操作
@@ -200,18 +208,13 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
             //停止预览，停止推流
             mSDKEngine.stopPreview();
             mSDKEngine.stopPublishingStream();
-
             //移除渲染视图
             videoRenderer.removeView(mainPublishChannel);
-
             mDealBtn.setText("StartPublish");
-
         } else {
             // 界面button==开始推流
             // 开启预览再开始推流
-
             mDealBtn.setText("StopPublish");
-
             // 外部渲染采用码流渲染类型时，推流时由 SDK 进行渲染。
             // When the external rendering adopts the code stream rendering type, the SDK performs rendering when pushing the stream.
             if (!isSetDecodeCallback) {
@@ -235,7 +238,6 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
     // 处理拉流相关操作
     // Handle pull stream related operations
     public void dealPlay(View view) {
-
         // 界面button==开始拉流
         if (mDealPlayBtn.getText().toString().equals("StartPlay") && !mPlayStreamID.equals("")) {
             // 设置拉流视图
@@ -249,11 +251,8 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
             }
             // 开始拉流，不为 SDK 设置渲染视图，使用自渲染的视图
             mSDKEngine.startPlayingStream(mPlayStreamID, new ZegoCanvas(null));
-
             mErrorTxt.setText("");
-
             mDealPlayBtn.setText("StopPlay");
-
         } else {
             // 界面button==停止拉流
             if (!mPlayStreamID.equals("")) {
@@ -262,9 +261,7 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
                 //移除外部渲染视图
                 videoRenderer.removeView(mPlayStreamID);
                 mErrorTxt.setText("");
-
                 mDealPlayBtn.setText("StartPlay");
-
             }
         }
     }
@@ -276,9 +273,9 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
             float y = event.values[1];
             if (Math.abs(x) > 3 || Math.abs(y) > 3) {
                 if (Math.abs(x) > Math.abs(y)) {
-                    mFURenderer.onDeviceOrientationChanged(x > 0 ? 0 : 180);
+                    mFURenderer.setDeviceOrientation(x > 0 ? 0 : 180);
                 } else {
-                    mFURenderer.onDeviceOrientationChanged(y > 0 ? 90 : 270);
+                    mFURenderer.setDeviceOrientation(y > 0 ? 90 : 270);
                 }
             }
         }

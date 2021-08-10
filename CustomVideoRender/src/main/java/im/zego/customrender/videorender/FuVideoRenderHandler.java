@@ -14,6 +14,8 @@ import android.view.Choreographer;
 import android.view.Surface;
 import android.view.TextureView;
 
+import com.faceunity.core.entity.FURenderOutputData;
+import com.faceunity.core.enumeration.FUInputBufferEnum;
 import com.faceunity.nama.FURenderer;
 
 import java.nio.ByteBuffer;
@@ -81,6 +83,7 @@ public class FuVideoRenderHandler extends IZegoCustomVideoRenderHandler implemen
 
     public void setFURenderer(FURenderer FURenderer) {
         mFURenderer = FURenderer;
+        mFURenderer.setInputBufferType(FUInputBufferEnum.FU_FORMAT_RGBA_BUFFER);
     }
 
     // 初始化，包含线程启动，视频帧回调监听，opengl相关参数的设置等
@@ -198,6 +201,7 @@ public class FuVideoRenderHandler extends IZegoCustomVideoRenderHandler implemen
 
     // 释放渲染类 Render
     private void release() {
+        mFURenderer.release();
         Log.d(TAG, "release: ");
         for (Map.Entry<String, Renderer> entry : rendererMap.entrySet()) {
             Renderer renderer = entry.getValue();
@@ -221,13 +225,6 @@ public class FuVideoRenderHandler extends IZegoCustomVideoRenderHandler implemen
     // 处理释放相关操作，线程停止、移除视频帧回调监听等
     // Handle release-related operations, thread stop, remove video frame callback monitoring, etc.
     public final int uninit() {
-        Log.i(TAG, "uninit: ");
-        mCapLoopHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mFURenderer.onSurfaceDestroyed();
-            }
-        });
         final CountDownLatch barrier = new CountDownLatch(1);
         mHandler.post(new Runnable() {
             @Override
@@ -242,6 +239,7 @@ public class FuVideoRenderHandler extends IZegoCustomVideoRenderHandler implemen
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         mHandler.removeCallbacksAndMessages(null);
         mHandler = null;
 
@@ -402,7 +400,6 @@ public class FuVideoRenderHandler extends IZegoCustomVideoRenderHandler implemen
         if (mCapLoopHandler == null) {
             mCapLoopHandler = new Handler(Looper.myLooper());
             Log.i(TAG, "onCapturedVideoFrameRawData: create capLoop handler");
-            mFURenderer.onSurfaceCreated();
 
             mInputData = new byte[length];
             mReadback = new byte[length];
@@ -413,8 +410,10 @@ public class FuVideoRenderHandler extends IZegoCustomVideoRenderHandler implemen
         }
 
         data[0].get(mInputData);
-        mFURenderer.onDrawFrameSingleInput(mInputData, param.width, param.height, FURenderer.INPUT_FORMAT_RGBA_BUFFER
-                , mReadback, param.width, param.height);
+        FURenderOutputData fuRenderOutputData = mFURenderer.onDrawFrameSingleInput(mInputData, param.width, param.height, true);
+        if (fuRenderOutputData != null && fuRenderOutputData.getImage() != null && fuRenderOutputData.getImage().getBuffer() != null) {
+            mReadback = fuRenderOutputData.getImage().getBuffer();
+        }
 
         mOutputBuffer[0].put(mReadback);
         mOutputBuffer[0].flip();

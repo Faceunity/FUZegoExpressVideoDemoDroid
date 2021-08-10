@@ -3,12 +3,8 @@ package im.zego.custom.publish.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +12,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+
 import org.json.JSONObject;
 
-import im.zego.common.GetAppIDConfig;
+import java.util.ArrayList;
+import java.util.Date;
+
 import im.zego.common.util.AppLogger;
 import im.zego.common.util.SettingDataUtil;
 import im.zego.common.widgets.log.FloatingView;
@@ -36,9 +39,6 @@ import im.zego.zegoexpress.entity.ZegoCanvas;
 import im.zego.zegoexpress.entity.ZegoPlayerConfig;
 import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 
 public class CustomCDNPublishActivity extends AppCompatActivity {
@@ -74,7 +74,7 @@ public class CustomCDNPublishActivity extends AppCompatActivity {
         binding.btnStartPublish.setText(getString(R.string.tx_basic_publish));
         binding.btnStartPlay.setText(getString(R.string.tx_basic_play));
         TextView tvAppID = findViewById(R.id.tv_appid);
-        tvAppID.setText("AppID: " + GetAppIDConfig.appID);
+        tvAppID.setText("AppID: " + SettingDataUtil.getAppId());
 
         /** 示例代码使用一个固定的房间ID */
         /** RoomID used by example */
@@ -150,7 +150,7 @@ public class CustomCDNPublishActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onRoomStreamUpdate(String roomID, ZegoUpdateType updateType, ArrayList<ZegoStream> streamList) {
+                public void onRoomStreamUpdate(String roomID, ZegoUpdateType updateType, ArrayList<ZegoStream> streamList, JSONObject extendedData) {
                     /** 流状态更新，在登录房间后，当房间内有新增或删除音视频流，SDK会通过该接口通知 */
                     /** The stream status is updated. After logging into the room, when there is a new publish or delete of audio and video stream,
                      * the SDK will notify through this callback */
@@ -310,7 +310,7 @@ public class CustomCDNPublishActivity extends AppCompatActivity {
             /** Begin to play stream */
             engine.startPlayingStream(playStreamID, new ZegoCanvas(play_view), zegoPlayerConfig);
 
-            engine.muteAudioOutput(playStreamMute);
+            engine.muteSpeaker(playStreamMute);
             AppLogger.getInstance().i("Start play stream OK, streamID = " + playStreamID);
             Toast.makeText(this, getString(R.string.tx_basic_play_ok), Toast.LENGTH_SHORT).show();
             button.setText(getString(R.string.tx_basic_stop_play));
@@ -361,7 +361,7 @@ public class CustomCDNPublishActivity extends AppCompatActivity {
         }
 
         /* Enable Mic*/
-        engine.muteAudioOutput(playStreamMute);
+        engine.muteSpeaker(playStreamMute);
     }
 
     /** 校验并请求权限 */

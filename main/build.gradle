@@ -3,13 +3,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'bugly'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "im.zego.express.example.video"
-        minSdkVersion 18
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 28
         versionCode getAppVersionCode()
         versionName "1.8.0"
 
@@ -52,6 +52,23 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+    applicationVariants.all { variant ->
+        variant.mergeAssetsProvider.configure {
+            doLast {
+                delete(fileTree(dir: outputDir,
+                        includes: ['model/ai_bgseg_green.bundle',
+                                   'model/ai_face_processor_lite.bundle',
+                                   'model/ai_hairseg.bundle',
+                                   'model/ai_hand_processor.bundle',
+                                   'model/ai_human_processor_mb_fast.bundle',
+                                   'graphics/controller_cpp.bundle',
+                                   'graphics/fuzzytoonfilter.bundle',
+                                   'graphics/tongue.bundle',
+                                   'graphics/fxaa.bundle']))
+            }
+        }
+    }
 }
 
 dependencies {
@@ -78,6 +95,7 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:3.1.0'
     implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
     implementation files('libs/ZegoExpressEngine.jar')
+
 }
 
 def static getAppVersionName() {

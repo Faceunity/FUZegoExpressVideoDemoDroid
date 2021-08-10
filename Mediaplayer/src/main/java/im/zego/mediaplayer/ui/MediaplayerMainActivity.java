@@ -10,7 +10,9 @@ import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,7 +34,7 @@ public class MediaplayerMainActivity extends AppCompatActivity {
     String userName;
     String userID;
     String streamID;
-    public static final String []sTitle = new String[]{"Player1","Player2","Player3", "Player4"};
+    public static final String[]sTitle = new String[]{"Player1","Player2","Player3", "Player4"};
 
 
     IZegoEventHandler mIZegoEventHandler = new IZegoEventHandler() {
@@ -109,7 +111,7 @@ public class MediaplayerMainActivity extends AppCompatActivity {
         ((Switch)findViewById(R.id.sw_mediaplayer_mic)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSDKEngine.muteAudioOutput(isChecked);
+                mSDKEngine.muteSpeaker(isChecked);
             }
         });
 

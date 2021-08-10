@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 18
@@ -42,5 +42,4 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation project(path: ':common')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation project(path: ':faceunity')
 }

@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.Choreographer;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -35,6 +34,7 @@ import im.zego.zegoexpress.constants.ZegoPublishChannel;
  * 实现将图片源作为视频数据并传给ZEGO SDK，需要继承实现ZEGO SDK的ZegoVideoCaptureDevice类
  * 采用GL_TEXTURE_2D方式传递数据，即OpenGL ES的2d贴图，通过client的onTextureCaptured传递采集数据
  */
+
 /**
          * VideoCaptureFromImage2
          * To implement the image source as video data and pass it to the ZEGO SDK, you need to inherit the ZegoVideoCaptureDevice class that implements the ZEGO SDK
