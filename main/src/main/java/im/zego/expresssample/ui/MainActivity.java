@@ -18,6 +18,9 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import com.faceunity.nama.FUConfig;
+import com.faceunity.nama.utils.FuDeviceUtils;
+
 import im.zego.common.GetAppIDConfig;
 import im.zego.common.util.PreferenceUtil;
 import im.zego.video.talk.ui.ZGVideoTalkUI;
@@ -147,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         mainAdapter.addModuleInfo(new ModuleInfo().moduleName(getString(R.string.txt_title_aux)));
         mainAdapter.addModuleInfo(new ModuleInfo().moduleName(getString(R.string.txt_title_video_talk)));
 
+        FUConfig.DEVICE_LEVEL = FuDeviceUtils.judgeDeviceLevel(this);
     }
 
 

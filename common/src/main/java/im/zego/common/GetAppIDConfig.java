@@ -6,9 +6,9 @@ public class GetAppIDConfig {
 
     // for example:
     //     public static final long appID = 123456789L;
-    public static final long appID = 721912524;
+    public static final long appID = ;
 
     // for example:
     //    public static final String appSign = "0123456789012345678901234567890123456789012345678901234567890123";
-    public static final String appSign = "6d630288fe13c7e8055ea8fd41d67bcdb5e125d21526dd957722b8660a3d431b";
+    public static final String appSign = "";
 }

@@ -10,12 +10,15 @@ import com.faceunity.core.entity.FURenderOutputData;
 import com.faceunity.core.enumeration.CameraFacingEnum;
 import com.faceunity.core.enumeration.FUAIProcessorEnum;
 import com.faceunity.core.enumeration.FUAITypeEnum;
+import com.faceunity.core.faceunity.FUAIKit;
 import com.faceunity.core.faceunity.FURenderConfig;
 import com.faceunity.core.faceunity.FURenderKit;
 import com.faceunity.core.faceunity.FURenderManager;
+import com.faceunity.core.model.facebeauty.FaceBeautyBlurTypeEnum;
 import com.faceunity.core.utils.CameraUtils;
 import com.faceunity.core.utils.FULogger;
 import com.faceunity.nama.listener.FURendererListener;
+import com.faceunity.nama.utils.FuDeviceUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -140,12 +143,33 @@ public class FURenderer extends IFURenderer {
         config.setInputTextureMatrix(inputTextureMatrix);
         config.setCameraFacing(cameraFacing);
         config.setNeedBufferReturn(withBuffer);
+        if (FUConfig.DEVICE_LEVEL > FuDeviceUtils.DEVICE_LEVEL_MID)//高性能设备
+            cheekFaceNum();
         mCallStartTime = System.nanoTime();
         FURenderOutputData fuRenderOutputData = mFURenderKit.renderWithInput(inputData);
         mSumCallTime += System.nanoTime() - mCallStartTime;
         return fuRenderOutputData;
     }
 
+    /**
+     * 检查当前人脸数量
+     */
+    private void cheekFaceNum() {
+        //根据有无人脸 + 设备性能 判断开启的磨皮类型
+        float faceProcessorGetConfidenceScore = FUAIKit.getInstance().getFaceProcessorGetConfidenceScore(0);
+        if (faceProcessorGetConfidenceScore >= 0.95) {
+            //高端手机并且检测到人脸开启均匀磨皮，人脸点位质
+            if (FURenderKit.getInstance() != null && FURenderKit.getInstance().getFaceBeauty() != null && FURenderKit.getInstance().getFaceBeauty().getBlurType() != FaceBeautyBlurTypeEnum.EquallySkin) {
+                FURenderKit.getInstance().getFaceBeauty().setBlurType(FaceBeautyBlurTypeEnum.EquallySkin);
+                FURenderKit.getInstance().getFaceBeauty().setEnableBlurUseMask(true);
+            }
+        } else {
+            if (FURenderKit.getInstance() != null && FURenderKit.getInstance().getFaceBeauty() != null && FURenderKit.getInstance().getFaceBeauty().getBlurType() != FaceBeautyBlurTypeEnum.FineSkin) {
+                FURenderKit.getInstance().getFaceBeauty().setBlurType(FaceBeautyBlurTypeEnum.FineSkin);
+                FURenderKit.getInstance().getFaceBeauty().setEnableBlurUseMask(false);
+            }
+        }
+    }
 
     /**
      * 双输入接口，输入 buffer 和 texture，必须在具有 GL 环境的线程调用
