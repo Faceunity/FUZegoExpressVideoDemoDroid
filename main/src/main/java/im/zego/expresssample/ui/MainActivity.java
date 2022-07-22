@@ -149,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 .moduleName(getString(R.string.tx_module_custom_capture)));
         mainAdapter.addModuleInfo(new ModuleInfo().moduleName(getString(R.string.txt_title_aux)));
         mainAdapter.addModuleInfo(new ModuleInfo().moduleName(getString(R.string.txt_title_video_talk)));
-
-        FUConfig.DEVICE_LEVEL = FuDeviceUtils.judgeDeviceLevel(this);
     }
 
 
