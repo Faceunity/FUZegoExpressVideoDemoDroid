@@ -9,8 +9,10 @@ import androidx.multidex.MultiDex;
 import com.faceunity.core.callback.OperateCallback;
 import com.faceunity.core.faceunity.FURenderManager;
 import com.faceunity.core.utils.FULogger;
+import com.faceunity.nama.FUConfig;
 import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.authpack;
+import com.faceunity.nama.utils.FuDeviceUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import im.zego.common.widgets.log.FloatingView;
@@ -27,6 +29,7 @@ public class ZegoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FUConfig.DEVICE_LEVEL = FuDeviceUtils.judgeDeviceLevel(this);
         zegoApplication = this;
 
         initBugly();
