@@ -135,10 +135,9 @@ public class FaceBeautyControlView extends BaseControlView {
                 if (mDataFactory.getCurrentFilterIndex() != position) {
                     changeAdapterSelected(mFiltersAdapter, mDataFactory.getCurrentFilterIndex(), position);
                     mDataFactory.setCurrentFilterIndex(position);
-                    ToastHelper.showWhiteTextToast(mContext, data.getDesRes());
                     mDataFactory.onFilterSelected(data.getKey(), data.getIntensity(), data.getDesRes());
                     if (position == 0) {
-                        discreteSeekBar.setVisibility(View.VISIBLE);
+                        discreteSeekBar.setVisibility(View.INVISIBLE);
                     } else {
                         seekToSeekBar(data.getIntensity(), 0.0, 1.0);
                     }
@@ -162,11 +161,10 @@ public class FaceBeautyControlView extends BaseControlView {
                 boolean isShinSelected = checkGroup.getCheckedCheckBoxId() == R.id.beauty_radio_skin_beauty;
                 helper.itemView.setSelected(isShinSelected ? mSkinIndex == position : mShapeIndex == position);
 
+                ImageView ivControl = helper.getView(R.id.iv_control);
                 if (!data.isCanUseFunction()) {
-                    ImageView ivControl = helper.getView(R.id.iv_control);
                     ivControl.setImageAlpha(154);
                 } else {
-                    ImageView ivControl = helper.getView(R.id.iv_control);
                     ivControl.setImageAlpha(255);
                 }
             }
@@ -178,7 +176,7 @@ public class FaceBeautyControlView extends BaseControlView {
                     return;
                 }
                 if (!data.isCanUseFunction()) {
-                    ToastHelper.showNormalToast(mContext,data.getToastRes());
+                    ToastHelper.showNormalToast(mContext,mContext.getString(R.string.face_beauty_function_tips, mContext.getString(data.getDesRes())));
                     return;
                 }
                 if (isShinSelected) {
