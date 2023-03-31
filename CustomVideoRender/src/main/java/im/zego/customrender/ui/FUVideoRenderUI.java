@@ -83,7 +83,7 @@ public class FUVideoRenderUI extends BaseActivity implements SensorEventListener
         mDealBtn = (Button) findViewById(R.id.publish_btn);
         mDealPlayBtn = (Button) findViewById(R.id.play_btn);
         faceUnityView = findViewById(R.id.faceUnityView);
-        mFaceUnityDataFactory = new FaceUnityDataFactory(0);
+        mFaceUnityDataFactory = new FaceUnityDataFactory(-1);
         faceUnityView.bindDataFactory(mFaceUnityDataFactory);
 
         isSetDecodeCallback = getIntent().getBooleanExtra("IsUseNotDecode", false);

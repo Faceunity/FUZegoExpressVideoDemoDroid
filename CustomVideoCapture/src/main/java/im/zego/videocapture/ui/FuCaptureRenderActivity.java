@@ -145,7 +145,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements OnGlRe
         fuCameraConfig = new FUCameraConfig();
         mCameraRenderer = new CameraRenderer(mPreView, fuCameraConfig, this);
         faceUnityView = findViewById(R.id.faceUnityView);
-        mFaceUnityDataFactory = new FaceUnityDataFactory(0);
+        mFaceUnityDataFactory = new FaceUnityDataFactory(-1);
         faceUnityView.bindDataFactory(mFaceUnityDataFactory);
     }
 

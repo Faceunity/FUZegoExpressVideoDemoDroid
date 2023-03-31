@@ -21,7 +21,7 @@ import java.util.HashMap;
  * DESC：美颜业务工厂
  * Created on 2021/3/1
  */
-public class FaceBeautyDataFactory extends AbstractFaceBeautyDataFactory {
+public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactory {
 
 
     interface FaceBeautySetParamInterface {
