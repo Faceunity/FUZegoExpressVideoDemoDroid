@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".customaudiocaptureandrendering.CustomAudioCaptureAndRenderingLoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginVertical="5dp"
+            android:text="RoomID"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/roomIDEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/edit_round"
+            android:padding="5dp"
+            android:text="0022"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomIDEdit"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginVertical="10dp"
+            android:text="Publish StreamID"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+        <EditText
+            android:id="@+id/publishStreamIDEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_round"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:text="0022"
+            android:layout_marginVertical="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/roomIDEdit"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/publishStreamIDEdit"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginVertical="10dp"
+            android:text="Play StreamID"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/playStreamIDEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/publishStreamIDEdit"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/edit_round"
+            android:padding="5dp"
+            android:text="0022"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/playStreamIDEdit"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginVertical="10dp"
+            android:text="Audio Source"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <RadioGroup
+            android:id="@+id/audioSourceRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:layout_below="@+id/playStreamIDEdit">
+            <RadioButton
+                android:id="@+id/localMediaButton"
+                android:layout_width="wrap_content"
+                android:text="@string/local_media"
+                android:layout_marginTop="10dp"
+                android:checked="true"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/microphoneButton"
+                android:layout_width="wrap_content"
+                android:text="@string/microphone"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/customAudioCaptureSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/audioSourceRadioGroup"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/custom_audio_capture_and_render"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customAudioCaptureSwitch"
+            android:layout_marginTop="10dp"
+            android:text="Audio Frame Type"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerAudioFrameType"
+            android:layout_marginTop="10dp"
+            android:text="Start" />
+
+        <Spinner
+            android:id="@+id/spinnerAudioFrameType"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customAudioCaptureSwitch"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:entries="@array/audioFrameType" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="im.zego.others">
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    
+    <application android:requestLegacyExternalStorage="true">
+        <activity android:name=".screensharing.ScreenSharingActivity" android:exported="false"></activity>
+        <activity android:name=".sei.SEIActivity" />
+        <activity android:name=".security.SecurityActivity" />
+        <activity android:name=".networkandperformance.NetworkAndPerformanceActivity" />
+        <activity android:name=".flowcontrol.FlowControlActivity" />
+        <activity android:name=".multiplerooms.MultipleRoomsActivity" />
+        <activity android:name=".camera.CameraActivity" />
+        <activity android:name=".mediaplayer.UI.MediaPlayerActivity" />
+        <activity android:name=".mediaplayer.UI.MediaPlayerSelectionActivity" />
+        <activity android:name=".recording.RecordingActivity" />
+        <activity android:name=".beautyandwatermarkandsnapshot.BeautyWatermarkSnapshotActivity" />
+        <activity android:name=".effectsbeauty.EffectsBeautyActivity" />
+        <activity android:name=".streammixing.AutoMixerStartActivity"/>
+        <activity android:name=".superresolution.SuperResolutionActivity"/>
+        <activity
+            android:name=".videoobjectsegmentation.VideoObjectSegmentationActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".videoobjectsegmentation.VideoObjectSegmentationLoginActivity"/>
+        <activity android:name=".multivideosource.MultiVideoSourceActivity" />
+
+    </application>
+
+</manifest>

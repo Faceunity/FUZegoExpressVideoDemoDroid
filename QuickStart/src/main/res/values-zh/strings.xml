@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_engine">创建引擎</string>
+    <string name="login_room">登录房间</string>
+    <string name="create_zego_engine">创建ZegoExpressEngine</string>
+    <string name="start_publishing_stream">开始推流</string>
+    <string name="start_playing_streams">开始拉流</string>
+    <string name="creat_engine_success">成功创建引擎</string>
+    <string name="logout_room">登出房间</string>
+    <string name="destroy_engine">销毁引擎</string>
+    <string name="create_engine_reminder">请先创建引擎</string>
+    <string name="start_publishing">开始推流</string>
+    <string name="start_playing">开始拉流</string>
+    <string name="stop_playing">停止拉流</string>
+    <string name="stop_publishing">停止推流</string>
+    <string name="publish_streamID">推流Stream ID</string>
+    <string name="mirror">镜像模式</string>
+    <string name="view_mode">视图模式</string>
+    <string name="camera">摄像头</string>
+    <string name="camera_selection">摄像头切换</string>
+    <string name="microphone">麦克风</string>
+    <string name="video">视频</string>
+    <string name="audio">音频</string>
+    <string name="play_streamID">拉流streamID</string>
+    <string name="publishing">推流</string>
+    <string name="playing">拉流</string>
+    <string name="common_usage">实现流程</string>
+    <string name="video_chat_login">登录房间</string>
+    <string name="video_chat">视频通话</string>
+    <string name="resource_mode">拉流方式</string>
+    <string name="resource_mode_default">默认</string>
+    <string name="resource_mode_rtc">RTC拉流</string>
+    <string name="resource_mode_L3">L3拉流</string>
+    <string name="resource_mode_CDN">CDN拉流</string>
+    <string name="resource_mode_CDN_Plus">CDN_Plus拉流</string>
+    <string name="enable_publish_direct_to_cdn">是否转推CDN</string>
+
+    <string name="room_id_notice">如果要和其他用户进行通话，需要加入到同一个房间里，即保证双方的 RoomID 相同。</string>
+    <string name="user_id_notice">UserID 由开发者自己生成，在相同的 AppID 下必须全局唯一。</string>
+    <string name="stream_id_notice">StreamID 由开发者自己生成，在相同的 AppID 下必须全局唯一。</string>
+    <string name="notes">畅直播观众拉流，方式包含三种：\n1. L3: 在控制台开启L3服务，拉流策略选择"L3拉流"\n2. CDN Plus: 在控制台开启L3、CDN服务，并联系技术支持开启CDN Plus能力，拉流策略选择"默认"\n3. CDN: 在控制台开启CDN服务，拉流策略选择"CDN拉流"</string>
+    <string name="publish_notes">畅直播，有L3、CDN Plus、CDN三种档位。其中若使用CDN Plus或CDN进行拉流观看，需要"转推CDN"。\n两种途任选其一开启：\n1. (推荐)默认动态转推；（联系技术支持配置）\n2. SDK接口/服务端接口动态转推。\n<a href="https://doc-zh.zego.im/article/api?doc=Express_Video_SDK_API~java_android~enum~ZegoStreamResourceMode">官网文档</a></string>
+</resources>
