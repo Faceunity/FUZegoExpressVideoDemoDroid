@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".encodinganddecoding.EncodingAndDecoding">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <im.zego.commontools.logtools.logLinearLayout
+            android:id="@+id/logView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RoomID:0012 UserID:"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/userID"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/roomStateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Room state"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/roomState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextureView
+                android:id="@+id/PreviewView"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="5dp"
+                android:layout_toStartOf="@id/view"
+                android:layout_toLeftOf="@id/view"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toStartOf="@id/view"
+                android:layout_toLeftOf="@id/view"
+                android:gravity="center"
+                android:text="@string/preview"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:id="@+id/publishQualityLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_below="@id/textView"
+                android:layout_alignLeft="@id/PreviewView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignStart="@id/PreviewView">
+
+                <TextView
+                    android:id="@+id/publisherResolutionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Resolution:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/publisherResolution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/publisherResolutionTitle"
+                    android:layout_toRightOf="@+id/publisherResolutionTitle"
+                    android:text="0x0"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/publisherVideoBitrateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/publisherResolution"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="Video Send Bitrate:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/publisherVideoBitrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/publisherResolution"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/publisherVideoBitrateTitle"
+                    android:layout_toRightOf="@+id/publisherVideoBitrateTitle"
+                    android:text="0kbps"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/publisherAudioBitrateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/publisherVideoBitrate"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="Audio Send Bitrate:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/publisherAudioBitrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/publisherVideoBitrate"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/publisherAudioBitrateTitle"
+                    android:layout_toRightOf="@+id/publisherAudioBitrateTitle"
+                    android:text="0kbps"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/publisherVideoFpsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/publisherAudioBitrate"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="Video Send FPS:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/publisherVdeoFps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/publisherAudioBitrate"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/publisherVideoFpsTitle"
+                    android:layout_toRightOf="@+id/publisherVideoFpsTitle"
+                    android:text="0f/s"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <TextureView
+                android:id="@+id/PlayView"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toEndOf="@id/view"
+                android:layout_toRightOf="@id/view" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/view"
+                android:layout_toRightOf="@id/view"
+                android:gravity="center"
+                android:text="@string/play_stream"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:id="@+id/playQualityLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_alignTop="@+id/publishQualityLayout"
+                android:layout_toEndOf="@+id/view"
+                android:layout_toRightOf="@+id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/playerResolutionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:text="Resolution:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/playerResolution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/playerResolutionTitle"
+                    android:layout_toRightOf="@+id/playerResolutionTitle"
+                    android:text="0x0"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/playerVideoBitrateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/playerResolution"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="Video Recv Bitrate:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/playerVideoBitrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/playerResolution"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/playerVideoBitrateTitle"
+                    android:layout_toRightOf="@+id/playerVideoBitrateTitle"
+                    android:text="0kbps"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/playerAudioBitrateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/playerVideoBitrate"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="Audio Recv Bitrate:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/playerAudioBitrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/playerVideoBitrate"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/playerAudioBitrateTitle"
+                    android:layout_toRightOf="@+id/playerAudioBitrateTitle"
+                    android:text="0kbps"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/playerVideoFpsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/playerAudioBitrate"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="Video Recv FPS:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/playerVideoFps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/playerAudioBitrate"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/playerVideoFpsTitle"
+                    android:layout_toRightOf="@+id/playerVideoFpsTitle"
+                    android:text="0f/s"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/startPublishButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/view"
+                android:layout_alignBottom="@id/PreviewView"
+                android:text="@string/start_publishing"
+                android:layout_margin="10dp"/>
+            <Button
+                android:id="@+id/startPlayButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/view"
+                android:layout_alignBottom="@id/PreviewView"
+                android:text="@string/start_playing"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:id="@+id/publishIDTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publish StreamID:"
+                android:layout_marginVertical="10dp"
+                android:layout_below="@id/PreviewView"
+                android:layout_alignLeft="@id/PreviewView"
+                android:textColor="@color/black"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/editPublishStreamID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/PreviewView"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toLeftOf="@+id/view"
+                android:layout_toRightOf="@id/publishIDTitle"
+                android:background="@drawable/edit_round"
+                android:padding="5dp"
+                android:text="0012"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/playIDTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publish StreamID:"
+                android:layout_marginVertical="10dp"
+                android:layout_below="@id/PlayView"
+                android:layout_alignLeft="@id/PlayView"
+                android:textColor="@color/black"
+                android:textSize="12sp"/>
+            <EditText
+                android:id="@+id/editPlayStreamID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_round"
+                android:text="0012"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:textSize="12sp"
+                android:layout_alignRight="@id/PlayView"
+                android:layout_toRightOf="@id/playIDTitle"
+                android:layout_below="@id/PreviewView"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_grey"
+            android:layout_margin="3dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/codecIDTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="codecID"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/codecIDSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:entries="@array/advancedVideoProcessingVideoCodecID"
+                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/codecIDSpinner"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/h265_reminder"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/encodeResolutionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/codecIDTitle"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@string/encode_resolution"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/xEncode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/encodeResolutionHeight"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@id/encodeResolutionHeight"
+            android:layout_toLeftOf="@id/encodeResolutionHeight"
+            android:text="x"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/xCapture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/encodeResolutionHeight"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toStartOf="@id/encodeResolutionHeight"
+            android:layout_toLeftOf="@id/captureResolutionHeight"
+            android:text="x"
+            android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/encodeResolutionHeight"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/codecIDSpinner"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="640"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/captureResolutionHeight"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/encodeResolutionHeight"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="640"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/encodeResolutionWidth"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/codecIDSpinner"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/xEncode"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="360"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/captureResolutionWidth"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/encodeResolutionHeight"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/xCapture"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="360"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/videoFpsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/captureResolutionTitle"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/video_fps"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/videoFps"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/captureResolutionTitle"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@id/videoFpsTitle"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="15"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/videoBitrate"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/captureResolutionHeight"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="600"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/videoBitrateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/videoFpsTitle"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/videoBitrate"
+                android:gravity="center"
+                android:text="@string/video_bitrate"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/captureResolutionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/encodeResolutionTitle"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/capture_resolution"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/videoConfigUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/videoFps"
+                android:layout_centerHorizontal="true"
+                android:minHeight="0dp"
+                android:text="Update" />
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/hardwareEncodeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hardwareencoder"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="15dp"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/hardwareDecodeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hardwareEncodeTitle"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/hardwaredecoder"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/hardwareEncodeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:minHeight="0dp"
+                android:paddingVertical="5dp" />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/hardwareDecodeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:minHeight="0dp"
+                android:layout_below="@+id/hardwareEncodeSwitch"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:paddingVertical="5dp"
+                android:layout_alignParentRight="true" />
+
+
+            <TextView
+                android:id="@+id/videoLayerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hardwareDecodeTitle"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/video_layer_for_playing"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/videoLayerSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hardwareDecodeSwitch"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
+                android:entries="@array/videoLayer"
+                android:theme="@style/Spinner" />
+
+            <TextView
+                android:id="@+id/encoderProfileTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/videoLayerTitle"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Encoder Profile"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/encoderProfileSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/videoLayerSpinner"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
+                android:entries="@array/encoderProfile"
+                android:theme="@style/Spinner" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trafficControlTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Traffic Control"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/trafficControlSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignBaseline="@+id/trafficControlTitle"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:checked="true"
+                android:minHeight="0dp"
+                android:paddingVertical="5dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trafficControlModeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Traffic Control Mode"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/trafficControlMode"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/trafficControlModeTitle"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edit_round"
+                android:digits="01234567"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="0"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trafficControlFocusOnTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Traffic Control Focus On"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/trafficControlFocusOnSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignBaseline="@+id/trafficControlFocusOnTitle"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:checked="true"
+                android:minHeight="0dp"
+                android:paddingVertical="5dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trafficControlResolutionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Min Traffic Control Resolution"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/trafficControlX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/trafficControlResolutionHeight"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toStartOf="@id/trafficControlResolutionHeight"
+                android:layout_toLeftOf="@id/trafficControlResolutionHeight"
+                android:text="x"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/trafficControlResolutionHeight"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/trafficControlResolutionTitle"
+                android:layout_toLeftOf="@+id/trafficControlResolutionUpdateButton"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="640"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/trafficControlResolutionWidth"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/trafficControlResolutionTitle"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/trafficControlX"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="360"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/trafficControlResolutionUpdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Send" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trafficControlFPSTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Min Traffic Control FPS"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/trafficControlFPS"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/trafficControlFPSTitle"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="15"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trafficControlBitrateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Min Traffic Control Bitrate"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/trafficControlBitrate"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignBaseline="@+id/trafficControlBitrateTitle"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="600"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trafficControlBitrateModeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Min Traffic Control Bitrate Mode"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/trafficControlBitrateModeSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/trafficControlBitrateModeTitle"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
+                android:entries="@array/trafficControlBitrateMode"
+                android:theme="@style/Spinner" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/SEITitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignBaseline="@+id/seiEditText"
+                android:layout_marginLeft="15dp"
+                android:text="SEI"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/seiEditText"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/SEITitle"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_round"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="Hello, Mike"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/sendSEIButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/seiEditText"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:minHeight="0dp"
+                android:text="Send" />
+
+        </RelativeLayout>
+
+            <TextView
+                android:id="@+id/publish_reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/publishing_reminder"
+                android:layout_margin="15dp"
+                android:textColor="@color/purple_500"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/publish_reminder"
+                android:text="@string/playing_reminder"
+                android:layout_marginHorizontal="15dp"
+                android:textColor="@color/purple_500"/>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="im.zego.commonfeatures">
+
+    <application>
+        <activity android:name="im.zego.commonfeatures.roommessage.RoomMessageActivity"></activity>
+        <activity
+            android:name="im.zego.commonfeatures.videorotation.VideoRotationActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name="im.zego.commonfeatures.videorotation.VideoRotationSelectionActivity" />
+        <activity android:name="im.zego.commonfeatures.commonvideoconfig.CommonVideoConfigActivity" />
+    </application>
+
+</manifest>

@@ -1,1 +1,6 @@
-Please put the SDK under this folder.
+Please put the `ZegoExpressEngine.aar` under this folder.
+
+```tree
+libs
+└── ZegoExpressEngine.aar
+```

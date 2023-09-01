@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="im.zego.advancedvideoprocessing">
+
+    <application>
+        <activity android:name=".encodinganddecoding.EncodingAndDecoding" />
+        <activity android:name=".customrender.ui.ZGVideoRenderTypeUI" />
+        <activity android:name=".customrender.ui.VideoRenderPublish" />
+        <activity android:name=".CustomerVideoCapture.faceunity.FuCaptureRenderActivity" />
+        <activity android:name=".CustomerVideoCapture.faceunity.FUVideoRenderPublish" />
+        <activity
+            android:name=".CustomerVideoCapture.CustomerVideoCaptureActivity"
+            android:hardwareAccelerated="true" />
+    </application>
+
+</manifest>

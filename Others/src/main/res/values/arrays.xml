@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mirrorMode">
+        <item>OnlyPreview</item>
+        <item>OnlyPublish</item>
+        <item>Both</item>
+        <item>None</item>
+    </string-array>
+    <string-array name="viewMode">
+        <item>AspectFit</item>
+        <item>AspectFill</item>
+        <item>ScaleToFill</item>
+    </string-array>
+    <string-array name="orientation">
+        <item>Fixed Portrait</item>
+        <item>Fixed Landscape</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="cameraSelection">
+        <item>Front</item>
+        <item>Back</item>
+    </string-array>
+    <string-array name="focusMode">
+        <item>ContinuousAuto</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="exposureMode">
+        <item>ContinuousAuto</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="codecIDList">
+        <item>H.264</item>
+        <item>H.264 SVC</item>
+        <item>VP8</item>
+        <item>H.265</item>
+    </string-array>
+    <string-array name="segmentationType">
+        <item>Normal</item>
+        <item>GreenScreen</item>
+    </string-array>
+    <string-array name="segMaxResolution">
+        <item>180x320</item>
+        <item>270x480</item>
+        <item>360x640</item>
+        <item>540x960</item>
+        <item>720x1280</item>
+        <item>1080x1920</item>
+    </string-array>
+    <string-array name="orientationMode">
+        <item>Custom</item>
+        <item>Adaption</item>
+        <item>Alignment</item>
+        <item>FixedResolutionRatio</item>
+    </string-array>
+    <string-array name="rotateType">
+        <item>FixedPortrait</item>
+        <item>FixedLandscape</item>
+        <item>AutoRotate</item>
+    </string-array>
+    <string-array name="veRenderBackend">
+        <item>none</item>
+        <item>cpu</item>
+        <item>gl</item>
+    </string-array>
+    <string-array name="mainVideoSources">
+        <item>@string/video_source_none</item>
+        <item>@string/video_source_camera</item>
+        <item>@string/video_source_screen_sharing</item>
+        <item>@string/video_source_custom_capture_raw_data</item>
+        <item>@string/video_source_custom_capture_gl_texture_2d</item>
+        <item>@string/video_source_custom_capture_encoded_data</item>
+        <item>@string/video_source_custom_capture_image_raw_data</item>
+        <item>@string/video_source_custom_capture_image_gl_texture_2d</item>
+        <item>@string/video_source_custom_capture_image_encoded_data</item>
+    </string-array>
+    <string-array name="auxVideoSources">
+        <item>@string/video_source_none</item>
+        <item>@string/video_source_camera</item>
+        <item>@string/video_source_media_player</item>
+        <item>@string/video_source_media_player_using_network_resource</item>
+        <item>@string/video_source_screen_sharing</item>
+        <item>@string/video_source_main_publish_channel</item>
+        <item>@string/video_source_custom_capture_raw_data</item>
+        <item>@string/video_source_custom_capture_gl_texture_2d</item>
+        <item>@string/video_source_custom_capture_encoded_data</item>
+        <item>@string/video_source_custom_capture_image_raw_data</item>
+        <item>@string/video_source_custom_capture_image_gl_texture_2d</item>
+        <item>@string/video_source_custom_capture_image_encoded_data</item>
+    </string-array>
+    <string-array name="mainAudioSources">
+        <item>@string/audio_source_none</item>
+        <item>@string/audio_source_microphone</item>
+        <item>@string/audio_source_custom_capture_pcm</item>
+        <item>@string/audio_source_custom_capture_file_pcm</item>
+        <item>@string/audio_source_custom_capture_file_aac</item>
+        <item>@string/audio_source_screen_capture</item>
+    </string-array>
+    <string-array name="auxAudioSources">
+        <item>@string/audio_source_none</item>
+        <item>@string/audio_source_media_player</item>
+        <item>@string/audio_source_main_publish_channel</item>
+        <item>@string/audio_source_custom_capture_pcm</item>
+        <item>@string/audio_source_custom_capture_file_pcm</item>
+        <item>@string/audio_source_custom_capture_file_aac</item>
+        <item>@string/audio_source_screen_capture</item>
+    </string-array>
+    <string-array name="alphaLayouts">
+        <item>None</item>
+        <item>AlphaLeft</item>
+        <item>AlphaRight</item>
+        <item>AlphaBottom</item>
+    </string-array>
+    <string-array name="videoCodecID">
+        <item>DEFAULT</item>
+        <item>SVC</item>
+        <item>VP8</item>
+        <item>H265</item>
+        <item>H264DualStream</item>
+    </string-array>
+    <string-array name="sampleRate">
+        <item>Unknown</item>
+        <item>8K</item>
+        <item>16K</item>
+        <item>22K</item>
+        <item>24K</item>
+        <item>32K</item>
+        <item>44K</item>
+        <item>48K</item>
+    </string-array>
+    <string-array name="audioChannel">
+        <item>Unknown</item>
+        <item>Mono</item>
+        <item>Stereo</item>
+    </string-array>
+    <string-array name="backgroundProcessType">
+        <item>TRANSPARENT</item>
+        <item>COLOR</item>
+        <item>BLUR</item>
+        <item>IMAGE</item>
+    </string-array>
+    <string-array name="backgroundBlurLevel">
+        <item>LOW</item>
+        <item>MEDIUM</item>
+        <item>HIGH</item>
+    </string-array>
+</resources>
