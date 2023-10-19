@@ -27,7 +27,6 @@ public class FaceBeautySource {
     public static String BUNDLE_FACE_BEAUTIFICATION = "graphics" + File.separator + "face_beautification.bundle";
 
 
-
     /**
      * 获取默认推荐美颜模型
      *
@@ -109,6 +108,11 @@ public class FaceBeautySource {
                         FaceBeautyParam.RED_INTENSITY, R.string.beauty_box_red_level,
                         R.drawable.icon_beauty_skin_red_close_selector, R.drawable.icon_beauty_skin_red_open_selector
                 )
+        );
+        params.add(
+                new FaceBeautyBean(
+                        FaceBeautyParam.CLARITY, R.string.beauty_box_clarity,
+                        R.drawable.icon_beauty_skin_clarity_close_selector, R.drawable.icon_beauty_skin_clarity_open_selector)
         );
         params.add(
                 new FaceBeautyBean(
@@ -377,6 +381,7 @@ public class FaceBeautySource {
         params.put(FaceBeautyParam.REMOVE_POUCH_INTENSITY, new ModelAttributeData(0.0, 0.0, 0.0, 1.0));
         params.put(FaceBeautyParam.REMOVE_NASOLABIAL_FOLDS_INTENSITY, new ModelAttributeData(0.0, 0.0, 0.0, 1.0));
         params.put(FaceBeautyParam.FACE_THREED, new ModelAttributeData(0.0, 0.0, 0.0, 1.0));
+        params.put(FaceBeautyParam.CLARITY, new ModelAttributeData(0.0, 0.0, 0.0, 1.0));
         /*美型*/
         params.put(FaceBeautyParam.FACE_SHAPE_INTENSITY, new ModelAttributeData(1.0, 0.0, 0.0, 1.0));
         params.put(FaceBeautyParam.CHEEK_THINNING_INTENSITY, new ModelAttributeData(0.0, 0.0, 0.0, 1.0));
