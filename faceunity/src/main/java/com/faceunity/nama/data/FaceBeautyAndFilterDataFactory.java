@@ -1,7 +1,6 @@
 package com.faceunity.nama.data;
 
 
-
 import androidx.annotation.NonNull;
 
 import com.faceunity.core.controller.facebeauty.FaceBeautyParam;
@@ -41,6 +40,23 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
          */
         double getValue();
     }
+
+    interface FaceBeautySetParamRelevanceInterface {
+        /**
+         * 设置属性值
+         *
+         * @param value
+         */
+        void setValue(boolean value);
+    }
+
+    interface FaceBeautyGetParamRelevanceInterface {
+        /**
+         * 获取属性值
+         */
+        boolean getValue();
+    }
+
 
     /*渲染控制器*/
     private FURenderKit mFURenderKit = FURenderKit.getInstance();
@@ -165,6 +181,7 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
         }
     }
 
+
     /**
      * 切换滤镜
      *
@@ -199,6 +216,7 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
         put(FaceBeautyParam.TOOTH_WHITEN_INTENSITY, defaultFaceBeauty::setToothIntensity);
         put(FaceBeautyParam.REMOVE_POUCH_INTENSITY, defaultFaceBeauty::setRemovePouchIntensity);
         put(FaceBeautyParam.REMOVE_NASOLABIAL_FOLDS_INTENSITY, defaultFaceBeauty::setRemoveLawPatternIntensity);
+        put(FaceBeautyParam.CLARITY, defaultFaceBeauty::setClarityIntensity);
         /*美型*/
         put(FaceBeautyParam.FACE_SHAPE_INTENSITY, defaultFaceBeauty::setSharpenIntensity);
         put(FaceBeautyParam.CHEEK_THINNING_INTENSITY, defaultFaceBeauty::setCheekThinningIntensity);
@@ -242,6 +260,7 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
             put(FaceBeautyParam.TOOTH_WHITEN_INTENSITY, defaultFaceBeauty::getToothIntensity);
             put(FaceBeautyParam.REMOVE_POUCH_INTENSITY, defaultFaceBeauty::getRemovePouchIntensity);
             put(FaceBeautyParam.REMOVE_NASOLABIAL_FOLDS_INTENSITY, defaultFaceBeauty::getRemoveLawPatternIntensity);
+            put(FaceBeautyParam.CLARITY, defaultFaceBeauty::getClarityIntensity);
             /*美型*/
             put(FaceBeautyParam.FACE_SHAPE_INTENSITY, defaultFaceBeauty::getSharpenIntensity);
             put(FaceBeautyParam.CHEEK_THINNING_INTENSITY, defaultFaceBeauty::getCheekThinningIntensity);
@@ -274,6 +293,7 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
             put(FaceBeautyParam.SMILE_INTENSITY, defaultFaceBeauty::getSmileIntensity);
         }
     };
+
 
 
     /**

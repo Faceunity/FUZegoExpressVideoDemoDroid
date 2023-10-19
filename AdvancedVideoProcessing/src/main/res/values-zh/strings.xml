@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ExpressVideo</string>
+    <string name="app_name">ExpressVideo11</string>
     <string name="start_publishing">开始推流</string>
     <string name="start_playing">开始拉流</string>
     <string name="preview">预览</string>

@@ -2,34 +2,17 @@ package im.zego.expresssample.ui;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tencent.bugly.crashreport.CrashReport;
 
-import im.zego.debugandconfig.SettingActivity;
-import im.zego.others.camera.CameraActivity;
-import im.zego.others.effectsbeauty.EffectsBeautyActivity;
-import im.zego.others.multivideosource.MultiVideoSourceActivity;
-import im.zego.others.screensharing.ScreenSharingActivity;
-import im.zego.others.beautyandwatermarkandsnapshot.BeautyWatermarkSnapshotActivity;
-import im.zego.others.flowcontrol.FlowControlActivity;
-import im.zego.others.mediaplayer.UI.MediaPlayerSelectionActivity;
-import im.zego.others.multiplerooms.MultipleRoomsActivity;
-import im.zego.others.networkandperformance.NetworkAndPerformanceActivity;
-import im.zego.others.recording.RecordingActivity;
-import im.zego.others.security.SecurityActivity;
-import im.zego.others.sei.SEIActivity;
-import im.zego.others.streammixing.MixerMainActivity;
-import im.zego.others.superresolution.SuperResolutionActivity;
-
-import im.zego.advancedvideoprocessing.CustomerVideoCapture.CustomerVideoCaptureActivity;
 import im.zego.Scenes.VideoForMultipleUsers.VideoForMultipleUsersLogin;
 import im.zego.advancedaudioprocessing.audio3a.Audio3aActivity;
 import im.zego.advancedaudioprocessing.audioeffectplayer.AudioEffectPlayerActivity;
@@ -39,26 +22,40 @@ import im.zego.advancedaudioprocessing.originalaudiodataacquisition.OriginalAudi
 import im.zego.advancedaudioprocessing.rangeaudio.ui.RangeAudioActivity;
 import im.zego.advancedaudioprocessing.soundlevelandspectrum.ui.SoundLevelAndSpectrumMainActivity;
 import im.zego.advancedaudioprocessing.voicechange.VoiceChangeActivity;
-import im.zego.advancedvideoprocessing.encodinganddecoding.EncodingAndDecoding;
 import im.zego.advancedstreaming.h265.H265LoginActivity;
 import im.zego.advancedstreaming.lowlatencylive.LowLatencyLive;
+import im.zego.advancedstreaming.publishingmultiplestreams.ui.PublishingMultipleStreams;
+import im.zego.advancedstreaming.streamByCdn.StreamByCdn;
+import im.zego.advancedstreaming.streammonitoring.StreamMonitoring;
+import im.zego.advancedvideoprocessing.CustomerVideoCapture.CustomerVideoCaptureActivity;
+import im.zego.advancedvideoprocessing.customrender.ui.ZGVideoRenderTypeUI;
+import im.zego.advancedvideoprocessing.encodinganddecoding.EncodingAndDecoding;
+import im.zego.commonfeatures.commonvideoconfig.CommonVideoConfigActivity;
+import im.zego.commonfeatures.roommessage.RoomMessageActivity;
+import im.zego.commonfeatures.videorotation.VideoRotationSelectionActivity;
+import im.zego.debugandconfig.SettingActivity;
+import im.zego.expresssample.R;
+import im.zego.expresssample.adapter.MainAdapter;
+import im.zego.expresssample.entity.ModuleInfo;
+import im.zego.others.beautyandwatermarkandsnapshot.BeautyWatermarkSnapshotActivity;
+import im.zego.others.camera.CameraActivity;
+import im.zego.others.effectsbeauty.EffectsBeautyActivity;
+import im.zego.others.flowcontrol.FlowControlActivity;
+import im.zego.others.mediaplayer.UI.MediaPlayerSelectionActivity;
+import im.zego.others.multiplerooms.MultipleRoomsActivity;
+import im.zego.others.multivideosource.MultiVideoSourceActivity;
+import im.zego.others.networkandperformance.NetworkAndPerformanceActivity;
+import im.zego.others.recording.RecordingActivity;
+import im.zego.others.screensharing.ScreenSharingActivity;
+import im.zego.others.security.SecurityActivity;
+import im.zego.others.sei.SEIActivity;
+import im.zego.others.streammixing.MixerMainActivity;
+import im.zego.others.superresolution.SuperResolutionActivity;
+import im.zego.others.videoobjectsegmentation.VideoObjectSegmentationLoginActivity;
 import im.zego.quickstart.commonusage.CommonUsage;
 import im.zego.quickstart.playing.Playing;
 import im.zego.quickstart.publishing.Publishing;
 import im.zego.quickstart.videochat.VideoChatLogin;
-import im.zego.commonfeatures.roommessage.RoomMessageActivity;
-import im.zego.advancedstreaming.streamByCdn.StreamByCdn;
-import im.zego.advancedstreaming.streammonitoring.StreamMonitoring;
-import im.zego.commonfeatures.commonvideoconfig.CommonVideoConfigActivity;
-import im.zego.advancedstreaming.publishingmultiplestreams.ui.PublishingMultipleStreams;
-
-import im.zego.advancedvideoprocessing.customrender.ui.ZGVideoRenderTypeUI;
-import im.zego.expresssample.R;
-import im.zego.expresssample.adapter.MainAdapter;
-import im.zego.expresssample.entity.ModuleInfo;
-import im.zego.commonfeatures.videorotation.VideoRotationSelectionActivity;
-import im.zego.others.videoobjectsegmentation.VideoObjectSegmentationLoginActivity;
-import com.tencent.bugly.crashreport.CrashReport;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -91,85 +88,85 @@ public class MainActivity extends AppCompatActivity {
             ModuleInfo moduleInfo = (ModuleInfo) view.getTag();
             if (orRequestPermission) {
                 String module = moduleInfo.getModule();
-                if (module.equals(getString(R.string.custom_video_rendering))){
+                if (module.equals(getString(R.string.custom_video_rendering))) {
                     ZGVideoRenderTypeUI.actionStart(MainActivity.this);
-                }else if(module.equals(getString(R.string.common_video_config))){
+                } else if (module.equals(getString(R.string.common_video_config))) {
                     CommonVideoConfigActivity.actionStart(MainActivity.this);
-                }else if(module.equals(getString(R.string.video_for_multiple_users))){
+                } else if (module.equals(getString(R.string.video_for_multiple_users))) {
                     VideoForMultipleUsersLogin.actionStart(MainActivity.this);
-                }else if(module.equals(getString(R.string.video_rotation))){
+                } else if (module.equals(getString(R.string.video_rotation))) {
                     VideoRotationSelectionActivity.actionStart(MainActivity.this);
-                }else if(module.equals(getString(R.string.beautify_watermark_snapshot))){
+                } else if (module.equals(getString(R.string.beautify_watermark_snapshot))) {
                     BeautyWatermarkSnapshotActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.stream_monitoring))){
+                } else if (module.equals(getString(R.string.stream_monitoring))) {
                     StreamMonitoring.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.publishing_multiple_streams))){
+                } else if (module.equals(getString(R.string.publishing_multiple_streams))) {
                     PublishingMultipleStreams.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.stream_by_cdn))){
+                } else if (module.equals(getString(R.string.stream_by_cdn))) {
                     StreamByCdn.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.low_latency_live))){
+                } else if (module.equals(getString(R.string.low_latency_live))) {
                     LowLatencyLive.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.h265))){
+                } else if (module.equals(getString(R.string.h265))) {
                     H265LoginActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.common_usage))){
+                } else if (module.equals(getString(R.string.common_usage))) {
                     CommonUsage.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.video_chat))){
+                } else if (module.equals(getString(R.string.video_chat))) {
                     VideoChatLogin.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.publishing))){
+                } else if (module.equals(getString(R.string.publishing))) {
                     Publishing.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.playing))){
+                } else if (module.equals(getString(R.string.playing))) {
                     Playing.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.room_message))){
+                } else if (module.equals(getString(R.string.room_message))) {
                     RoomMessageActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.encoding_decoding))){
+                } else if (module.equals(getString(R.string.encoding_decoding))) {
                     EncodingAndDecoding.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.custom_video_capture))){
+                } else if (module.equals(getString(R.string.custom_video_capture))) {
                     CustomerVideoCaptureActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.log_version_debug))){
+                } else if (module.equals(getString(R.string.log_version_debug))) {
                     SettingActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.stream_mixing))){
+                } else if (module.equals(getString(R.string.stream_mixing))) {
                     MixerMainActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.recording))){
+                } else if (module.equals(getString(R.string.recording))) {
                     RecordingActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.media_player))){
+                } else if (module.equals(getString(R.string.media_player))) {
                     MediaPlayerSelectionActivity.actionStart(MainActivity.this);
                 } else if (module.equals(getString(R.string.camera))) {
                     CameraActivity.actionStart(MainActivity.this);
-                } else if (module.equals(getString(R.string.multiple_rooms))){
+                } else if (module.equals(getString(R.string.multiple_rooms))) {
                     MultipleRoomsActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.flow_control))){
+                } else if (module.equals(getString(R.string.flow_control))) {
                     FlowControlActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.network_and_performance))){
+                } else if (module.equals(getString(R.string.network_and_performance))) {
                     NetworkAndPerformanceActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.security))) {
+                } else if (module.equals(getString(R.string.security))) {
                     SecurityActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.screen_sharing))) {
+                } else if (module.equals(getString(R.string.screen_sharing))) {
                     ScreenSharingActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.sei))){
+                } else if (module.equals(getString(R.string.sei))) {
                     SEIActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.voice_change_reverb_stereo))){
+                } else if (module.equals(getString(R.string.voice_change_reverb_stereo))) {
                     VoiceChangeActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.ear_return_and_channel_settings))){
+                } else if (module.equals(getString(R.string.ear_return_and_channel_settings))) {
                     EarReturnandChannelSettingsActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.soundlevel_and_audioSpectrum))){
+                } else if (module.equals(getString(R.string.soundlevel_and_audioSpectrum))) {
                     SoundLevelAndSpectrumMainActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.aec_ans_agc))){
+                } else if (module.equals(getString(R.string.aec_ans_agc))) {
                     Audio3aActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.audio_effect_player))){
+                } else if (module.equals(getString(R.string.audio_effect_player))) {
                     AudioEffectPlayerActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.original_audio_data_acquisition))){
+                } else if (module.equals(getString(R.string.original_audio_data_acquisition))) {
                     OriginalAudioDataAcquisitionActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.custom_audio_capture_and_rendering))){
+                } else if (module.equals(getString(R.string.custom_audio_capture_and_rendering))) {
                     CustomAudioCaptureAndRenderingLoginActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.range_audio))){
+                } else if (module.equals(getString(R.string.range_audio))) {
                     RangeAudioActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.effects_beauty))) {
+                } else if (module.equals(getString(R.string.effects_beauty))) {
                     EffectsBeautyActivity.actionStart(MainActivity.this);
-                }else if(module.equals(getString(R.string.super_resolution))) {
+                } else if (module.equals(getString(R.string.super_resolution))) {
                     SuperResolutionActivity.actionStart(MainActivity.this);
-                }else if(module.equals(getString(R.string.subject_segmentation))) {
+                } else if (module.equals(getString(R.string.subject_segmentation))) {
                     VideoObjectSegmentationLoginActivity.actionStart(MainActivity.this);
-                }else if (module.equals(getString(R.string.multi_video_source))) {
+                } else if (module.equals(getString(R.string.multi_video_source))) {
                     MultiVideoSourceActivity.actionStart(MainActivity.this);
                 }
             }
@@ -227,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.CAMERA",
             "android.permission.RECORD_AUDIO",
-        "android.permission.WRITE_EXTERNAL_STORAGE"};
+            "android.permission.WRITE_EXTERNAL_STORAGE"};
 
     /**
      * 校验并请求权限
@@ -235,7 +232,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean checkOrRequestPermission(int code) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, "android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this, "android.permission.RECORD_AUDIO") != PackageManager.PERMISSION_GRANTED) {
+                    || ContextCompat.checkSelfPermission(this, "android.permission.RECORD_AUDIO") != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this, "android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(PERMISSIONS_STORAGE, code);
                 return false;
             }
