@@ -139,7 +139,7 @@ public class FURenderer extends IFURenderer {
         config.setInputTextureMatrix(inputTextureMatrix);
         config.setCameraFacing(cameraFacing);
         config.setNeedBufferReturn(withBuffer);
-        if (FUConfig.DEVICE_LEVEL > FuDeviceUtils.DEVICE_LEVEL_MID)//高性能设备
+        if (FUConfig.DEVICE_LEVEL > FuDeviceUtils.DEVICE_LEVEL_ONE)//高性能设备
             cheekFaceNum();
         mCallStartTime = System.nanoTime();
         FURenderOutputData fuRenderOutputData = mFURenderKit.renderWithInput(inputData);

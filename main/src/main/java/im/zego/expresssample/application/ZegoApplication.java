@@ -22,7 +22,7 @@ public class ZegoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FUConfig.DEVICE_LEVEL = FuDeviceUtils.judgeDeviceLevelGPU();
+        FUConfig.DEVICE_LEVEL = FuDeviceUtils.judgeDeviceLevel(true);
         zegoApplication = this;
 
         /**

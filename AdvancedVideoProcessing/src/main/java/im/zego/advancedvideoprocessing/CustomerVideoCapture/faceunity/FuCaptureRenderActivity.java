@@ -352,7 +352,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements OnGlRe
         if (fuRenderInputData != null && fuRenderInputData.getRenderConfig() != null)
             fuRenderInputData.getRenderConfig().setNeedBufferReturn(true);
 
-        if (FUConfig.DEVICE_LEVEL > FuDeviceUtils.DEVICE_LEVEL_MID)//高性能设备
+        if (FUConfig.DEVICE_LEVEL > FuDeviceUtils.DEVICE_LEVEL_ONE)//高性能设备
             cheekFaceNum();
     }
 
