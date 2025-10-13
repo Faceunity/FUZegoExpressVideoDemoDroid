@@ -66,6 +66,7 @@ import im.zego.zegoexpress.entity.ZegoRoomConfig;
 import im.zego.zegoexpress.entity.ZegoUser;
 import im.zego.zegoexpress.entity.ZegoVideoConfig;
 import im.zego.zegoexpress.entity.ZegoVideoFrameParam;
+import com.faceunity.nama.repo.FaceBeautySource;
 
 /**
  * FaceUnity 接入 activity,采用自定义本地采集和渲染
@@ -98,13 +99,15 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements OnGlRe
     private FaceUnityView faceUnityView;
     private CSVUtils mCSVUtils;
 
+    int level =2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+        level = FuDeviceUtils.judgeDeviceLevel();
         setContentView(R.layout.activity_fu_capture_render);
 
         mPreView = findViewById(R.id.pre_view);
@@ -308,6 +311,7 @@ public class FuCaptureRenderActivity extends AppCompatActivity implements OnGlRe
 
     @Override
     public void onRenderAfter(@NotNull FURenderOutputData fuRenderOutputData, @NotNull FURenderFrameData fuRenderFrameData) {
+        FURenderKit.getInstance().enableWarpAntiAlias(FaceBeautySource.BUNDLE_FACE_BEAUTIFICATION, level > FuDeviceUtils.DEVICE_LEVEL_ONE);
         //这里进数据流推送
         if (mCSVUtils != null) {
             long renderTime = System.nanoTime() - start;
