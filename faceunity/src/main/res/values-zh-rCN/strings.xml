@@ -67,6 +67,10 @@
     <string name="beauty_micro_long_nose">长鼻</string>
     <string name="beauty_micro_eye_space">眼距</string>
     <string name="beauty_micro_eye_rotate">眼睛角度</string>
+    <string name="beauty_box_heavy_blur_fine_body">全身磨皮</string>
+    <string name="beauty_box_facial_plumping">面部丰盈</string>
+    <string name="beauty_box_intensity_eye_pupil">瞳孔大小</string>
+    <string name="beautify_breast">丰胸</string>
 
     <string name="origin">原图</string>
     <string name="bailiang_1">白亮 1</string>
