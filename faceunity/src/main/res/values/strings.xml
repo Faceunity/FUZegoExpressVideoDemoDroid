@@ -27,7 +27,9 @@
 
     <string name="recover">Recover</string>
     <string name="beauty_box_heavy_blur_fine">Fine smooth</string>
+    <string name="beauty_box_heavy_blur_fine_body">Body Buffing</string>
     <string name="beauty_box_delspot">Acne Removal</string>
+    <string name="beauty_box_facial_plumping">Facial Plumping</string>
     <string name="beauty_box_color_level">Whiten</string>
     <string name="beauty_box_red_level">Ruddy</string>
     <string name="beauty_box_clarity">Clarity</string>
@@ -36,6 +38,7 @@
     <string name="beauty_box_tooth_whiten">Tooth whiten</string>
     <string name="beauty_box_eye_enlarge">Eye enlarge</string>
     <string name="beauty_box_eye_circle">Eye round</string>
+    <string name="beauty_box_intensity_eye_pupil">Eye Pupil</string>
     <string name="beauty_box_cheek_thinning">Cheek thin</string>
     <string name="beauty_box_cheek_v">V face</string>
     <string name="beauty_box_cheekbones">Cheekbone</string>
@@ -66,11 +69,6 @@
     <string name="beauty_micro_long_nose">Length</string>
     <string name="beauty_micro_eye_space">Eye distance</string>
     <string name="beauty_micro_eye_rotate">Slant</string>
-    <string name="beauty_box_heavy_blur_fine_body">Body Buffing</string>
-    <string name="beauty_box_facial_plumping">Facial Plumping</string>
-    <string name="beauty_box_intensity_eye_pupil">Eye Pupil</string>
-    <string name="beautify_breast">BREAST</string>
-
 
     <string name="origin">Origin</string>
     <string name="bailiang_1">Bright 1</string>
@@ -108,10 +106,17 @@
     <string name="beautify_hip_slim">Hip</string>
     <string name="beautify_head_slim">Head shrink</string>
     <string name="beautify_leg_thin_slim">Thin leg</string>
+    <string name="beautify_breast">BREAST</string>
 
     <string name="face_beauty_function_tips">%s is only supported for high-end computers</string>
 
     <string name="beauty_skin_seg_type_overall">Overall</string>
     <string name="beauty_skin_seg_type_skin">Skin</string>
     <string name="beauty_skin_seg_type_tips">Skin Tone</string>
+
+    <string name="beauty_box_small_head">Small Head</string>
+    <string name="beauty_box_intensity_nose_alar">Nose Alar</string>
+    <string name="beauty_box_intensity_eye_outter">Eye Outter</string>
+    <string name="beautify_swan">Swan Neck</string>
+
 </resources>

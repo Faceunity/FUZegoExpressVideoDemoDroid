@@ -225,8 +225,8 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
         put(FaceBeautyParam.COLOR_INTENSITY, defaultFaceBeauty::setColorIntensity);
         put(FaceBeautyParam.BLUR_INTENSITY, defaultFaceBeauty::setBlurIntensity);
         put(FaceBeautyParam.RED_INTENSITY, defaultFaceBeauty::setRedIntensity);
-        put(FaceBeautyParam.BODY_BLUR_INTENSITY, defaultFaceBeauty::setBodyBlurIntensity);
         put(FaceBeautyParam.SHARPEN_INTENSITY, defaultFaceBeauty::setSharpenIntensity);
+        put(FaceBeautyParam.BODY_BLUR_INTENSITY, defaultFaceBeauty::setBodyBlurIntensity);
         put(FaceBeautyParam.EYE_BRIGHT_INTENSITY, defaultFaceBeauty::setEyeBrightIntensity);
         put(FaceBeautyParam.TOOTH_WHITEN_INTENSITY, defaultFaceBeauty::setToothIntensity);
         put(FaceBeautyParam.REMOVE_POUCH_INTENSITY, defaultFaceBeauty::setRemovePouchIntensity);
@@ -265,6 +265,11 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
         put(FaceBeautyParam.LONG_NOSE_INTENSITY, defaultFaceBeauty::setLongNoseIntensity);
         put(FaceBeautyParam.PHILTRUM_INTENSITY, defaultFaceBeauty::setPhiltrumIntensity);
         put(FaceBeautyParam.SMILE_INTENSITY, defaultFaceBeauty::setSmileIntensity);
+        put(FaceBeautyParam.INTENSITY_FACE_LIFT_INTENSITY, defaultFaceBeauty::setFaceLiftIntensity);
+        put(FaceBeautyParam.INTENSITY_SMALL_HEAD_INTENSITY, defaultFaceBeauty::setSmallHeadIntensity);
+        put(FaceBeautyParam.EYE_OUTTER_INTENSITY, defaultFaceBeauty::setEyeOutterIntensity);
+        put(FaceBeautyParam.MOUTH_WIDTH_INTENSITY, defaultFaceBeauty::setMouthWidthIntensity);
+        put(FaceBeautyParam.NOSE_ALAR_INTENSITY, defaultFaceBeauty::setNoseAlarIntensity);
     }};
 
     /*模型映射获取模型值*/
@@ -274,8 +279,8 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
             put(FaceBeautyParam.BLUR_INTENSITY, defaultFaceBeauty::getBlurIntensity);
             put(FaceBeautyParam.RED_INTENSITY, defaultFaceBeauty::getRedIntensity);
             put(FaceBeautyParam.SHARPEN_INTENSITY, defaultFaceBeauty::getSharpenIntensity);
-            put(FaceBeautyParam.EYE_BRIGHT_INTENSITY, defaultFaceBeauty::getEyeBrightIntensity);
             put(FaceBeautyParam.BODY_BLUR_INTENSITY, defaultFaceBeauty::getBodyBlurIntensity);
+            put(FaceBeautyParam.EYE_BRIGHT_INTENSITY, defaultFaceBeauty::getEyeBrightIntensity);
             put(FaceBeautyParam.TOOTH_WHITEN_INTENSITY, defaultFaceBeauty::getToothIntensity);
             put(FaceBeautyParam.REMOVE_POUCH_INTENSITY, defaultFaceBeauty::getRemovePouchIntensity);
             put(FaceBeautyParam.REMOVE_NASOLABIAL_FOLDS_INTENSITY, defaultFaceBeauty::getRemoveLawPatternIntensity);
@@ -313,6 +318,11 @@ public class FaceBeautyAndFilterDataFactory extends AbstractFaceBeautyDataFactor
             put(FaceBeautyParam.LONG_NOSE_INTENSITY, defaultFaceBeauty::getLongNoseIntensity);
             put(FaceBeautyParam.PHILTRUM_INTENSITY, defaultFaceBeauty::getPhiltrumIntensity);
             put(FaceBeautyParam.SMILE_INTENSITY, defaultFaceBeauty::getSmileIntensity);
+            put(FaceBeautyParam.INTENSITY_FACE_LIFT_INTENSITY, defaultFaceBeauty::getFaceLiftIntensity);
+            put(FaceBeautyParam.INTENSITY_SMALL_HEAD_INTENSITY, defaultFaceBeauty::getSmallHeadIntensity);
+            put(FaceBeautyParam.EYE_OUTTER_INTENSITY, defaultFaceBeauty::getEyeOutterIntensity);
+            put(FaceBeautyParam.MOUTH_WIDTH_INTENSITY, defaultFaceBeauty::getMouthWidthIntensity);
+            put(FaceBeautyParam.NOSE_ALAR_INTENSITY, defaultFaceBeauty::getNoseAlarIntensity);
         }
     };
 
