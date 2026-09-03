@@ -6,8 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 9100
-        versionName "9.1.0"
+        versionCode 9120
+        versionName "9.1.2"
     }
     buildTypes {
         release {
@@ -26,8 +26,8 @@ dependencies {
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
         resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
     }
-    api 'com.faceunity:core:9.1.0'
-    api 'com.faceunity:model:9.1.0'
+    api 'com.faceunity:core:9.1.2'
+    api 'com.faceunity:model:9.1.2'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
